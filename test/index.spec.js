@@ -1,7 +1,7 @@
 /* global describe it expect afterEach */
 
 const fetchMock = require('fetch-mock');
-const trae = require('../src');
+const trae = require('../lib');
 
 afterEach(() => {
   fetchMock.restore();

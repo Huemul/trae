@@ -6,6 +6,7 @@
   "scripts": {
     "main": "src/index.js",
     "test": "jest --coverage",
+    "test:w": "jest --watch --verbose",
     "check-cover": "open coverage/lcov-report/index.html",
     "eslint": "eslint . --ext .js"
   },

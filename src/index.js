@@ -1,11 +1,12 @@
 require('whatwg-fetch');
 const { EventEmitter } = require('events');
 
-
 class Trae extends EventEmitter {
   constructor() {
     super();
     this._baseUrl = '';
+    this.initMethodsWithBody();
+    this.initMethodsWithNoBody();
   }
 
   init(opts = {}) {
@@ -13,41 +14,34 @@ class Trae extends EventEmitter {
     this._middlewares = opts.middlewares || [];
   }
 
-  get(path, params) {
-    const url    = `${this._baseUrl}${path}`;
-    const config = this._runMiddlewares(this._fetchOptions({ body: params }));
+  initMethodsWithNoBody() {
+    ['get', 'delete', 'head'].forEach((key) => {
+      this[key] = (path) => {
+        const url    = `${this._baseUrl}${path}`;
+        const config = this._runMiddlewares(this._fetchOptions({ method: key }));
 
-    return fetch(url, config)
-    .then(res => this._responseHandler(res));
+        return fetch(url, config)
+        .then(res => this._responseHandler(res));
+      };
+    });
   }
 
-  post(path, data) {
-    const url    = `${this._baseUrl}${path}`;
-    const config = this._runMiddlewares(this._fetchOptions({ body: data, method: 'POST' }));
+  initMethodsWithBody() {
+    ['post', 'put', 'patch'].forEach((key) => {
+      this[key] = (path, data) => {
+        const url    = `${this._baseUrl}${path}`;
+        const config = this._runMiddlewares(this._fetchOptions({ body: data, method: key }));
 
-    return fetch(url, config)
-    .then(res => this._responseHandler(res));
+        return fetch(url, config)
+        .then(res => this._responseHandler(res));
+      };
+    });
   }
 
-  put(path, data) {
-    const url    = `${this._baseUrl}${path}`;
-    const config = this._runMiddlewares(this._fetchOptions({ body: data, method: 'PUT' }));
-
-    return fetch(url, config)
-    .then(res => this._responseHandler(res));
-  }
-
-  del(path) {
-    const url    = `${this._baseUrl}${path}`;
-    const config = this._runMiddlewares(this._fetchOptions({ method: 'DELETE' }));
-
-    return fetch(url, config)
-    .then(res => this._responseHandler(res));
-  }
 
   _fetchOptions(opts = {}) {
     const fetchOpts = {
-      method : opts.method || 'GET',
+      method : opts.method,
       headers: { 'Content-Type': 'application/json' }
     };
     if (this.isAuthenticated) {

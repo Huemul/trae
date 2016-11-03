@@ -27,78 +27,123 @@ describe('HTTP -> http', () => {
     });
   });
 
-  describe('get', () => {
-    it('makes a GET request to baseURL + path', () => {
-      fetchMock.mock(TEST_URL, {
-        status: 200,
-        body  : { foo: 'bar' }
-      });
+  describe('methods with no body', () => {
 
-      return trae.get('/foo')
-      .then((res) => {
-        expect(res).toEqual({ foo: 'bar' });
-        expect(fetchMock.called(TEST_URL)).toBeTruthy();
-        expect(fetchMock.lastUrl()).toBe(TEST_URL);
-        expect(fetchMock.lastOptions().method).toBe('GET');
+    describe('get', () => {
+      it('makes a GET request to baseURL + path', () => {
+        fetchMock.mock(TEST_URL, {
+          status: 200,
+          body  : { foo: 'bar' }
+        });
+
+        return trae.get('/foo')
+        .then((res) => {
+          expect(res).toEqual({ foo: 'bar' });
+          expect(fetchMock.called(TEST_URL)).toBeTruthy();
+          expect(fetchMock.lastUrl()).toBe(TEST_URL);
+          expect(fetchMock.lastOptions().method).toBe('get');
+        });
       });
     });
+
+    describe('del', () => {
+      it('makes a DELETE request to baseURL + path', () => {
+        fetchMock.mock(TEST_URL, {
+          status: 200,
+          body  : { foo: 'bar' }
+        }, {
+          method: 'delete'
+        });
+
+        return trae.delete('/foo')
+        .then((res) => {
+          expect(res).toEqual({ foo: 'bar' });
+          expect(fetchMock.called(TEST_URL)).toBeTruthy();
+          expect(fetchMock.lastUrl()).toBe(TEST_URL);
+          expect(fetchMock.lastOptions().method).toBe('delete');
+        });
+      });
+    });
+
+    describe('head', () => {
+      it('makes a HEAD request to baseURL + path', () => {
+        fetchMock.mock(TEST_URL, {
+          status: 200,
+          body  : { foo: 'bar' }
+        }, {
+          method: 'head'
+        });
+
+        return trae.head('/foo')
+        .then((res) => {
+          expect(res).toEqual({ foo: 'bar' });
+          expect(fetchMock.called(TEST_URL)).toBeTruthy();
+          expect(fetchMock.lastUrl()).toBe(TEST_URL);
+          expect(fetchMock.lastOptions().method).toBe('head');
+        });
+      });
+    });
+
   });
 
-  describe('post', () => {
-    it('makes a POST request to baseURL + path', () => {
-      fetchMock.mock(TEST_URL, {
-        status: 200,
-        body  : { foo: 'bar' }
-      }, {
-        method: 'POST'
-      });
+  describe('methods with body', () => {
+    describe('post', () => {
+      it('makes a POST request to baseURL + path', () => {
+        fetchMock.mock(TEST_URL, {
+          status: 200,
+          body  : { foo: 'bar' }
+        }, {
+          method: 'post'
+        });
 
-      return trae.post('/foo')
-      .then((res) => {
-        expect(res).toEqual({ foo: 'bar' });
-        expect(fetchMock.called(TEST_URL)).toBeTruthy();
-        expect(fetchMock.lastUrl()).toBe(TEST_URL);
-        expect(fetchMock.lastOptions().method).toBe('POST');
+        return trae.post('/foo', { foo: 'bar' })
+        .then((res) => {
+          expect(res).toEqual({ foo: 'bar' });
+          expect(fetchMock.called(TEST_URL)).toBeTruthy();
+          expect(fetchMock.lastUrl()).toBe(TEST_URL);
+          expect(fetchMock.lastOptions().method).toBe('post');
+        });
       });
     });
-  });
 
-  describe('put', () => {
-    it('makes a PUT request to baseURL + path', () => {
-      fetchMock.mock(TEST_URL, {
-        status: 200,
-        body  : { foo: 'bar' }
-      }, {
-        method: 'PUT'
-      });
+    describe('put', () => {
+      it('makes a PUT request to baseURL + path', () => {
+        fetchMock.mock(TEST_URL, {
+          status: 200,
+          body  : { foo: 'bar' }
+        }, {
+          method: 'put'
+        });
 
-      return trae.put('/foo')
-      .then((res) => {
-        expect(res).toEqual({ foo: 'bar' });
-        expect(fetchMock.called(TEST_URL)).toBeTruthy();
-        expect(fetchMock.lastUrl()).toBe(TEST_URL);
-        expect(fetchMock.lastOptions().method).toBe('PUT');
-      });
-    });
-  });
-
-  describe('del', () => {
-    it('makes a DELETE request to baseURL + path', () => {
-      fetchMock.mock(TEST_URL, {
-        status: 200,
-        body  : { foo: 'bar' }
-      }, {
-        method: 'DELETE'
-      });
-
-      return trae.del('/foo')
-      .then((res) => {
-        expect(res).toEqual({ foo: 'bar' });
-        expect(fetchMock.called(TEST_URL)).toBeTruthy();
-        expect(fetchMock.lastUrl()).toBe(TEST_URL);
-        expect(fetchMock.lastOptions().method).toBe('DELETE');
+        return trae.put('/foo', { foo: 'bar' })
+        .then((res) => {
+          expect(res).toEqual({ foo: 'bar' });
+          expect(fetchMock.called(TEST_URL)).toBeTruthy();
+          expect(fetchMock.lastUrl()).toBe(TEST_URL);
+          expect(fetchMock.lastOptions().method).toBe('put');
+        });
       });
     });
+
+    describe('patch', () => {
+      it('makes a PATCH request to baseURL + path', () => {
+        fetchMock.mock(TEST_URL, {
+          status: 200,
+          body  : { foo: 'bar' }
+        }, {
+          method: 'patch'
+        });
+
+        return trae.patch('/foo', { foo: 'bar' })
+        .then((res) => {
+          expect(res).toEqual({ foo: 'bar' });
+          expect(fetchMock.called(TEST_URL)).toBeTruthy();
+          expect(fetchMock.lastUrl()).toBe(TEST_URL);
+          expect(fetchMock.lastOptions().method).toBe('patch');
+        });
+      });
+    });
+
   });
 
   describe('_runMiddlewares', () => {

@@ -21,7 +21,7 @@ describe('utils functions', () => {
     });
 
     it('returns and empty string when no "params" are passed', () => {
-      const actual = utils.buildQuery({});
+      const actual = utils.buildQuery();
       expect(actual).toBe('');
     });
   });

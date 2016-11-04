@@ -32,8 +32,11 @@ describe('HTTP -> http', () => {
     describe('get', () => {
       it('makes a GET request to baseURL + path', () => {
         fetchMock.mock(TEST_URL, {
-          status: 200,
-          body  : { foo: 'bar' }
+          status : 200,
+          body   : { foo: 'bar' },
+          headers: {
+            'Content-Type': 'application/json'
+          }
         });
 
         return trae.get('/foo')
@@ -49,15 +52,18 @@ describe('HTTP -> http', () => {
     describe('del', () => {
       it('makes a DELETE request to baseURL + path', () => {
         fetchMock.mock(TEST_URL, {
-          status: 200,
-          body  : { foo: 'bar' }
+          status : 200,
+          body   : 'Deleted!',
+          headers: {
+            'Content-Type': 'application/text'
+          }
         }, {
           method: 'delete'
         });
 
         return trae.delete('/foo')
         .then((res) => {
-          expect(res).toEqual({ foo: 'bar' });
+          expect(res).toEqual('Deleted!');
           expect(fetchMock.called(TEST_URL)).toBeTruthy();
           expect(fetchMock.lastUrl()).toBe(TEST_URL);
           expect(fetchMock.lastOptions().method).toBe('delete');
@@ -68,15 +74,14 @@ describe('HTTP -> http', () => {
     describe('head', () => {
       it('makes a HEAD request to baseURL + path', () => {
         fetchMock.mock(TEST_URL, {
-          status: 200,
-          body  : { foo: 'bar' }
+          status: 200
         }, {
           method: 'head'
         });
 
         return trae.head('/foo')
         .then((res) => {
-          expect(res).toEqual({ foo: 'bar' });
+          expect(res).toEqual('');
           expect(fetchMock.called(TEST_URL)).toBeTruthy();
           expect(fetchMock.lastUrl()).toBe(TEST_URL);
           expect(fetchMock.lastOptions().method).toBe('head');
@@ -90,8 +95,11 @@ describe('HTTP -> http', () => {
     describe('post', () => {
       it('makes a POST request to baseURL + path', () => {
         fetchMock.mock(TEST_URL, {
-          status: 200,
-          body  : { foo: 'bar' }
+          status : 200,
+          body   : { foo: 'bar' },
+          headers: {
+            'Content-Type': 'application/json'
+          }
         }, {
           method: 'post'
         });
@@ -109,8 +117,11 @@ describe('HTTP -> http', () => {
     describe('put', () => {
       it('makes a PUT request to baseURL + path', () => {
         fetchMock.mock(TEST_URL, {
-          status: 200,
-          body  : { foo: 'bar' }
+          status : 200,
+          body   : { foo: 'bar' },
+          headers: {
+            'Content-Type': 'application/json'
+          }
         }, {
           method: 'put'
         });
@@ -128,8 +139,11 @@ describe('HTTP -> http', () => {
     describe('patch', () => {
       it('makes a PATCH request to baseURL + path', () => {
         fetchMock.mock(TEST_URL, {
-          status: 200,
-          body  : { foo: 'bar' }
+          status : 200,
+          body   : { foo: 'bar' },
+          headers: {
+            'Content-Type': 'application/json'
+          }
         }, {
           method: 'patch'
         });

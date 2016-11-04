@@ -2543,6 +2543,10 @@ tr46@~0.0.3:
   version "0.0.3"
   resolved "https://registry.yarnpkg.com/tr46/-/tr46-0.0.3.tgz#8184fd347dac9cdc185992f3a6622e14b9d9ab6a"
 
+trae-query:
+  version "0.1.0"
+  resolved "https://registry.yarnpkg.com/trae-query/-/trae-query-0.1.0.tgz#5b7292667eb0e58296444ed600db4ce9f066d5e0"
+
 tryit@^1.0.1:
   version "1.0.3"
   resolved "https://registry.yarnpkg.com/tryit/-/tryit-1.0.3.tgz#393be730a9446fd1ead6da59a014308f36c289cb"

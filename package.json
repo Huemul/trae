@@ -38,7 +38,7 @@
     },
     "collectCoverageFrom": [
       "!**/node_modules/**",
-      "src/**"
+      "lib/**"
     ],
     "testPathDirs": [
       "test/"

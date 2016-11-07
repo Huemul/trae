@@ -10,21 +10,11 @@ afterEach(() => {
 const TEST_URL = 'http://localhost:8080/foo';
 
 describe('HTTP -> http', () => {
-  it('Initilize default attributes', () => {
-    const trae = new Trae();
+  it('Initilize default attributes on the constructor', () => {
+    const trae = new Trae('/api');
 
-    expect(trae._baseUrl).toEqual('');
+    expect(trae._baseUrl).toEqual('/api');
     expect(trae._middleware).toBeDefined();
-  });
-
-  describe('init', () => {
-    it('overwrite default attributes', () => {
-      const trae    = new Trae();
-      const baseUrl = 'http://localhost:8080';
-
-      trae.init({ baseUrl });
-      expect(trae._baseUrl).toBe(baseUrl);
-    });
   });
 
   describe('get', () => {

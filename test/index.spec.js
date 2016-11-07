@@ -1,25 +1,34 @@
 /* global describe it expect afterEach */
 
 const fetchMock = require('fetch-mock');
-const Trae      = require('../lib').Trae;
+const trae      = require('../lib');
 
 afterEach(() => {
   fetchMock.restore();
 });
 
-const TEST_URL = 'http://localhost:8080/foo';
+const TEST_URL = 'http://localhost:8080/api';
 
-describe('HTTP -> http', () => {
-  it('Initilize default attributes on the constructor', () => {
-    const trae = new Trae('/api');
-
-    expect(trae._baseUrl).toEqual('/api');
+describe('trae', () => {
+  it('exposed as a singleton instance of Trae class with the default config', () => {
+    expect(trae._baseUrl).toEqual('');
     expect(trae._middleware).toBeDefined();
   });
 
+  describe('create', () => {
+    it('returns a new instance of Trae with the provided config as defaults', () => {
+      const apiFoo = trae.create({ baseUrl: '/api/foo' });
+      expect(apiFoo._baseUrl).toEqual('/api/foo');
+      expect(apiFoo._middleware).toBeDefined();
+    });
+  });
+
+});
+
+describe('HTTP -> http', () => {
+
   describe('get', () => {
     it('makes a GET request to baseURL + path', () => {
-      const trae = new Trae();
       const url  = `${TEST_URL}/foo`;
 
       fetchMock.mock(url, {
@@ -44,7 +53,6 @@ describe('HTTP -> http', () => {
 
   describe('del', () => {
     it('makes a DELETE request to baseURL + path', () => {
-      const trae = new Trae();
       const url  = `${TEST_URL}/foo`;
 
       fetchMock.mock(url, {
@@ -69,7 +77,6 @@ describe('HTTP -> http', () => {
 
   describe('head', () => {
     it('makes a HEAD request to baseURL + path', () => {
-      const trae = new Trae();
       const url  = `${TEST_URL}/foo`;
 
       fetchMock.mock(url, {
@@ -90,7 +97,6 @@ describe('HTTP -> http', () => {
 
   describe('post', () => {
     it('makes a POST request to baseURL + path', () => {
-      const trae = new Trae();
       const url  = `${TEST_URL}/foo`;
 
       fetchMock.mock(url, {
@@ -115,7 +121,6 @@ describe('HTTP -> http', () => {
 
   describe('put', () => {
     it('makes a PUT request to baseURL + path', () => {
-      const trae = new Trae();
       const url  = `${TEST_URL}/foo`;
 
       fetchMock.mock(url, {
@@ -140,7 +145,6 @@ describe('HTTP -> http', () => {
 
   describe('patch', () => {
     it('makes a PATCH request to baseURL + path', () => {
-      const trae = new Trae();
       const url  = `${TEST_URL}/foo`;
 
       fetchMock.mock(url, {

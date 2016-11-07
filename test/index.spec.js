@@ -1,7 +1,7 @@
 /* global describe it expect afterEach */
 
 const fetchMock = require('fetch-mock');
-const trae = require('../lib');
+const Trae      = require('../lib').Trae;
 
 afterEach(() => {
   fetchMock.restore();
@@ -10,165 +10,167 @@ afterEach(() => {
 const TEST_URL = 'http://localhost:8080/foo';
 
 describe('HTTP -> http', () => {
+  it('Initilize default attributes', () => {
+    const trae = new Trae();
 
-  it('extends from EventEmitter class so it should have the "emit" and "on" methods available', () => {
-    expect(trae.emit).toBeTruthy();
-    expect(trae.on).toBeTruthy();
+    expect(trae._baseUrl).toEqual('');
+    expect(trae._middleware).toBeDefined();
   });
 
   describe('init', () => {
-    it('Initilize default attributes', () => {
+    it('overwrite default attributes', () => {
+      const trae    = new Trae();
       const baseUrl = 'http://localhost:8080';
 
-      trae.init({ middlewares: [() => {}], baseUrl });
-
-      expect(trae._middlewares.length).toBe(1);
+      trae.init({ baseUrl });
       expect(trae._baseUrl).toBe(baseUrl);
     });
   });
 
-  describe('methods with no body', () => {
+  describe('get', () => {
+    it('makes a GET request to baseURL + path', () => {
+      const trae = new Trae();
+      const url  = `${TEST_URL}/foo`;
 
-    describe('get', () => {
-      it('makes a GET request to baseURL + path', () => {
-        fetchMock.mock(TEST_URL, {
-          status : 200,
-          body   : { foo: 'bar' },
-          headers: {
-            'Content-Type': 'application/json'
-          }
-        });
+      fetchMock.mock(url, {
+        status : 200,
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: {
+          foo: 'bar'
+        }
+      });
 
-        return trae.get('/foo')
-        .then((res) => {
-          expect(res).toEqual({ foo: 'bar' });
-          expect(fetchMock.called(TEST_URL)).toBeTruthy();
-          expect(fetchMock.lastUrl()).toBe(TEST_URL);
-          expect(fetchMock.lastOptions().method).toBe('get');
-        });
+      return trae.get(url)
+      .then((res) => {
+        expect(res).toEqual({ foo: 'bar' });
+        expect(fetchMock.called(url)).toBeTruthy();
+        expect(fetchMock.lastUrl()).toBe(url);
+        expect(fetchMock.lastOptions().method).toBe('get');
       });
     });
-
-    describe('del', () => {
-      it('makes a DELETE request to baseURL + path', () => {
-        fetchMock.mock(TEST_URL, {
-          status : 200,
-          body   : 'Deleted!',
-          headers: {
-            'Content-Type': 'application/text'
-          }
-        }, {
-          method: 'delete'
-        });
-
-        return trae.delete('/foo')
-        .then((res) => {
-          expect(res).toEqual('Deleted!');
-          expect(fetchMock.called(TEST_URL)).toBeTruthy();
-          expect(fetchMock.lastUrl()).toBe(TEST_URL);
-          expect(fetchMock.lastOptions().method).toBe('delete');
-        });
-      });
-    });
-
-    describe('head', () => {
-      it('makes a HEAD request to baseURL + path', () => {
-        fetchMock.mock(TEST_URL, {
-          status: 200
-        }, {
-          method: 'head'
-        });
-
-        return trae.head('/foo')
-        .then((res) => {
-          expect(res).toEqual('');
-          expect(fetchMock.called(TEST_URL)).toBeTruthy();
-          expect(fetchMock.lastUrl()).toBe(TEST_URL);
-          expect(fetchMock.lastOptions().method).toBe('head');
-        });
-      });
-    });
-
   });
 
-  describe('methods with body', () => {
-    describe('post', () => {
-      it('makes a POST request to baseURL + path', () => {
-        fetchMock.mock(TEST_URL, {
-          status : 200,
-          body   : { foo: 'bar' },
-          headers: {
-            'Content-Type': 'application/json'
-          }
-        }, {
-          method: 'post'
-        });
+  describe('del', () => {
+    it('makes a DELETE request to baseURL + path', () => {
+      const trae = new Trae();
+      const url  = `${TEST_URL}/foo`;
 
-        return trae.post('/foo', { foo: 'bar' })
-        .then((res) => {
-          expect(res).toEqual({ foo: 'bar' });
-          expect(fetchMock.called(TEST_URL)).toBeTruthy();
-          expect(fetchMock.lastUrl()).toBe(TEST_URL);
-          expect(fetchMock.lastOptions().method).toBe('post');
-        });
+      fetchMock.mock(url, {
+        status : 200,
+        body   : 'Deleted!',
+        headers: {
+          'Content-Type': 'application/text'
+        }
+      }, {
+        method: 'delete'
+      });
+
+      return trae.delete(url)
+      .then((res) => {
+        expect(res).toEqual('Deleted!');
+        expect(fetchMock.called(url)).toBeTruthy();
+        expect(fetchMock.lastUrl()).toBe(url);
+        expect(fetchMock.lastOptions().method).toBe('delete');
       });
     });
-
-    describe('put', () => {
-      it('makes a PUT request to baseURL + path', () => {
-        fetchMock.mock(TEST_URL, {
-          status : 200,
-          body   : { foo: 'bar' },
-          headers: {
-            'Content-Type': 'application/json'
-          }
-        }, {
-          method: 'put'
-        });
-
-        return trae.put('/foo', { foo: 'bar' })
-        .then((res) => {
-          expect(res).toEqual({ foo: 'bar' });
-          expect(fetchMock.called(TEST_URL)).toBeTruthy();
-          expect(fetchMock.lastUrl()).toBe(TEST_URL);
-          expect(fetchMock.lastOptions().method).toBe('put');
-        });
-      });
-    });
-
-    describe('patch', () => {
-      it('makes a PATCH request to baseURL + path', () => {
-        fetchMock.mock(TEST_URL, {
-          status : 200,
-          body   : { foo: 'bar' },
-          headers: {
-            'Content-Type': 'application/json'
-          }
-        }, {
-          method: 'patch'
-        });
-
-        return trae.patch('/foo', { foo: 'bar' })
-        .then((res) => {
-          expect(res).toEqual({ foo: 'bar' });
-          expect(fetchMock.called(TEST_URL)).toBeTruthy();
-          expect(fetchMock.lastUrl()).toBe(TEST_URL);
-          expect(fetchMock.lastOptions().method).toBe('patch');
-        });
-      });
-    });
-
   });
 
-  describe('_runMiddlewares', () => {
-    it('runs provided middlewares', () => {
-      const config     = { headers: { foo: 'foo' } };
-      const newConfig  = { headers: { foo: 'bar' } };
-      const middleware = (config) => { config.headers.foo = 'bar'; };
+  describe('head', () => {
+    it('makes a HEAD request to baseURL + path', () => {
+      const trae = new Trae();
+      const url  = `${TEST_URL}/foo`;
 
-      trae._middlewares.push(middleware);
+      fetchMock.mock(url, {
+        status: 200
+      }, {
+        method: 'head'
+      });
 
-      expect(trae._runMiddlewares(config)).toEqual(newConfig);
+      return trae.head(url)
+      .then((res) => {
+        expect(res).toEqual('');
+        expect(fetchMock.called(url)).toBeTruthy();
+        expect(fetchMock.lastUrl()).toBe(url);
+        expect(fetchMock.lastOptions().method).toBe('head');
+      });
     });
   });
+
+  describe('post', () => {
+    it('makes a POST request to baseURL + path', () => {
+      const trae = new Trae();
+      const url  = `${TEST_URL}/foo`;
+
+      fetchMock.mock(url, {
+        status : 200,
+        body   : { foo: 'bar' },
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      }, {
+        method: 'post'
+      });
+
+      return trae.post(url, { foo: 'bar' })
+      .then((res) => {
+        expect(res).toEqual({ foo: 'bar' });
+        expect(fetchMock.called(url)).toBeTruthy();
+        expect(fetchMock.lastUrl()).toBe(url);
+        expect(fetchMock.lastOptions().method).toBe('post');
+      });
+    });
+  });
+
+  describe('put', () => {
+    it('makes a PUT request to baseURL + path', () => {
+      const trae = new Trae();
+      const url  = `${TEST_URL}/foo`;
+
+      fetchMock.mock(url, {
+        status : 200,
+        body   : { foo: 'bar' },
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      }, {
+        method: 'put'
+      });
+
+      return trae.put(url, { foo: 'bar' })
+      .then((res) => {
+        expect(res).toEqual({ foo: 'bar' });
+        expect(fetchMock.called(url)).toBeTruthy();
+        expect(fetchMock.lastUrl()).toBe(url);
+        expect(fetchMock.lastOptions().method).toBe('put');
+      });
+    });
+  });
+
+  describe('patch', () => {
+    it('makes a PATCH request to baseURL + path', () => {
+      const trae = new Trae();
+      const url  = `${TEST_URL}/foo`;
+
+      fetchMock.mock(url, {
+        status : 200,
+        body   : { foo: 'bar' },
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      }, {
+        method: 'patch'
+      });
+
+      return trae.patch(url, { foo: 'bar' })
+      .then((res) => {
+        expect(res).toEqual({ foo: 'bar' });
+        expect(fetchMock.called(url)).toBeTruthy();
+        expect(fetchMock.lastUrl()).toBe(url);
+        expect(fetchMock.lastOptions().method).toBe('patch');
+      });
+    });
+  });
+
 });

@@ -1,0 +1,86 @@
+exports[`Config -> config get returns the merged _defaults and _config 1`] = `
+Object {
+  "credentials": "same-origin",
+  "headers": Object {
+    "Accept": "application/json, text/plain, */*",
+    "Content-Type": "application/json",
+    "X-ACCESS-TOKE": "aasdljhf2kjrasdf2l3jrhn2",
+  },
+  "mode": "cors",
+  "xsrfCookieName": "XSRF-TOKEN",
+  "xsrfHeaderName": "X-XSRF-TOKEN",
+}
+`;
+
+exports[`Config -> config mergeWithDefaults does not mutate _config or _defaults 1`] = `
+Object {
+  "headers": Object {
+    "Accept": "application/json, text/plain, */*",
+    "Content-Type": "text/plain",
+  },
+  "mode": "cors",
+  "xsrfCookieName": "XSRF-TOKEN",
+  "xsrfHeaderName": "X-XSRF-TOKEN",
+}
+`;
+
+exports[`Config -> config mergeWithDefaults merges all the params passed 1`] = `
+Object {
+  "credentials": "same-origin",
+  "headers": Object {
+    "Accept": "application/json, text/plain, */*",
+    "Content-Type": "text/plain",
+  },
+  "mode": "no-cors",
+  "xsrfCookieName": "XSRF-TOKEN",
+  "xsrfHeaderName": "X-XSRF-TOKEN",
+}
+`;
+
+exports[`Config -> config mergeWithDefaults returns body stringified according to Content-Type 1`] = `
+Object {
+  "body": "{\"foo\":\"bar\"}",
+  "headers": Object {
+    "Accept": "application/json, text/plain, */*",
+    "Content-Type": "application/json",
+  },
+  "xsrfCookieName": "XSRF-TOKEN",
+  "xsrfHeaderName": "X-XSRF-TOKEN",
+}
+`;
+
+exports[`Config -> config mergeWithDefaults returns the config merged with the params 1`] = `
+Object {
+  "credentials": "same-origin",
+  "headers": Object {
+    "Accept": "application/json, text/plain, */*",
+    "Content-Type": "application/json",
+  },
+  "mode": "no-cors",
+  "xsrfCookieName": "XSRF-TOKEN",
+  "xsrfHeaderName": "X-XSRF-TOKEN",
+}
+`;
+
+exports[`Config -> config mergeWithDefaults returns the config merged with the params 2`] = `
+Object {
+  "credentials": "same-origin",
+  "headers": Object {
+    "Accept": "application/json, text/plain, */*",
+    "Content-Type": "application/json",
+  },
+  "mode": "no-cors",
+  "xsrfCookieName": "XSRF-TOKEN",
+  "xsrfHeaderName": "X-XSRF-TOKEN",
+}
+`;
+
+exports[`Config -> config set merges the provided config with this._config 1`] = `
+Object {
+  "credentials": "same-origin",
+  "headers": Object {
+    "X-ACCESS-TOKE": "aasdljhf2kjrasdf2l3jrhn2",
+  },
+  "mode": "cors",
+}
+`;

@@ -52,13 +52,7 @@ describe('Config -> config', () => {
         }
       });
 
-      expect(config._config).toEqual({
-        mode: 'cors',
-        credentials: 'same-origin',
-        headers: {
-          'X-ACCESS-TOKE': 'aasdljhf2kjrasdf2l3jrhn2'
-        }
-      });
+      expect(config._config).toMatchSnapshot();
     });
 
   });
@@ -74,17 +68,7 @@ describe('Config -> config', () => {
         }
       });
 
-      expect(config.get()).toEqual({
-        mode: 'cors',
-        credentials: 'same-origin',
-        xsrfCookieName: 'XSRF-TOKEN',
-        xsrfHeaderName: 'X-XSRF-TOKEN',
-        headers: {
-          'X-ACCESS-TOKE': 'aasdljhf2kjrasdf2l3jrhn2',
-          Accept: 'application/json, text/plain, */*',
-          'Content-Type': 'application/json'
-        }
-      });
+      expect(config.get()).toMatchSnapshot();
     });
 
   });
@@ -95,47 +79,21 @@ describe('Config -> config', () => {
       const config = new Config();
 
       const actual = config.mergeWithDefaults({ body: { foo: 'bar' } });
-      expect(actual).toEqual({
-        xsrfCookieName: 'XSRF-TOKEN',
-        xsrfHeaderName: 'X-XSRF-TOKEN',
-        headers: {
-          Accept: 'application/json, text/plain, */*',
-          'Content-Type': 'application/json'
-        },
-        body: '{"foo":"bar"}'
-      });
+      expect(actual).toMatchSnapshot();
     });
 
     it('returns the config merged with the params', () => {
       const config = new Config({ mode: 'no-cors' });
 
       const actual = config.mergeWithDefaults({ credentials: 'same-origin' });
-      expect(actual).toEqual({
-        xsrfCookieName: 'XSRF-TOKEN',
-        xsrfHeaderName: 'X-XSRF-TOKEN',
-        headers: {
-          Accept: 'application/json, text/plain, */*',
-          'Content-Type': 'application/json'
-        },
-        mode: 'no-cors',
-        credentials: 'same-origin'
-      });
+      expect(actual).toMatchSnapshot();
     });
 
     it('returns the config merged with the params', () => {
       const config = new Config({ mode: 'no-cors' });
 
       const actual = config.mergeWithDefaults({ credentials: 'same-origin' });
-      expect(actual).toEqual({
-        xsrfCookieName: 'XSRF-TOKEN',
-        xsrfHeaderName: 'X-XSRF-TOKEN',
-        headers: {
-          Accept: 'application/json, text/plain, */*',
-          'Content-Type': 'application/json'
-        },
-        mode: 'no-cors',
-        credentials: 'same-origin'
-      });
+      expect(actual).toMatchSnapshot();
     });
 
     it('merges all the params passed', () => {
@@ -145,16 +103,7 @@ describe('Config -> config', () => {
         { credentials: 'same-origin' },
         { headers: { 'Content-Type': 'text/plain' } }
       );
-      expect(actual).toEqual({
-        xsrfCookieName: 'XSRF-TOKEN',
-        xsrfHeaderName: 'X-XSRF-TOKEN',
-        headers: {
-          Accept: 'application/json, text/plain, */*',
-          'Content-Type': 'text/plain'
-        },
-        mode: 'no-cors',
-        credentials: 'same-origin'
-      });
+      expect(actual).toMatchSnapshot();
     });
 
     it('does not mutate _config or _defaults', () => {
@@ -176,15 +125,7 @@ describe('Config -> config', () => {
         { headers: { 'Content-Type': 'text/plain' } },
         { mode: 'cors' }
       );
-      expect(actual).toEqual({
-        xsrfCookieName: 'XSRF-TOKEN',
-        xsrfHeaderName: 'X-XSRF-TOKEN',
-        headers: {
-          Accept: 'application/json, text/plain, */*',
-          'Content-Type': 'text/plain'
-        },
-        mode: 'cors'
-      });
+      expect(actual).toMatchSnapshot();
 
       expect(config._config).toEqual({ mode: 'no-cors' });
       expect(config._defaults).toEqual(defaults);

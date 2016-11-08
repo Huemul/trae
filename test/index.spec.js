@@ -18,7 +18,7 @@ describe('trae', () => {
   describe('create', () => {
     it('returns a new instance of Trae with the provided config as defaults', () => {
       const apiFoo = trae.create({ baseUrl: '/api/foo' });
-      expect(apiFoo._baseUrl).toEqual('/api/foo');
+      expect(apiFoo._baseUrl).toBe('/api/foo');
       expect(apiFoo._middleware).toBeDefined();
     });
   });
@@ -31,8 +31,8 @@ describe('trae', () => {
 
       apiFoo.baseUrl('/api/foo');
 
-      expect(apiFoo._baseUrl).toEqual('/api/foo');
-      expect(apiFoo.baseUrl()).toEqual('/api/foo');
+      expect(apiFoo._baseUrl).toBe('/api/foo');
+      expect(apiFoo.baseUrl()).toBe('/api/foo');
     });
   });
 

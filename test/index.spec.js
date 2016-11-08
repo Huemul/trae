@@ -26,15 +26,68 @@ describe('trae', () => {
   describe('baseUrl', () => {
     it('sets the baseUrl or returns if no params are passed', () => {
       const apiFoo = trae.create();
+
+      expect(apiFoo._baseUrl).toEqual('');
+
       apiFoo.baseUrl('/api/foo');
+
       expect(apiFoo._baseUrl).toEqual('/api/foo');
       expect(apiFoo.baseUrl()).toEqual('/api/foo');
+    });
+  });
+
+  describe('defaults', () => {
+
+    it('returns the current default config when no params are passed', () => {
+      expect(trae.defaults()).toMatchSnapshot();
+    });
+
+    it('sets the default config to be used on all requests for the instance', () => {
+      trae.defaults({ mode: 'no-cors', credentials: 'same-origin' });
+      expect(trae.defaults()).toMatchSnapshot();
+    });
+
+    it('adds the baseUrl to trae._baseUrl but does not add it to the defaults', () => {
+      const apiFoo = trae.create();
+      apiFoo.defaults({ baseUrl: '/api/foo' });
+      expect(apiFoo._baseUrl).toBe('/api/foo');
+      expect(apiFoo.defaults().baseUrl).not.toBeDefined();
+    });
+
+  });
+
+  describe('use', () => {
+    it('sets the middlewares', () => {
+      function req(config) { return Promise.resolve(config); }
+      function fulfill(config) { return Promise.resolve(config); }
+      function reject(error) { return Promise.reject(error); }
+
+      const apiFoo = trae.create();
+      apiFoo.use({ config: req, fulfill, reject });
+
+      expect(apiFoo._middleware._req[0]).toBe(req);
+      expect(apiFoo._middleware._res[0].fulfill).toBe(fulfill);
+      expect(apiFoo._middleware._res[0].reject).toBe(reject);
     });
   });
 
 });
 
 describe('HTTP -> http', () => {
+
+  describe('response not ok', () => {
+    it('gets rejected', () => {
+      const url = `${TEST_URL}/foo`;
+      fetchMock.mock(url, {
+        status: 404
+      });
+
+      return trae.get(url)
+        .catch((error) => {
+          expect(error).toMatchSnapshot();
+        });
+    });
+  });
 
   describe('get', () => {
     it('makes a GET request to baseURL + path', () => {

@@ -45,6 +45,7 @@
     ]
   },
   "dependencies": {
+    "merge": "^1.2.0",
     "trae-query": "^0.1.0",
     "whatwg-fetch": "^1.0.0"
   }

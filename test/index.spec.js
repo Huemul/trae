@@ -23,6 +23,15 @@ describe('trae', () => {
     });
   });
 
+  describe('baseUrl', () => {
+    it('sets the baseUrl or returns if no params are passed', () => {
+      const apiFoo = trae.create();
+      apiFoo.baseUrl('/api/foo');
+      expect(apiFoo._baseUrl).toEqual('/api/foo');
+      expect(apiFoo.baseUrl()).toEqual('/api/foo');
+    });
+  });
+
 });
 
 describe('HTTP -> http', () => {

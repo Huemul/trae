@@ -69,7 +69,7 @@ trae.patch(url[, body[, config]])
 
 ## Defaults & middleware
 
-### `trae.defaults([config])`
+- `trae.defaults([config])`
 
 Sets the default configuration to use on every requests. This is merged with the existing configuration.
 
@@ -84,6 +84,78 @@ When call with no param it acts as a getter, returning the defaults.
 
 ```js
 const config = trae.defaults()
+```
+
+- `trae.use(middlewares)`
+
+Sets the middlewares to be used to intercept the request and responses.
+
+```js
+function addAccessToken(config) {
+  config.headers['X-ACCESSS-TOKEN'] = getUserToken()
+  return config
+}
+
+function normalizePosts(response) {
+  return normalize(response.data, arrayOf(post))
+}
+
+function logErrors(err) {
+  console.error(err)
+}
+
+trae.use({
+  config: addAccessToken,
+  fulfill: normalizePosts,
+  reject: logErrors
+})
+```
+
+Note that middlewares can be added separately.
+
+```js
+trae.use({
+  config: addAccessToken
+})
+
+trae.use({
+  fulfill: normalizePosts
+})
+
+trae.use({
+  reject: normalizePosts
+})
+```
+
+There is one thing to keep in mind though, `fulfill` and `reject` are chained together in the `then` of the promise. To keep things more consistent good practice would be to add `fulfill` and `reject` together.
+
+When no `fulfill` is added, identity function is used, but when no `reject` is added, a rejected promise is returned, to be handled down the chain.
+
+```js
+trae.use({
+  fulfill: normalizePosts,
+  reject: normalizePosts
+})
+
+// will result on
+trae.get('/api/posts')
+  .then(normalizePosts, normalizePosts)
+
+// vs
+
+trae.use({
+  fulfill: normalizePosts
+})
+
+trae.use({
+  reject: normalizePosts
+})
+
+// will result on
+trae.get('/api/posts')
+  .then(normalizePosts, err => Promise.reject(err))
+  .then(res => res, normalizePosts)
+
 ```
 
 ## Contributing

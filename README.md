@@ -9,8 +9,7 @@
 [![bitHound Dev Dependencies](https://www.bithound.io/github/Huemul/trae/badges/devDependencies.svg)](https://www.bithound.io/github/Huemul/trae/master/dependencies/npm)
 [![bitHound Code](https://www.bithound.io/github/Huemul/trae/badges/code.svg)](https://www.bithound.io/github/Huemul/trae)
 
-
-# Install
+## Install
 
 ```bash
 $ npm install --save trae
@@ -20,25 +19,26 @@ $ npm install --save trae
 $ yarn add trae
 ```
 
-# Usage
-```js
-import trae from 'trae'
+## Basic Usage
 
-// GET: `/api/posts?id=123`
-trae.get('/api/posts', { data: { id: 123 } })
+A `GET` request to `/api/posts?id=123`:
+
+```js
+trae.get('/api/posts', { params: { id: 123 } })
   .then((json) => {
     console.log(json);
   })
   .catch((err) => {
     console.error(err);
   });
+```
 
-// POST: `/api/posts`
+A `POST` request to `/api/posts`:
+
+```js
 trae.post('/api/posts', {
-  body: {
-    title: 'My Post',
-    content: 'My awesome post content...'
-  }
+  title: 'My Post',
+  content: 'My awesome post content...'
 })
   .then(() => {
     console.log('Success!!!');
@@ -46,4 +46,42 @@ trae.post('/api/posts', {
   .catch((err) => {
     console.error(err);
   });
+```
+
+## Trae API
+
+
+### Request methods
+
+```js
+trae.get(url[, config])
+
+trae.delete(url[, config])
+
+trae.head(url[, config])
+
+trae.post(url[, body[, config]])
+
+trae.put(url[, body[, config]])
+
+trae.patch(url[, body[, config]])
+```
+
+## Defaults & middleware
+
+### `trae.defaults([config])`
+
+Sets the defaults configuration to use on the requests. This is merged with the default configuration.
+
+```js
+trae.defaults({
+  mode: 'no-cors',
+  credentials: 'same-origin'
+})
+```
+
+When call with no param it acts as a getter, returning the configuration.
+
+```js
+trae.defaults()
 ```

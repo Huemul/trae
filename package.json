@@ -1,14 +1,38 @@
 {
   "name": "trae",
   "version": "0.0.1",
-  "description": "",
+  "description": "Fetch based HTTP client for the browser",
+  "keywords": [
+    "fetch",
+    "http",
+    "request",
+    "api"
+  ],
   "main": "src/index.js",
+  "author": "gillchristian <gillchristiang@gmail.com>",
+  "contributors": [
+    "ndelvalle <nicolas.delvalle@gmail.com>"
+  ],
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/huemul/trae.git"
+  },
+  "bugs": {
+    "url": "https://github.com/huemul/trae/issues"
+  },
+  "homepage": "https://github.com/huemul/trae#readme",
   "scripts": {
     "main": "src/index.js",
-    "test": "jest --coverage --verbose",
+    "test": " --coverage --verbose",
     "test:w": "jest --watch --verbose",
     "check-cover": "open coverage/lcov-report/index.html",
     "eslint": "eslint . --ext .js"
+  },
+  "dependencies": {
+    "merge": "^1.2.0",
+    "trae-query": "^0.1.0",
+    "whatwg-fetch": "^1.0.0"
   },
   "devDependencies": {
     "coveralls": "^2.11.14",
@@ -24,9 +48,6 @@
   "pre-commit": [
     "eslint"
   ],
-  "engines": {
-    "node": ">=6"
-  },
   "jest": {
     "coverageThreshold": {
       "global": {
@@ -44,9 +65,7 @@
       "test/"
     ]
   },
-  "dependencies": {
-    "merge": "^1.2.0",
-    "trae-query": "^0.1.0",
-    "whatwg-fetch": "^1.0.0"
+  "engines": {
+    "node": ">=6"
   }
 }

@@ -71,7 +71,7 @@ trae.patch(url[, body[, config]])
 
 ### `trae.defaults([config])`
 
-Sets the defaults configuration to use on the requests. This is merged with the default configuration.
+Sets the default configuration to use on every requests. This is merged with the existing configuration.
 
 ```js
 trae.defaults({
@@ -80,8 +80,18 @@ trae.defaults({
 })
 ```
 
-When call with no param it acts as a getter, returning the configuration.
+When call with no param it acts as a getter, returning the defaults.
 
 ```js
-trae.defaults()
+const config = trae.defaults()
 ```
+
+## Contributing
+
+[Create an issue](https://github.com/Huemul/trae/issues/new) to report any bugs you find.
+
+If you want to submit a PR and do not know where to start or what to add check out the [project page](https://github.com/Huemul/trae/projects/1) to find out what we are working on, and what to contribute next.
+
+## License
+
+**MIT**

@@ -105,7 +105,7 @@ describe('HTTP -> http', () => {
 
       return trae.get(url)
       .then((res) => {
-        expect(res).toEqual({ foo: 'bar' });
+        expect(res).toMatchSnapshot();
         expect(fetchMock.called(url)).toBeTruthy();
         expect(fetchMock.lastUrl()).toBe(url);
         expect(fetchMock.lastOptions().method).toBe('get');
@@ -129,7 +129,7 @@ describe('HTTP -> http', () => {
 
       return trae.delete(url)
       .then((res) => {
-        expect(res).toEqual('Deleted!');
+        expect(res).toMatchSnapshot();
         expect(fetchMock.called(url)).toBeTruthy();
         expect(fetchMock.lastUrl()).toBe(url);
         expect(fetchMock.lastOptions().method).toBe('delete');
@@ -149,7 +149,7 @@ describe('HTTP -> http', () => {
 
       return trae.head(url)
       .then((res) => {
-        expect(res).toEqual('');
+        expect(res).toMatchSnapshot();
         expect(fetchMock.called(url)).toBeTruthy();
         expect(fetchMock.lastUrl()).toBe(url);
         expect(fetchMock.lastOptions().method).toBe('head');
@@ -173,7 +173,7 @@ describe('HTTP -> http', () => {
 
       return trae.post(url, { foo: 'bar' })
       .then((res) => {
-        expect(res).toEqual({ foo: 'bar' });
+        expect(res).toMatchSnapshot();
         expect(fetchMock.called(url)).toBeTruthy();
         expect(fetchMock.lastUrl()).toBe(url);
         expect(fetchMock.lastOptions().method).toBe('post');
@@ -197,7 +197,7 @@ describe('HTTP -> http', () => {
 
       return trae.put(url, { foo: 'bar' })
       .then((res) => {
-        expect(res).toEqual({ foo: 'bar' });
+        expect(res).toMatchSnapshot();
         expect(fetchMock.called(url)).toBeTruthy();
         expect(fetchMock.lastUrl()).toBe(url);
         expect(fetchMock.lastOptions().method).toBe('put');
@@ -221,7 +221,7 @@ describe('HTTP -> http', () => {
 
       return trae.patch(url, { foo: 'bar' })
       .then((res) => {
-        expect(res).toEqual({ foo: 'bar' });
+        expect(res).toMatchSnapshot();
         expect(fetchMock.called(url)).toBeTruthy();
         expect(fetchMock.lastUrl()).toBe(url);
         expect(fetchMock.lastOptions().method).toBe('patch');

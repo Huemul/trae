@@ -9,6 +9,7 @@ Object {
     },
   },
   "status": 200,
+  "statusText": "OK",
 }
 `;
 
@@ -25,6 +26,7 @@ Object {
     },
   },
   "status": 200,
+  "statusText": "OK",
 }
 `;
 
@@ -35,6 +37,7 @@ Object {
     "_headers": Object {},
   },
   "status": 200,
+  "statusText": "OK",
 }
 `;
 
@@ -51,6 +54,7 @@ Object {
     },
   },
   "status": 200,
+  "statusText": "OK",
 }
 `;
 
@@ -67,6 +71,7 @@ Object {
     },
   },
   "status": 200,
+  "statusText": "OK",
 }
 `;
 
@@ -83,6 +88,7 @@ Object {
     },
   },
   "status": 200,
+  "statusText": "OK",
 }
 `;
 

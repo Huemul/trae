@@ -141,7 +141,7 @@ trae.use({
 })
 
 trae.use({
-  reject: normalizePosts
+  reject: logErrors
 })
 ```
 
@@ -152,12 +152,12 @@ When no `fulfill` is added, identity function is used, but when no `reject` is a
 ```js
 trae.use({
   fulfill: normalizePosts,
-  reject: normalizePosts
+  reject: logErrors
 })
 
 // will result on
 trae.get('/api/posts')
-  .then(normalizePosts, normalizePosts)
+  .then(normalizePosts, logErrors)
 
 // vs
 
@@ -166,13 +166,13 @@ trae.use({
 })
 
 trae.use({
-  reject: normalizePosts
+  reject: logErrors
 })
 
 // will result on
 trae.get('/api/posts')
   .then(normalizePosts, err => Promise.reject(err))
-  .then(res => res, normalizePosts)
+  .then(res => res, logErrors)
 
 ```
 

@@ -69,7 +69,7 @@ trae.patch(url[, body[, config]])
 
 ## Defaults & middleware
 
-- `trae.defaults([config])`
+### `trae.defaults([config])`
 
 Sets the default configuration to use on every requests. This is merged with the existing configuration.
 
@@ -86,7 +86,24 @@ When call with no param it acts as a getter, returning the defaults.
 const config = trae.defaults()
 ```
 
-- `trae.use(middlewares)`
+### `trae.baseUrl([url])`
+
+Acts as a shorthand for `trae.defaults({baseUrl: url})`. Also returns the `baseUrl` when no params are passed.
+
+```js
+const id = 123
+trae.get(`/${id}`) // GET: /123
+
+trae.baseUrl('/api/posts')
+
+const baseUrl = trae.baseUrl()
+
+console.log(baseUrl) // '/api/posts'
+
+trae.get(`/${id}`) // GET: /api/posts/123
+```
+
+### `trae.use(middlewares)`
 
 Sets the middlewares to be used to intercept the request and responses.
 
@@ -156,6 +173,16 @@ trae.get('/api/posts')
   .then(normalizePosts, err => Promise.reject(err))
   .then(res => res, normalizePosts)
 
+```
+
+### `trae.create([config])`
+
+Creates an instance of `Trae` with its own defaults and middleware. All the above methods can be used on instances as they are used with the exposed `trae`.
+
+```js
+const api = trae.create({baseUrl: '/api'})
+
+api.get('/posts') // GET: /api/posts
 ```
 
 ## Contributing

@@ -1,3 +1,91 @@
+exports[`HTTP -> http del makes a DELETE request to baseURL + path 1`] = `
+Object {
+  "data": "Deleted!",
+  "headers": Headers {
+    "_headers": Object {
+      "content-type": Array [
+        "application/text",
+      ],
+    },
+  },
+  "status": 200,
+}
+`;
+
+exports[`HTTP -> http get makes a GET request to baseURL + path 1`] = `
+Object {
+  "data": Object {
+    "foo": "bar",
+  },
+  "headers": Headers {
+    "_headers": Object {
+      "content-type": Array [
+        "application/json",
+      ],
+    },
+  },
+  "status": 200,
+}
+`;
+
+exports[`HTTP -> http head makes a HEAD request to baseURL + path 1`] = `
+Object {
+  "data": "",
+  "headers": Headers {
+    "_headers": Object {},
+  },
+  "status": 200,
+}
+`;
+
+exports[`HTTP -> http patch makes a PATCH request to baseURL + path 1`] = `
+Object {
+  "data": Object {
+    "foo": "bar",
+  },
+  "headers": Headers {
+    "_headers": Object {
+      "content-type": Array [
+        "application/json",
+      ],
+    },
+  },
+  "status": 200,
+}
+`;
+
+exports[`HTTP -> http post makes a POST request to baseURL + path 1`] = `
+Object {
+  "data": Object {
+    "foo": "bar",
+  },
+  "headers": Headers {
+    "_headers": Object {
+      "content-type": Array [
+        "application/json",
+      ],
+    },
+  },
+  "status": 200,
+}
+`;
+
+exports[`HTTP -> http put makes a PUT request to baseURL + path 1`] = `
+Object {
+  "data": Object {
+    "foo": "bar",
+  },
+  "headers": Headers {
+    "_headers": Object {
+      "content-type": Array [
+        "application/json",
+      ],
+    },
+  },
+  "status": 200,
+}
+`;
+
 exports[`HTTP -> http response not ok gets rejected 1`] = `[Error: Not Found]`;
 
 exports[`trae defaults returns the current default config when no params are passed 1`] = `

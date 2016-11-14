@@ -9,6 +9,17 @@
 [![bitHound Dev Dependencies](https://www.bithound.io/github/Huemul/trae/badges/devDependencies.svg)](https://www.bithound.io/github/Huemul/trae/master/dependencies/npm)
 [![bitHound Code](https://www.bithound.io/github/Huemul/trae/badges/code.svg)](https://www.bithound.io/github/Huemul/trae)
 
+## Content
+
+1. [Install](#install)
+1. [Basic Usage](#basic-usage)
+1. [Trae API](#trea-api)
+  1. [Request methods](#request-methods)
+  1. [Defaults & middleware](#defaults-middleware)
+  1. [Instances](#instances)
+1. [Response & error](#response-error)
+1. [Contributing](#contributing)
+
 ## Install
 
 ```bash
@@ -48,6 +59,8 @@ trae.post('/api/posts', {
   });
 ```
 
+**[⬆ back to top](#content)**
+
 ## Trae API
 
 ### Request methods
@@ -67,6 +80,8 @@ trae.patch(url[, body[, config]])
 ```
 
 *NOTE*: the request method cannot be overwritten for the methods above.
+
+**[⬆ back to top](#content)**
 
 ### Defaults & middleware
 
@@ -176,6 +191,8 @@ trae.get('/api/posts')
 
 ```
 
+**[⬆ back to top](#content)**
+
 ### Instances
 
 #### `trae.create([config])`
@@ -187,6 +204,8 @@ const api = trae.create({baseUrl: '/api'})
 
 api.get('/posts') // GET: /api/posts
 ```
+
+**[⬆ back to top](#content)**
 
 ## Response & error
 
@@ -210,7 +229,6 @@ The request methods return a promise that resolves to this object:
 
 *NOTE*: `data` is read using `response.json()` when `response.headers['Content-Type']` is `application/json` and will be an object, otherwise it is read using `response.text()` and will be a string. If you need to use [another reader ](https://developer.mozilla.org/en-US/docs/Web/API/Body), it can be specified by setting the `bodyType` config property.
 
-
 ```js
 trae.get('/api/posts')
   .then(response => {
@@ -221,6 +239,8 @@ trae.get('/api/posts')
   })
 ```
 
+**[⬆ back to top](#content)**
+
 ## Contributing
 
 [Create an issue](https://github.com/Huemul/trae/issues/new) to report any bugs you find.
@@ -230,3 +250,5 @@ If you want to submit a PR and do not know where to start or what to add check o
 ## License
 
 **MIT**
+
+**[⬆ back to top](#content)**

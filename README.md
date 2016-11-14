@@ -208,7 +208,8 @@ The request methods return a promise that resolves to this object:
 }
 ```
 
-*NOTE*: `data` is read using `response.json()` when `response.headers['Content-Type']` is `application/json` and will be an object, otherwise it is read using `response.text()` and will be a string.
+*NOTE*: `data` is read using `response.json()` when `response.headers['Content-Type']` is `application/json` and will be an object, otherwise it is read using `response.text()` and will be a string. If you need to use [another reader ](https://developer.mozilla.org/en-US/docs/Web/API/Body), it can be specified by setting the `bodyType` config property.
+
 
 ```js
 trae.get('/api/posts')

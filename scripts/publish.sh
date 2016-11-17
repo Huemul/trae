@@ -22,7 +22,7 @@ if [ $(git name-rev --name-only HEAD) = "master" ]; then
   echo '';
 
   # run tests & build
-  npm run lint;
+  npm run eslint;
   lintStatus=$?;
   npm run test;
   testStatus=$?;

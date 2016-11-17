@@ -91,7 +91,7 @@ describe('HTTP -> http', () => {
 
   describe('get', () => {
     it('makes a GET request to baseURL + path', () => {
-      const url  = `${TEST_URL}/foo`;
+      const url = `${TEST_URL}/foo`;
 
       fetchMock.mock(url, {
         status : 200,
@@ -115,7 +115,7 @@ describe('HTTP -> http', () => {
 
   describe('del', () => {
     it('makes a DELETE request to baseURL + path', () => {
-      const url  = `${TEST_URL}/foo`;
+      const url = `${TEST_URL}/foo`;
 
       fetchMock.mock(url, {
         status : 200,
@@ -139,7 +139,7 @@ describe('HTTP -> http', () => {
 
   describe('head', () => {
     it('makes a HEAD request to baseURL + path', () => {
-      const url  = `${TEST_URL}/foo`;
+      const url = `${TEST_URL}/foo`;
 
       fetchMock.mock(url, {
         status: 200
@@ -159,11 +159,13 @@ describe('HTTP -> http', () => {
 
   describe('post', () => {
     it('makes a POST request to baseURL + path', () => {
-      const url  = `${TEST_URL}/foo`;
+      const url = `${TEST_URL}/foo`;
 
       fetchMock.mock(url, {
         status : 200,
-        body   : { foo: 'bar' },
+        body   : {
+          foo: 'bar'
+        },
         headers: {
           'Content-Type': 'application/json'
         }
@@ -183,11 +185,13 @@ describe('HTTP -> http', () => {
 
   describe('put', () => {
     it('makes a PUT request to baseURL + path', () => {
-      const url  = `${TEST_URL}/foo`;
+      const url = `${TEST_URL}/foo`;
 
       fetchMock.mock(url, {
         status : 200,
-        body   : { foo: 'bar' },
+        body   : {
+          foo: 'bar'
+        },
         headers: {
           'Content-Type': 'application/json'
         }
@@ -207,11 +211,13 @@ describe('HTTP -> http', () => {
 
   describe('patch', () => {
     it('makes a PATCH request to baseURL + path', () => {
-      const url  = `${TEST_URL}/foo`;
+      const url = `${TEST_URL}/foo`;
 
       fetchMock.mock(url, {
         status : 200,
-        body   : { foo: 'bar' },
+        body   : {
+          foo: 'bar'
+        },
         headers: {
           'Content-Type': 'application/json'
         }
@@ -225,6 +231,39 @@ describe('HTTP -> http', () => {
         expect(fetchMock.called(url)).toBeTruthy();
         expect(fetchMock.lastUrl()).toBe(url);
         expect(fetchMock.lastOptions().method).toBe('patch');
+      });
+    });
+  });
+
+  describe('request', () => {
+
+    afterEach(() => {
+      fetchMock.restore();
+    });
+
+    ['get', 'delete', 'head', 'post', 'put', 'patch'].forEach((method) => {
+      it(`makes a ${method.toUpperCase()} request to baseURL + path using the request method`, () => {
+        const url = `${TEST_URL}/foo`;
+
+        fetchMock.mock(url, {
+          status : 200,
+          body   : {
+            foo: 'bar'
+          },
+          headers: {
+            'Content-Type': 'application/json'
+          }
+        }, {
+          method
+        });
+
+        return trae.request({ url, method, foo: 'bar' })
+        .then((res) => {
+          expect(res).toMatchSnapshot();
+          expect(fetchMock.called(url)).toBeTruthy();
+          expect(fetchMock.lastUrl()).toBe(url);
+          expect(fetchMock.lastOptions().method).toBe(method);
+        });
       });
     });
   });

@@ -5,9 +5,9 @@ MODE=${1:-patch}
 
 # formatting
 # http://stackoverflow.com/a/20983251/4530566
-RED=$(tput setaf 1)
-GREEN=$(tput setaf 2)
-BOLD=$(tput bold)
+RED=$(tput setaf 1);
+GREEN=$(tput setaf 2);
+BOLD=$(tput bold);
 
 if  [ $MODE != major ] && [ $MODE != minor ] && [ $MODE != patch ] && [ $MODE != premajor ] && [ $MODE != preminor ] && [ $MODE != prepatch ] && [ $MODE != prerelease ]; then
   echo "${RED}\"${MODE}\" does not match any of the possible bump verion modes:";
@@ -39,9 +39,11 @@ if [ $(git name-rev --name-only HEAD) = "master" ]; then
   npm publish;
   git push origin master;
   git push --tags;
-  echo "${BOLD}${GREEN}Published successfully \\o/"
+
+  echo '';
+  echo "${BOLD}${GREEN}Published successfully \\o/";
 
 else
-  echo "${BOLD}${RED}Please switch to master branch and then publish..."
-  echo ''
+  echo "${BOLD}${RED}Please switch to master branch and then publish...";
+  echo '';
 fi

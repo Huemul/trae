@@ -92,6 +92,108 @@ Object {
 }
 `;
 
+exports[`HTTP -> http request makes a DELETE request to baseURL + path using the request method 1`] = `
+Object {
+  "data": Object {
+    "foo": "bar",
+  },
+  "headers": Headers {
+    "_headers": Object {
+      "content-type": Array [
+        "application/json",
+      ],
+    },
+  },
+  "status": 200,
+  "statusText": "OK",
+}
+`;
+
+exports[`HTTP -> http request makes a GET request to baseURL + path using the request method 1`] = `
+Object {
+  "data": Object {
+    "foo": "bar",
+  },
+  "headers": Headers {
+    "_headers": Object {
+      "content-type": Array [
+        "application/json",
+      ],
+    },
+  },
+  "status": 200,
+  "statusText": "OK",
+}
+`;
+
+exports[`HTTP -> http request makes a HEAD request to baseURL + path using the request method 1`] = `
+Object {
+  "data": Object {
+    "foo": "bar",
+  },
+  "headers": Headers {
+    "_headers": Object {
+      "content-type": Array [
+        "application/json",
+      ],
+    },
+  },
+  "status": 200,
+  "statusText": "OK",
+}
+`;
+
+exports[`HTTP -> http request makes a PATCH request to baseURL + path using the request method 1`] = `
+Object {
+  "data": Object {
+    "foo": "bar",
+  },
+  "headers": Headers {
+    "_headers": Object {
+      "content-type": Array [
+        "application/json",
+      ],
+    },
+  },
+  "status": 200,
+  "statusText": "OK",
+}
+`;
+
+exports[`HTTP -> http request makes a POST request to baseURL + path using the request method 1`] = `
+Object {
+  "data": Object {
+    "foo": "bar",
+  },
+  "headers": Headers {
+    "_headers": Object {
+      "content-type": Array [
+        "application/json",
+      ],
+    },
+  },
+  "status": 200,
+  "statusText": "OK",
+}
+`;
+
+exports[`HTTP -> http request makes a PUT request to baseURL + path using the request method 1`] = `
+Object {
+  "data": Object {
+    "foo": "bar",
+  },
+  "headers": Headers {
+    "_headers": Object {
+      "content-type": Array [
+        "application/json",
+      ],
+    },
+  },
+  "status": 200,
+  "statusText": "OK",
+}
+`;
+
 exports[`HTTP -> http response not ok gets rejected 1`] = `[Error: Not Found]`;
 
 exports[`trae defaults returns the current default config when no params are passed 1`] = `

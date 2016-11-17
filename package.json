@@ -28,7 +28,8 @@
     "test": "jest --coverage --verbose",
     "test:w": "jest --watch --verbose",
     "check-cover": "open coverage/lcov-report/index.html",
-    "eslint": "eslint . --ext .js"
+    "eslint": "eslint . --ext .js",
+    "release": "./scripts/publish.sh"
   },
   "dependencies": {
     "merge": "^1.2.0",

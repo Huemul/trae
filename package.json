@@ -1,6 +1,6 @@
 {
   "name": "trae",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "Fetch based HTTP client for the browser",
   "keywords": [
     "fetch",

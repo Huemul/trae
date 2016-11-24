@@ -8,7 +8,7 @@
     "request",
     "api"
   ],
-  "main": "lib/index.js",
+  "main": "dist/trae.min.js",
   "author": "gillchristian <gillchristiang@gmail.com>",
   "contributors": [
     "ndelvalle <nicolas.delvalle@gmail.com>"
@@ -23,7 +23,6 @@
   },
   "homepage": "https://github.com/huemul/trae#readme",
   "scripts": {
-    "main": "lib/index.js",
     "build": "webpack --mode=build",
     "test": "jest --coverage --verbose",
     "test:w": "jest --watch --verbose",

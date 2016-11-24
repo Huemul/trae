@@ -18,7 +18,7 @@ if (env === 'build') {
 
 const config = {
   entry  : `${__dirname}/lib/index.js`,
-  devtool: 'source-map',
+  devtool: '#inline-source-map',
   output : {
     path          : `${__dirname}/dist`,
     filename      : outputFile,

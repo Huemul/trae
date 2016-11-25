@@ -1,7 +1,6 @@
 /* global describe it expect afterEach */
-
-const fetchMock = require('fetch-mock');
-const trae      = require('../lib');
+import fetchMock from 'fetch-mock';
+import trae      from '../lib';
 
 afterEach(() => {
   fetchMock.restore();

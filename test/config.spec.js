@@ -1,7 +1,6 @@
 /* global describe it expect */
-const merge = require('../lib/utils').merge;
-
-const Config = require('../lib/config');
+import { merge } from '../lib/utils';
+import Config    from '../lib/config';
 
 const DEFAULT_HEADERS = {
   Accept: 'application/json, text/plain, */*',

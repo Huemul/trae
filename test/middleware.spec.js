@@ -1,6 +1,6 @@
 /* global describe it expect */
 
-const Middleware = require('../lib/middleware');
+import Middleware from '../lib/middleware';
 
 describe('Middleware -> middleware', () => {
   const middleware = new Middleware();

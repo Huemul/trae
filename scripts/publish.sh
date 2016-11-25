@@ -26,16 +26,17 @@ if [ $(git name-rev --name-only HEAD) = "master" ]; then
   lintStatus=$?;
   npm run test;
   testStatus=$?;
-  npm run build;
-  buildStatus=$?;
 
-  if [ $lintStatus -ne 0 ] || [ $testStatus -ne 0 ] || [ $buildStatus -ne 0 ]; then
+  if [ $lintStatus -ne 0 ] || [ $testStatus -ne 0 ]; then
     exit 1;
   fi
 
+  npm version ${MODE} -m ":bookmark: ${MODE} version bump.";
+
+  npm run build;
   git add dist/;
-  git commit -m "Build dist.";
-  npm version ${MODE} -m "${MODE} version bump.";
+  git commit -m ":package: Build dist.";
+
   npm publish;
   git push origin master;
   git push --tags;

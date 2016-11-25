@@ -8,7 +8,7 @@
     "request",
     "api"
   ],
-  "main": "lib/trae.min.js",
+  "main": "dist/trae.min.js",
   "author": "gillchristian <gillchristiang@gmail.com>",
   "contributors": [
     "ndelvalle <nicolas.delvalle@gmail.com>"

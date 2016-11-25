@@ -1,5 +1,5 @@
 /* globals describe it expect */
-const utils = require('../lib/utils');
+import { skip } from '../lib/utils';
 
 describe('utils', () => {
   describe('skip', () => {
@@ -17,7 +17,7 @@ describe('utils', () => {
           foo: 'bar'
         }
       };
-      const actual = utils.skip(obj, ['foo']);
+      const actual = skip(obj, ['foo']);
       expect(actual).toEqual(expected);
     });
 
@@ -26,7 +26,7 @@ describe('utils', () => {
         foo: 'bar'
       };
 
-      const actual = utils.skip(obj, ['baz']);
+      const actual = skip(obj, ['baz']);
       expect(actual).toEqual(obj);
     });
   });

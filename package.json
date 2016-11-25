@@ -29,6 +29,7 @@
     "test": "jest --coverage --verbose",
     "test:w": "jest --watch --verbose",
     "check-cover": "open coverage/lcov-report/index.html",
+    "check-bundle": "open coverage/bundle-statistics.html",
     "eslint": "eslint . --ext .js",
     "release": "./scripts/publish.sh"
   },
@@ -62,6 +63,7 @@
     "rollup-plugin-node-resolve": "^2.0.0",
     "rollup-plugin-replace": "^1.1.1",
     "rollup-plugin-uglify": "^1.0.1",
+    "rollup-plugin-visualizer": "^0.1.5",
     "rollup-watch": "^2.5.0"
   },
   "pre-commit": [

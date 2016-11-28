@@ -1,6 +1,6 @@
 # trae
 
-> the fetch library
+> A minimalistic Fetch based HTTP client for the browser
 
 [ ![Codeship Status for Huemul/trae](https://img.shields.io/codeship/1d9dc9b0-84c0-0134-0393-62ca7b64624e/master.svg)](https://app.codeship.com/projects/183213)
 [![Coverage Status](https://coveralls.io/repos/github/Huemul/trae/badge.svg?branch=master)](https://coveralls.io/github/Huemul/trae?branch=master)
@@ -8,6 +8,9 @@
 [![bitHound Dependencies](https://www.bithound.io/github/Huemul/trae/badges/dependencies.svg)](https://www.bithound.io/github/Huemul/trae/master/dependencies/npm)
 [![bitHound Dev Dependencies](https://www.bithound.io/github/Huemul/trae/badges/devDependencies.svg)](https://www.bithound.io/github/Huemul/trae/master/dependencies/npm)
 [![bitHound Code](https://www.bithound.io/github/Huemul/trae/badges/code.svg)](https://www.bithound.io/github/Huemul/trae)
+[![Version](https://img.shields.io/npm/v/trae.svg)](https://www.npmjs.com/package/trae)
+[![License](https://img.shields.io/npm/l/trae.svg)](https://www.npmjs.com/package/trae)
+[![Monthly Downloads](https://img.shields.io/npm/dm/trae.svg)](https://www.npmjs.com/package/trae)
 
 ## Content
 
@@ -17,7 +20,7 @@
   1. [Request methods](#request-methods)
   1. [Defaults & middleware](#defaults-middleware)
   1. [Instances](#instances)
-1. [Response & error](#response-error)
+1. [Response](#response)
 1. [Contributing](#contributing)
 
 ## Install
@@ -32,23 +35,23 @@ $ yarn add trae
 
 ## Basic Usage
 
-A `GET` request to `/api/posts?id=123`:
+A `GET` request to `https://www.google.com.ar/search?q=foo`:
 
 ```js
-trae.get('/api/posts', { params: { id: 123 } })
-  .then((json) => {
-    console.log(json);
+trae.get('https://www.google.com.ar/search', { params: { q: 'foo' } })
+  .then((response) => {
+    console.log(response);
   })
   .catch((err) => {
     console.error(err);
   });
 ```
 
-A `POST` request to `/api/posts`:
+A `POST` request to `https://www.foo.com/api/posts`:
 
 ```js
-trae.post('/api/posts', {
-  title: 'My Post',
+trae.post('https://www.foo.com/api/posts', {
+  title  : 'My Post',
   content: 'My awesome post content...'
 })
   .then(() => {
@@ -59,29 +62,29 @@ trae.post('/api/posts', {
   });
 ```
 
-**[⬆ back to top](#content)**
+[⬆ back to top](#content)
 
 ## Trae API
 
 ### Request methods
 
 ```js
-trae.get(url[, config])
+trae.get(url[, config]);
 
-trae.delete(url[, config])
+trae.delete(url[, config]);
 
-trae.head(url[, config])
+trae.head(url[, config]);
 
-trae.post(url[, body[, config]])
+trae.post(url[, body[, config]]);
 
-trae.put(url[, body[, config]])
+trae.put(url[, body[, config]]);
 
-trae.patch(url[, body[, config]])
+trae.patch(url[, body[, config]]);
 ```
 
 *NOTE*: the request method cannot be overwritten for the methods above.
 
-**[⬆ back to top](#content)**
+[⬆ back to top](#content)
 
 ### Defaults & middleware
 
@@ -91,60 +94,58 @@ Sets the default configuration to use on every requests. This is merged with the
 
 ```js
 trae.defaults({
-  mode: 'no-cors',
+  mode       : 'no-cors',
   credentials: 'same-origin'
-})
+});
 ```
 
-When call with no param it acts as a getter, returning the defaults.
+When called with no param it acts as a getter, returning the defined defaults.
 
 ```js
-const config = trae.defaults()
+const config = trae.defaults();
 ```
 
 #### `trae.baseUrl([url])`
 
-Acts as a shorthand for `trae.defaults({baseUrl: url})`. Also returns the `baseUrl` when no params are passed.
+Shorthand for `trae.defaults({baseUrl: url})`. Also returns the `baseUrl` when no params are passed.
 
 ```js
-const id = 123
-trae.get(`/${id}`) // GET: /123
+trae.baseUrl('https://www.foo.com');
 
-trae.baseUrl('/api/posts')
+const baseUrl = trae.baseUrl();
+console.log(baseUrl); // 'https://www.foo.com'
 
-const baseUrl = trae.baseUrl()
-
-console.log(baseUrl) // '/api/posts'
-
-trae.get(`/${id}`) // GET: /api/posts/123
+trae.get('/baz'); // GET: https://www.foo.com/baz
 ```
 
 #### `trae.use(middlewares)`
 
-Sets the middlewares to be used to intercept the request and responses.
+Sets the middlewares to be used to intercept the requests configuration, fulfilled and rejection responses.
 
 ```js
 function addAccessToken(config) {
-  config.headers['X-ACCESSS-TOKEN'] = getUserToken()
-  return config
+  config.headers['X-ACCESSS-TOKEN'] = getUserToken();
+  return config;
 }
 
-function normalizePosts(response) {
-  return normalize(response.data, arrayOf(post))
+function normalizeResponse(response) {
+  response.data.fooAttribute = 'foo';
+  return response;
 }
 
 function logErrors(err) {
-  console.error(err)
+  console.error(err);
+  return Promise.reject(err);
 }
 
 trae.use({
-  config: addAccessToken,
-  fulfill: normalizePosts,
-  reject: logErrors
+  config : addAccessToken,
+  fulfill: normalizeResponse,
+  reject : logErrors
 })
 ```
 
-Note that middlewares can be added separately.
+Note that middlewares can be added separately:
 
 ```js
 trae.use({
@@ -152,7 +153,7 @@ trae.use({
 })
 
 trae.use({
-  fulfill: normalizePosts
+  fulfill: normalizeResponse
 })
 
 trae.use({
@@ -160,44 +161,47 @@ trae.use({
 })
 ```
 
-There is one thing to keep in mind though, `fulfill` and `reject` are chained together in the `then` of the promise. To keep things more consistent good practice would be to add `fulfill` and `reject` together.
+There is one thing to keep in mind though, `fulfill` and `reject` middlewares are chained together in the `then` state of the promise. To keep things more consistent a good practice would be to add them together.
+
+```js
+// Defining fulfill and reject middlewares together
+trae.use({
+  fulfill: normalizeResponse,
+  reject : logErrors
+});
+
+// will result on the following behavior
+trae.get('/api/posts')
+  .then(normalizeResponse, logErrors);
+
+```
 
 When no `fulfill` is added, identity function is used, but when no `reject` is added, a rejected promise is returned, to be handled down the chain.
 
 ```js
+// Defining fulfill and reject middlewares separately
 trae.use({
-  fulfill: normalizePosts,
-  reject: logErrors
-})
-
-// will result on
-trae.get('/api/posts')
-  .then(normalizePosts, logErrors)
-
-// vs
-
-trae.use({
-  fulfill: normalizePosts
-})
+  fulfill: normalizeResponse
+});
 
 trae.use({
   reject: logErrors
-})
+});
 
-// will result on
+// will result on the following behavior
 trae.get('/api/posts')
-  .then(normalizePosts, err => Promise.reject(err))
+  .then(normalizeResponse, err => Promise.reject(err))
   .then(res => res, logErrors)
 
 ```
 
-**[⬆ back to top](#content)**
+[⬆ back to top](#content)
 
 ### Instances
 
 #### `trae.create([config])`
 
-Creates an instance of `Trae` with its own defaults and middleware. All the above methods can be used on instances as they are used with the exposed `trae`.
+Creates an instance of `Trae` with its own defaults and middlewares. The API documentation applies for instances as well.
 
 ```js
 const api = trae.create({baseUrl: '/api'})
@@ -205,9 +209,9 @@ const api = trae.create({baseUrl: '/api'})
 api.get('/posts') // GET: /api/posts
 ```
 
-**[⬆ back to top](#content)**
+[⬆ back to top](#content)
 
-## Response & error
+## Response
 
 The request methods return a promise that resolves to this object:
 
@@ -227,23 +231,23 @@ The request methods return a promise that resolves to this object:
 }
 ```
 
-*NOTE*: `data` is read using `response.json()` when `response.headers['Content-Type']` is `application/json` and will be an object, otherwise it is read using `response.text()` and will be a string. If you need to use [another reader ](https://developer.mozilla.org/en-US/docs/Web/API/Body), it can be specified by setting the `bodyType` config property.
+*NOTE*: `data` is read using `response.json()` when `response.headers['Content-Type']` is `application/json` and will be an object, otherwise it is read using `response.text()` and will result in a string. If you need to use [another reader ](https://developer.mozilla.org/en-US/docs/Web/API/Body), it can be specified by setting the `bodyType` config property.
 
 ```js
 trae.get('/api/posts')
-  .then(response => {
-    console.log(response.data)
-    console.log(response.status)
-    console.log(response.statusText)
-    console.log(response.headers)
-  })
+  .then(({ data, status, statusText, headers }) => {
+    console.log(data);
+    console.log(status);
+    console.log(statusText);
+    console.log(headers);
+  });
 ```
 
-**[⬆ back to top](#content)**
+[⬆ back to top](#content)
 
 ## Contributing
 
-[Create an issue](https://github.com/Huemul/trae/issues/new) to report any bugs you find.
+[Create an issue](https://github.com/Huemul/trae/issues/new) to report bugs or if you have any suggestion on how to improve this project.
 
 If you want to submit a PR and do not know where to start or what to add check out the [project page](https://github.com/Huemul/trae/projects/1) to find out what we are working on, and what to contribute next.
 
@@ -251,4 +255,4 @@ If you want to submit a PR and do not know where to start or what to add check o
 
 **MIT**
 
-**[⬆ back to top](#content)**
+[⬆ back to top](#content)

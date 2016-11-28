@@ -1,6 +1,6 @@
 # trae
 
-> A minimalistic Fetch based HTTP client for the browser
+Minimalistic HTTP client for the browser. Based on [Fetch](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API) API, allows `trae` to be future-proofing, to have a clean implementation and support streaming among other goodies.
 
 [ ![Codeship Status for Huemul/trae](https://img.shields.io/codeship/1d9dc9b0-84c0-0134-0393-62ca7b64624e/master.svg)](https://app.codeship.com/projects/183213)
 [![Coverage Status](https://coveralls.io/repos/github/Huemul/trae/badge.svg?branch=master)](https://coveralls.io/github/Huemul/trae?branch=master)
@@ -8,9 +8,6 @@
 [![bitHound Dependencies](https://www.bithound.io/github/Huemul/trae/badges/dependencies.svg)](https://www.bithound.io/github/Huemul/trae/master/dependencies/npm)
 [![bitHound Dev Dependencies](https://www.bithound.io/github/Huemul/trae/badges/devDependencies.svg)](https://www.bithound.io/github/Huemul/trae/master/dependencies/npm)
 [![bitHound Code](https://www.bithound.io/github/Huemul/trae/badges/code.svg)](https://www.bithound.io/github/Huemul/trae)
-[![Version](https://img.shields.io/npm/v/trae.svg)](https://www.npmjs.com/package/trae)
-[![License](https://img.shields.io/npm/l/trae.svg)](https://www.npmjs.com/package/trae)
-[![Monthly Downloads](https://img.shields.io/npm/dm/trae.svg)](https://www.npmjs.com/package/trae)
 
 ## Content
 
@@ -18,7 +15,8 @@
 1. [Basic Usage](#basic-usage)
 1. [Trae API](#trea-api)
   1. [Request methods](#request-methods)
-  1. [Defaults & middleware](#defaults-middleware)
+  1. [Defaults](#defaults)
+  1. [Middlewares](#middlewares)
   1. [Instances](#instances)
 1. [Response](#response)
 1. [Contributing](#contributing)
@@ -86,7 +84,7 @@ trae.patch(url[, body[, config]]);
 
 [⬆ back to top](#content)
 
-### Defaults & middleware
+### Defaults
 
 #### `trae.defaults([config])`
 
@@ -117,6 +115,8 @@ console.log(baseUrl); // 'https://www.foo.com'
 
 trae.get('/baz'); // GET: https://www.foo.com/baz
 ```
+
+### Middlewares
 
 #### `trae.use(middlewares)`
 
@@ -231,7 +231,13 @@ The request methods return a promise that resolves to this object:
 }
 ```
 
-*NOTE*: `data` is read using `response.json()` when `response.headers['Content-Type']` is `application/json` and will be an object, otherwise it is read using `response.text()` and will result in a string. If you need to use [another reader ](https://developer.mozilla.org/en-US/docs/Web/API/Body), it can be specified by setting the `bodyType` config property.
+#### data
+
+`data` is read using `response.json()` when `response.headers['Content-Type']` contains `application/json` and will be an object, otherwise it is read using `response.text()` and will result in a string. If you need to use [another reader ](https://developer.mozilla.org/en-US/docs/Web/API/Body), it can be specified by setting the `bodyType` config property.
+
+#### headers
+
+`headers` is an instance of [Headers](https://developer.mozilla.org/en-US/docs/Web/API/Headers/Headers) class, it has methods handlers like `append`, `get`, `getAll`, `has`, `set`.
 
 ```js
 trae.get('/api/posts')
@@ -253,6 +259,6 @@ If you want to submit a PR and do not know where to start or what to add check o
 
 ## License
 
-**MIT**
+[MIT License](https://github.com/Huemul/trae/blob/master/LICENSE)
 
 [⬆ back to top](#content)

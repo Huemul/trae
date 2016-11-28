@@ -237,17 +237,7 @@ The request methods return a promise that resolves to this object:
 
 #### headers
 
-`headers` is an instance of [Headers](https://developer.mozilla.org/en-US/docs/Web/API/Headers/Headers) class, it has methods handlers like `append`, `get`, `getAll`, `has`, `set`.
-
-```js
-trae.get('/api/posts')
-  .then(({ data, status, statusText, headers }) => {
-    console.log(data);
-    console.log(status);
-    console.log(statusText);
-    console.log(headers);
-  });
-```
+`headers` is an instance of [Headers](https://developer.mozilla.org/en-US/docs/Web/API/Headers/Headers), it has methods handlers like `append`, `get`, `getAll`, `has`, `set`.
 
 [⬆ back to top](#content)
 

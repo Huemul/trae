@@ -22,7 +22,8 @@
     "no-continue": 0,
     "import/no-extraneous-dependencies": 0,
     "import/newline-after-import": 0,
-    "no-mixed-operators": 0
+    "no-mixed-operators": 0,
+    "no-useless-escape": 0
   },
   "globals": {
     "fetch": true

@@ -1,4 +1,5 @@
 /* globals describe it expect */
+
 import { skip } from '../lib/utils';
 
 describe('utils', () => {

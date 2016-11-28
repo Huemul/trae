@@ -1,4 +1,5 @@
 /* globals describe it expect */
+
 import { format, isAbsolute, combine } from '../lib/helpers/url-handler';
 
 describe('urlHandler', () => {

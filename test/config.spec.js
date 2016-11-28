@@ -1,9 +1,10 @@
 /* global describe it expect */
+
 import { merge } from '../lib/utils';
 import Config    from '../lib/config';
 
 const DEFAULT_HEADERS = {
-  Accept: 'application/json, text/plain, */*',
+  Accept        : 'application/json, text/plain, */*',
   'Content-Type': 'application/json'
 };
 
@@ -15,7 +16,7 @@ const DEFAULT_CONFIG = {
 const defaults = merge(DEFAULT_CONFIG, { headers: DEFAULT_HEADERS });
 
 const configParams = {
-  mode: 'no-cors',
+  mode       : 'no-cors',
   credentials: 'same-origin'
 };
 

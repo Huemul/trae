@@ -58,16 +58,23 @@ describe('trae', () => {
 
   describe('use', () => {
     it('sets the middlewares', () => {
-      function req(config) { return Promise.resolve(config); }
-      function fulfill(config) { return Promise.resolve(config); }
+      function pre(config) { return Promise.resolve(config); }
+      function fulfill(res) { return Promise.resolve(res); }
       function reject(error) { return Promise.reject(error); }
+      function post(res) { return Promise.resolve(res); }
 
       const apiFoo = trae.create();
-      apiFoo.use({ config: req, fulfill, reject });
+      apiFoo.use({
+        pre,
+        fulfill,
+        reject,
+        post
+      });
 
-      expect(apiFoo._middleware._req[0]).toBe(req);
+      expect(apiFoo._middleware._req[0]).toBe(pre);
       expect(apiFoo._middleware._res[0].fulfill).toBe(fulfill);
       expect(apiFoo._middleware._res[0].reject).toBe(reject);
+      expect(apiFoo._middleware._postRes[0]).toBe(post);
     });
   });
 

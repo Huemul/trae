@@ -439,13 +439,13 @@ describe('HTTP -> http', () => {
     });
 
     it('makes a GET request to baseURL + path using error and after middlewares', () => {
-      function after(res) {
-        res.after = true;
-        return Promise.resolve(res);
+      function after(err) {
+        err.after = true;
+        return Promise.resolve(err);
       }
 
       function error(err) {
-        err.success = true;
+        err.error = true;
       }
 
       const url = `${TEST_URL}/foo`;
@@ -454,9 +454,9 @@ describe('HTTP -> http', () => {
       trae.use({ after, error });
 
       return trae.get(url)
-        .catch((res) => {
-          expect(res.error).toBe(true);
-          expect(res.after).toBe(true);
+        .catch((err) => {
+          expect(err.error).toBe(true);
+          expect(err.after).toBe(true);
         });
     });
   });

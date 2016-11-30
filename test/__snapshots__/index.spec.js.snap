@@ -194,8 +194,6 @@ Object {
 }
 `;
 
-exports[`HTTP -> http response not ok gets rejected 1`] = `[Error: Not Found]`;
-
 exports[`trae defaults returns the current default config when no params are passed 1`] = `
 Object {
   "headers": Object {

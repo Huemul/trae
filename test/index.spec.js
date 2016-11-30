@@ -58,44 +58,29 @@ describe('trae', () => {
 
   describe('use', () => {
     it('sets the middlewares', () => {
-      function pre(config) { return Promise.resolve(config); }
-      function fulfill(res) { return Promise.resolve(res); }
-      function reject(error) { return Promise.reject(error); }
-      function post(res) { return Promise.resolve(res); }
+      function before(config) { return Promise.resolve(config); }
+      function success(res) { return Promise.resolve(res); }
+      function error(err) { }
+      function after(res) { return Promise.resolve(res); }
 
       const apiFoo = trae.create();
       apiFoo.use({
-        pre,
-        fulfill,
-        reject,
-        post
+        before,
+        success,
+        error,
+        after
       });
 
-      expect(apiFoo._middleware._req[0]).toBe(pre);
-      expect(apiFoo._middleware._res[0].fulfill).toBe(fulfill);
-      expect(apiFoo._middleware._res[0].reject).toBe(reject);
-      expect(apiFoo._middleware._postRes[0]).toBe(post);
+      expect(apiFoo._middleware._before[0]).toBe(before);
+      expect(apiFoo._middleware._success[0]).toBe(success);
+      expect(apiFoo._middleware._error[0]).toBe(error);
+      expect(apiFoo._middleware._after[0]).toBe(after);
     });
   });
 
 });
 
 describe('HTTP -> http', () => {
-
-  describe('response not ok', () => {
-    it('gets rejected', () => {
-      const url = `${TEST_URL}/foo`;
-      fetchMock.mock(url, {
-        status: 404
-      });
-
-      return trae.get(url)
-        .catch((error) => {
-          expect(error).toMatchSnapshot();
-        });
-    });
-  });
-
   describe('get', () => {
     it('makes a GET request to baseURL + path', () => {
       const url = `${TEST_URL}/foo`;
@@ -424,6 +409,55 @@ describe('HTTP -> http', () => {
         expect(fetchMock.lastUrl()).toBe(url);
         expect(fetchMock.lastOptions().method).toBe('head');
       });
+    });
+  });
+
+  describe('middlewares', () => {
+    it('makes a GET request to baseURL + path using success and after middlewares', () => {
+      function after(res) {
+        res.after = true;
+        return Promise.resolve(res);
+      }
+
+      function success(res) {
+        res.success = true;
+        return Promise.resolve(res);
+      }
+
+      const url = `${TEST_URL}/foo`;
+      fetchMock.mock(url, {
+        status: 200
+      });
+
+      trae.use({ after, success });
+
+      return trae.get(url)
+        .then((res) => {
+          expect(res.success).toBe(true);
+          expect(res.after).toBe(true);
+        });
+    });
+
+    it('makes a GET request to baseURL + path using error and after middlewares', () => {
+      function after(res) {
+        res.after = true;
+        return Promise.resolve(res);
+      }
+
+      function error(err) {
+        err.success = true;
+      }
+
+      const url = `${TEST_URL}/foo`;
+      fetchMock.mock(url, { status: 500 });
+
+      trae.use({ after, error });
+
+      return trae.get(url)
+        .catch((res) => {
+          expect(res.error).toBe(true);
+          expect(res.after).toBe(true);
+        });
     });
   });
 });

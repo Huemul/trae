@@ -1,12 +1,12 @@
 test
-.eslintrc
-yarn.lock
 coverage
 docs
 lib
 scripts
 utils
+.eslintrc
 .babelrc
 .eslintignore
 docs.txt
 rollup.config.js
+yarn.lock

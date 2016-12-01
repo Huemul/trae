@@ -177,7 +177,7 @@ describe('Middleware -> middleware', () => {
       const middleware = new Middleware();
       const res   = { test: true };
 
-      middleware.after((res) => {
+      middleware.after((err, res) => {
         res.foo = 'bar';
         return res;
       });
@@ -195,9 +195,9 @@ describe('Middleware -> middleware', () => {
       const middleware = new Middleware();
       const err   = { test: true };
 
-      middleware.after((res) => {
-        res.foo = 'bar';
-        return res;
+      middleware.after((err) => {
+        err.foo = 'bar';
+        return err;
       });
 
       return middleware.resolveAfter(err)

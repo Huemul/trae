@@ -414,7 +414,7 @@ describe('HTTP -> http', () => {
 
   describe('middlewares', () => {
     it('makes a GET request to baseURL + path using success and after middlewares', () => {
-      function after(res) {
+      function after(err, res) {
         res.after = true;
         return Promise.resolve(res);
       }

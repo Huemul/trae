@@ -1,3 +1,12 @@
 test
 .eslintrc
 yarn.lock
+coverage
+docs
+lib
+scripts
+utils
+.babelrc
+.eslintignore
+docs.txt
+rollup.config.js

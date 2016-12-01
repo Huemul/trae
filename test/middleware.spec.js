@@ -6,43 +6,67 @@ describe('Middleware -> middleware', () => {
   const middleware = new Middleware();
 
   it('initialize req and res middlewares attributes', () => {
-    expect(middleware._req).toEqual([]);
-    expect(middleware._res).toEqual([]);
+    expect(middleware._before).toEqual([]);
+    expect(middleware._success).toEqual([]);
+    expect(middleware._error).toEqual([]);
+    expect(middleware._after).toEqual([]);
   });
 
-  describe('request', () => {
-    it('adds the middleware to _req and returns its id (Array position)', () => {
+  describe('before', () => {
+    it('adds the middleware to _before and returns its id (Array position)', () => {
       const middleware = new Middleware();
 
-      const id = middleware.request(() => {});
+      const id = middleware.before(() => {});
 
-      expect(middleware._req.length).toEqual(1);
+      expect(middleware._before.length).toEqual(1);
       expect(id).toEqual(0);
     });
   });
 
-  describe('response', () => {
-    it('adds the middleware to _res and returns its id (Array position)', () => {
+  describe('success', () => {
+    it('adds the middleware to _success and returns its id (Array position)', () => {
       const middleware = new Middleware();
 
-      const id = middleware.response(() => {});
+      const id = middleware.success(() => {});
 
-      expect(middleware._res.length).toEqual(1);
+      expect(middleware._success.length).toEqual(1);
       expect(id).toEqual(0);
     });
   });
 
-  describe('resolveRequests', () => {
-    it('apply changes to config attribute chaining _req functions', () => {
+  describe('error', () => {
+    it('adds the middleware to _error and returns its id (Array position)', () => {
+      const middleware = new Middleware();
+
+      const id = middleware.error(() => {});
+
+      expect(middleware._error.length).toEqual(1);
+      expect(id).toEqual(0);
+    });
+  });
+
+  describe('after', () => {
+    it('adds the middleware to _after and returns its id (Array position)', () => {
+      const middleware = new Middleware();
+
+      const id = middleware.after(() => {});
+
+      expect(middleware._after.length).toEqual(1);
+      expect(id).toEqual(0);
+    });
+  });
+
+  describe('resolveBefore', () => {
+    it('apply changes to config attribute chaining _before functions', () => {
       const middleware = new Middleware();
       const config     = { test: true };
 
-      middleware.request((config) => {
+      middleware.before((config) => {
         config.foo  = 'bar';
         return config;
       });
 
-      return middleware.resolveRequests(config)
+      return middleware.resolveBefore(config)
       .then((res) => {
         expect(res).toEqual({
           foo : 'bar',
@@ -51,26 +75,26 @@ describe('Middleware -> middleware', () => {
       });
     });
 
-    it('apply changes to config attribute chaining _req functions in ascending order', () => {
+    it('apply changes to config attribute chaining _before functions in ascending order', () => {
       const middleware = new Middleware();
       const config     = {};
 
-      middleware.request((config) => {
+      middleware.before((config) => {
         config.order = 0;
         return config;
       });
 
-      middleware.request((config) => {
+      middleware.before((config) => {
         config.order = 1;
         return config;
       });
 
-      middleware.request((config) => {
+      middleware.before((config) => {
         config.order = 2;
         return config;
       });
 
-      return middleware.resolveRequests(config)
+      return middleware.resolveBefore(config)
       .then((res) => {
         expect(res).toEqual({
           order: 2
@@ -78,26 +102,26 @@ describe('Middleware -> middleware', () => {
       });
     });
 
-    it('apply changes to config attribute chaining _req functions mergin data', () => {
+    it('apply changes to config attribute chaining _before functions mergin data', () => {
       const middleware = new Middleware();
       const config     = {};
 
-      middleware.request((config) => {
+      middleware.before((config) => {
         config.data1 = 'data1';
         return config;
       });
 
-      middleware.request((config) => {
+      middleware.before((config) => {
         config.data2 = 'data2';
         return config;
       });
 
-      middleware.request((config) => {
+      middleware.before((config) => {
         config.data3 = 'data3';
         return config;
       });
 
-      return middleware.resolveRequests(config)
+      return middleware.resolveBefore(config)
       .then((res) => {
         expect(res).toEqual({
           data1: 'data1',
@@ -108,17 +132,57 @@ describe('Middleware -> middleware', () => {
     });
   });
 
-  describe('resolveResponses', () => {
-    it('apply changes to response chaining _res functions', () => {
+  describe('resolveSuccess', () => {
+    it('apply changes to response chaining _success functions', () => {
       const middleware = new Middleware();
-      const response   = { test: true };
+      const res   = { test: true };
 
-      middleware.response((response) => {
-        response.foo = 'bar';
-        return response;
+      middleware.success((res) => {
+        res.foo = 'bar';
+        return res;
       });
 
-      return middleware.resolveResponses(response)
+      return middleware.resolveSuccess(res)
+      .then((res) => {
+        expect(res).toEqual({
+          foo : 'bar',
+          test: true
+        });
+      });
+    });
+  });
+
+  describe('resolveError', () => {
+    it('apply changes to response chaining _error functions', () => {
+      const middleware = new Middleware();
+      const err   = { test: true };
+
+      middleware.error((err) => {
+        err.foo = 'bar';
+        return err;
+      });
+
+      return middleware.resolveError(err)
+      .catch((err) => {
+        expect(err).toEqual({
+          foo : 'bar',
+          test: true
+        });
+      });
+    });
+  });
+
+  describe('resolveAfter', () => {
+    it('apply changes to response chaining _after functions', () => {
+      const middleware = new Middleware();
+      const res   = { test: true };
+
+      middleware.after((res) => {
+        res.foo = 'bar';
+        return res;
+      });
+
+      return middleware.resolveAfter(res)
       .then((res) => {
         expect(res).toEqual({
           foo : 'bar',

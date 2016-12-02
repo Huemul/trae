@@ -1,4 +1,5 @@
 node_modules
 coverage
 dist
-docs
+docs/js/prism.min.js
+*.html

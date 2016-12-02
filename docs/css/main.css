@@ -37,6 +37,9 @@ a:active {
 }
 
 .code {
-  width: 300px;
   font-size: 12px;
+}
+
+.code code {
+  width: 300px;
 }

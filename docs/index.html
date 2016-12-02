@@ -21,31 +21,26 @@
           by <a href="https://github.com/Huemul/" target="_blank" rel="noopener"><i>Huemul</i></a>
         </h2>
         <h3>Demo</h3>
-        <pre>
-          <code id="result" class="language-javascript code">
-            const result = document.getElementById('result');
-            const url = 'https://jsonplaceholder.typicode.com/posts/1';
+        <pre id="result" class="code">
+          <code class="language-javascript">
+  const result = document.getElementById('result');
+  const url = 'https://jsonplaceholder.typicode.com/posts/1';
 
-            function success(res) {
-              res.data = null;
-              res = JSON.stringify(res);
-              return Promise.resolve(res);
-            }
+  function success(res) {
+    res.data = null;
+    return Promise.resolve(res);
+  }
 
-            function after(err, res) {
-              res = res.split(',');
-              return Promise.resolve(res);
-            }
+  trae.use({ success });
 
-            trae.use({ success, after });
-
-            trae.get(url)
-            .then((res) => {
-              let html = '\n\t\t\t// request final reponse\n\t\t\t';
-              html += res.join('<br>\t\t\t');
-              result.innerHTML += html;
-            });
+  trae.get(url)
+  .then((res) => {
+    let html = '\n// request final reponse\n';
+    html += JSON.stringify(res, null, '\t');
+    result.innerHTML += html;
+  });
           </code>
+          <div id="loading-text" ></div>
         </pre>
       </div>
     </main>

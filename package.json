@@ -26,7 +26,7 @@
     "build": "NODE_ENV=production rollup -c",
     "build:dev": "rollup -c",
     "build:dev:w": "rollup -c -w",
-    "build:docs": "npm run build && cp dist/trae.min.js docs/trae.min.js",
+    "build:docs": "npm run build && cp dist/trae.min.js docs/js/trae.min.js",
     "test": "jest --coverage --verbose",
     "test:w": "jest --watch --verbose",
     "check-cover": "open coverage/lcov-report/index.html",

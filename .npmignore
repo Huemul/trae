@@ -1,3 +1,11 @@
 test
+docs
+scripts
+test
+utils
+.babelrc
+.eslintignore
 .eslintrc
+docs.txt
+rollup.config.js
 yarn.lock

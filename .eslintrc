@@ -20,6 +20,7 @@
     "padded-blocks": 0,
     "no-console": 0,
     "no-continue": 0,
+    "import/extensions": 0,
     "import/no-extraneous-dependencies": 0,
     "import/newline-after-import": 0,
     "no-mixed-operators": 0,

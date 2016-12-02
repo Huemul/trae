@@ -414,7 +414,7 @@ describe('HTTP -> http', () => {
 
   describe('middlewares', () => {
     it('makes a GET request to baseURL + path using success and after middlewares', () => {
-      function after(res) {
+      function after(err, res) {
         res.after = true;
         return Promise.resolve(res);
       }
@@ -441,7 +441,7 @@ describe('HTTP -> http', () => {
     it('makes a GET request to baseURL + path using error and after middlewares', () => {
       function after(err) {
         err.after = true;
-        return Promise.resolve(err);
+        return Promise.reject(err);
       }
 
       function error(err) {

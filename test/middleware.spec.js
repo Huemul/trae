@@ -173,16 +173,34 @@ describe('Middleware -> middleware', () => {
   });
 
   describe('resolveAfter', () => {
-    it('apply changes to response chaining _after functions', () => {
+    it('apply changes to response chaining _after functions after success', () => {
       const middleware = new Middleware();
       const res   = { test: true };
 
-      middleware.after((res) => {
+      middleware.after((err, res) => {
         res.foo = 'bar';
         return res;
       });
 
-      return middleware.resolveAfter(res)
+      return middleware.resolveAfter(null, res)
+      .then((res) => {
+        expect(res).toEqual({
+          foo : 'bar',
+          test: true
+        });
+      });
+    });
+
+    it('apply changes to response chaining _after functions after error', () => {
+      const middleware = new Middleware();
+      const err   = { test: true };
+
+      middleware.after((err) => {
+        err.foo = 'bar';
+        return err;
+      });
+
+      return middleware.resolveAfter(err)
       .then((res) => {
         expect(res).toEqual({
           foo : 'bar',

@@ -1,0 +1,45 @@
+body {
+  font-family: "Courier New", monospace;
+  color: #555;
+  margin: 0;
+  padding: 0;
+  height: 100vh;
+  background-color: #FDE9C5;
+}
+main {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.title {
+  display: flex;
+  justify-content: center;
+  align-items: baseline;
+  cursor: default;
+}
+a {
+  color: #555;
+  text-decoration: none;
+}
+a:hover,
+a:link,
+a:active {
+  color: #D74E69;
+  text-decoration: none;
+}
+
+.code {
+  font-size: 12px;
+}
+
+.code code {
+  width: 300px;
+}

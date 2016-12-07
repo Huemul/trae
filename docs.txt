@@ -1,5 +1,0 @@
-Request
-  @link: https://developer.mozilla.org/en-US/docs/Web/API/Request/Request
-
-Request.mode
-  @link: https://developer.mozilla.org/en-US/docs/Web/API/Request/mode

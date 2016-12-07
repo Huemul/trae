@@ -51,7 +51,14 @@ describe('trae', () => {
       const apiFoo = trae.create();
       apiFoo.defaults({ baseUrl: '/api/foo' });
       expect(apiFoo._baseUrl).toBe('/api/foo');
-      expect(apiFoo.defaults().baseUrl).not.toBeDefined();
+      expect(apiFoo._config.get().baseUrl).not.toBeDefined();
+    });
+
+    it('adds the baseUrl to trae._baseUrl and add it to the default response', () => {
+      const apiFoo = trae.create();
+      apiFoo.defaults({ baseUrl: '/api/foo' });
+      expect(apiFoo._baseUrl).toBe('/api/foo');
+      expect(apiFoo.defaults().baseUrl).toBeDefined();
     });
 
   });

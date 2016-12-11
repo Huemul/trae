@@ -31,7 +31,7 @@
     "check-cover": "open coverage/lcov-report/index.html",
     "check-bundle": "open coverage/bundle-statistics.html",
     "eslint": "eslint . --ext .js",
-    "prepublish": "npm run build",
+    "prepublish": "./scripts/publish.sh",
     "release": "np"
   },
   "dependencies": {

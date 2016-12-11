@@ -26,15 +26,17 @@
     "build": "NODE_ENV=production rollup -c",
     "build:dev": "rollup -c",
     "build:dev:w": "rollup -c -w",
-    "test": "jest --coverage --verbose",
+    "test": "npm run eslint && jest --coverage --verbose",
     "test:w": "jest --watch --verbose",
     "check-cover": "open coverage/lcov-report/index.html",
     "check-bundle": "open coverage/bundle-statistics.html",
     "eslint": "eslint . --ext .js",
-    "release": "./scripts/publish.sh"
+    "prepublish": "npm run build",
+    "release": "np"
   },
   "dependencies": {
     "merge": "^1.2.0",
+    "np": "^2.11.0",
     "trae-query": "^0.1.0",
     "whatwg-fetch": "^1.0.0"
   },

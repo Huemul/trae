@@ -194,6 +194,60 @@ Object {
 }
 `;
 
+exports[`Middlewares after runs the fulfill after middlewares 1`] = `
+Object {
+  "data": Object {
+    "foo": "bar",
+    "test": true,
+  },
+  "headers": Headers {
+    "_headers": Object {
+      "content-type": Array [
+        "application/json",
+      ],
+    },
+  },
+  "status": 200,
+  "statusText": "OK",
+}
+`;
+
+exports[`Middlewares after runs the reject after middlewares 1`] = `[Error: Internal Server Error]`;
+
+exports[`Middlewares before runs the before middlewares 1`] = `
+Object {
+  "data": Object {
+    "foo": "bar",
+  },
+  "headers": Headers {
+    "_headers": Object {
+      "content-type": Array [
+        "application/json",
+      ],
+    },
+  },
+  "status": 200,
+  "statusText": "OK",
+}
+`;
+
+exports[`Middlewares finally runs the finally middlewares 1`] = `
+Object {
+  "data": Object {
+    "foo": "bar",
+  },
+  "headers": Headers {
+    "_headers": Object {
+      "content-type": Array [
+        "application/json",
+      ],
+    },
+  },
+  "status": 200,
+  "statusText": "OK",
+}
+`;
+
 exports[`trae defaults returns the current default config when no params are passed 1`] = `
 Object {
   "headers": Object {

@@ -5,11 +5,10 @@ import Middleware from '../lib/middleware';
 describe('Middleware -> middleware', () => {
   const middleware = new Middleware();
 
-  it('initialize req and res middlewares attributes', () => {
+  it('initialize before, after and finally middlewares attributes', () => {
     expect(middleware._before).toEqual([]);
-    expect(middleware._success).toEqual([]);
-    expect(middleware._error).toEqual([]);
     expect(middleware._after).toEqual([]);
+    expect(middleware._finally).toEqual([]);
   });
 
   describe('before', () => {
@@ -23,38 +22,28 @@ describe('Middleware -> middleware', () => {
     });
   });
 
-  describe('success', () => {
-    it('adds the middleware to _success and returns its id (Array position)', () => {
-      const middleware = new Middleware();
-
-      const id = middleware.success(() => {});
-
-      expect(middleware._success.length).toEqual(1);
-      expect(id).toEqual(0);
-    });
-  });
-
-  describe('error', () => {
-    it('adds the middleware to _error and returns its id (Array position)', () => {
-      const middleware = new Middleware();
-
-      const id = middleware.error(() => {});
-
-      expect(middleware._error.length).toEqual(1);
-      expect(id).toEqual(0);
-    });
-  });
-
   describe('after', () => {
     it('adds the middleware to _after and returns its id (Array position)', () => {
       const middleware = new Middleware();
 
-      const id = middleware.after(() => {});
+      const id = middleware.after(() => {}, () => {});
 
       expect(middleware._after.length).toEqual(1);
       expect(id).toEqual(0);
     });
   });
+
+  describe('finally', () => {
+    it('adds the middleware to _finally and returns its id (Array position)', () => {
+      const middleware = new Middleware();
+
+      const id = middleware.finally(() => {});
+
+      expect(middleware._finally.length).toEqual(1);
+      expect(id).toEqual(0);
+    });
+  });
+
 
   describe('resolveBefore', () => {
     it('apply changes to config attribute chaining _before functions', () => {
@@ -132,62 +121,38 @@ describe('Middleware -> middleware', () => {
     });
   });
 
-  describe('resolveSuccess', () => {
-    it('apply changes to response chaining _success functions', () => {
-      const middleware = new Middleware();
-      const res   = { test: true };
-
-      middleware.success((res) => {
-        res.foo = 'bar';
-        return res;
-      });
-
-      return middleware.resolveSuccess(res)
-      .then((res) => {
-        expect(res).toEqual({
-          foo : 'bar',
-          test: true
-        });
-      });
-    });
-  });
-
-  describe('resolveError', () => {
-    it('apply changes to response chaining _error functions', () => {
-      const middleware = new Middleware();
-      const err   = { test: true };
-
-      middleware.error((err) => {
-        err.foo = 'bar';
-        return err;
-      });
-
-      return middleware.resolveError(err)
-      .catch((err) => {
-        expect(err).toEqual({
-          foo : 'bar',
-          test: true
-        });
-      });
-    });
-  });
-
   describe('resolveAfter', () => {
-    it('apply changes to response chaining _after functions', () => {
+    it('apply changes to response chaining _after functions (fulfill)', () => {
       const middleware = new Middleware();
-      const res   = { test: true };
+      const res        = { test: true };
 
       middleware.after((res) => {
         res.foo = 'bar';
         return res;
       });
 
-      return middleware.resolveAfter(res)
+      return middleware.resolveAfter(undefined, res)
       .then((res) => {
         expect(res).toEqual({
           foo : 'bar',
           test: true
         });
+      });
+    });
+
+    it('apply changes to response chaining _after functions (reject)', () => {
+      const middleware = new Middleware();
+      const err        = new Error('fooTestError');
+
+      middleware.after(undefined, (err) => {
+        err.foo = 'bar';
+        return err;
+      });
+
+      return middleware.resolveAfter(err)
+      .catch((err) => {
+        expect(err.message).toBe('fooTestError');
+        expect(err.foo).toBe('bar');
       });
     });
   });

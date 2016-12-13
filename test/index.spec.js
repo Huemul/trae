@@ -60,31 +60,156 @@ describe('trae', () => {
       expect(apiFoo._baseUrl).toBe('/api/foo');
       expect(apiFoo.defaults().baseUrl).toBeDefined();
     });
-
   });
+});
 
-  describe('use', () => {
-    it('sets the middlewares', () => {
-      function before(config) { return Promise.resolve(config); }
-      function success(res) { return Promise.resolve(res); }
-      function error(err) { }
-      function after(res) { return Promise.resolve(res); }
+describe('Middlewares', () => {
 
-      const apiFoo = trae.create();
-      apiFoo.use({
-        before,
-        success,
-        error,
-        after
-      });
+  it('sets the middlewares', () => {
+    const apiFoo    = trae.create();
+    const identity  = response => response;
+    const rejection = err => Promise.reject(err);
+    const noop      = () => {};
 
-      expect(apiFoo._middleware._before[0]).toBe(before);
-      expect(apiFoo._middleware._success[0]).toBe(success);
-      expect(apiFoo._middleware._error[0]).toBe(error);
-      expect(apiFoo._middleware._after[0]).toBe(after);
+
+    apiFoo.before(identity);
+    apiFoo.after(identity, rejection);
+    apiFoo.finally(noop);
+
+    expect(apiFoo._middleware._before[0]).toBe(identity);
+    expect(apiFoo._middleware._finally[0]).toBe(noop);
+    expect(apiFoo._middleware._after[0]).toEqual({
+      fulfill: identity,
+      reject : rejection
     });
   });
 
+  describe('before', () => {
+    it('runs the before middlewares', () => {
+      const apiFoo     = trae.create();
+      const url        = `${TEST_URL}/foo`;
+      let configRunned = false;
+
+      fetchMock.mock(url, {
+        status : 200,
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: {
+          foo: 'bar'
+        }
+      });
+
+      apiFoo.before((config) => {
+        config.headers.Authorization = '12345Foo';
+        configRunned = true;
+        return config;
+      });
+
+      return apiFoo.get(url)
+      .then((res) => {
+        expect(configRunned).toBe(true);
+        expect(res).toMatchSnapshot();
+        expect(fetchMock.called(url)).toBeTruthy();
+        expect(fetchMock.lastUrl()).toBe(url);
+        expect(fetchMock.lastOptions().method).toBe('get');
+        expect(fetchMock.lastOptions().headers.Authorization).toBe('12345Foo');
+      });
+    });
+  });
+
+  describe('after', () => {
+    it('runs the fulfill after middlewares', () => {
+      const apiFoo    = trae.create();
+      const url       = `${TEST_URL}/foo`;
+      let afterRunned = false;
+
+      fetchMock.mock(url, {
+        status : 200,
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: {
+          foo: 'bar'
+        }
+      });
+
+      apiFoo.after((res) => {
+        res.data.test = true;
+        afterRunned   = true;
+        return res;
+      });
+
+      return apiFoo.get(url)
+      .then((res) => {
+        expect(res.data.test).toBe(true);
+        expect(afterRunned).toBe(true);
+        expect(res).toMatchSnapshot();
+        expect(fetchMock.called(url)).toBeTruthy();
+        expect(fetchMock.lastUrl()).toBe(url);
+        expect(fetchMock.lastOptions().method).toBe('get');
+      });
+    });
+
+    it('runs the reject after middlewares', () => {
+      const apiFoo = trae.create();
+      const url    = `${TEST_URL}/foo`;
+
+      fetchMock.mock(url, {
+        status: 500
+      });
+
+      const fulfill = res => Promise.resolve(res);
+
+      const reject = (err) => {
+        err.test = true;
+        return Promise.reject(err);
+      };
+
+      apiFoo.after(fulfill, reject);
+
+      return apiFoo.get(url)
+      .catch((err) => {
+        expect(err.status).toBe(500);
+        expect(err.test).toBe(true);
+        expect(err).toMatchSnapshot();
+        expect(fetchMock.called(url)).toBeTruthy();
+        expect(fetchMock.lastUrl()).toBe(url);
+        expect(fetchMock.lastOptions().method).toBe('get');
+      });
+    });
+  });
+
+  describe('finally', () => {
+    it('runs the finally middlewares', () => {
+      const apiFoo      = trae.create();
+      const url         = `${TEST_URL}/foo`;
+      let finallyRunned = false;
+
+      fetchMock.mock(url, {
+        status : 200,
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: {
+          foo: 'bar'
+        }
+      });
+
+      apiFoo.finally(() => {
+        finallyRunned = true;
+      });
+
+      return apiFoo.get(url)
+      .then((res) => {
+        expect(finallyRunned).toBe(true);
+        expect(res).toMatchSnapshot();
+        expect(fetchMock.called(url)).toBeTruthy();
+        expect(fetchMock.lastUrl()).toBe(url);
+        expect(fetchMock.lastOptions().method).toBe('get');
+      });
+    });
+  });
 });
 
 describe('HTTP -> http', () => {
@@ -416,55 +541,6 @@ describe('HTTP -> http', () => {
         expect(fetchMock.lastUrl()).toBe(url);
         expect(fetchMock.lastOptions().method).toBe('head');
       });
-    });
-  });
-
-  describe('middlewares', () => {
-    it('makes a GET request to baseURL + path using success and after middlewares', () => {
-      function after(res) {
-        res.after = true;
-        return Promise.resolve(res);
-      }
-
-      function success(res) {
-        res.success = true;
-        return Promise.resolve(res);
-      }
-
-      const url = `${TEST_URL}/foo`;
-      fetchMock.mock(url, {
-        status: 200
-      });
-
-      trae.use({ after, success });
-
-      return trae.get(url)
-        .then((res) => {
-          expect(res.success).toBe(true);
-          expect(res.after).toBe(true);
-        });
-    });
-
-    it('makes a GET request to baseURL + path using error and after middlewares', () => {
-      function after(err) {
-        err.after = true;
-        return Promise.resolve(err);
-      }
-
-      function error(err) {
-        err.error = true;
-      }
-
-      const url = `${TEST_URL}/foo`;
-      fetchMock.mock(url, { status: 500 });
-
-      trae.use({ after, error });
-
-      return trae.get(url)
-        .catch((err) => {
-          expect(err.error).toBe(true);
-          expect(err.after).toBe(true);
-        });
     });
   });
 });

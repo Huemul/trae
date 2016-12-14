@@ -30,6 +30,7 @@
     "test:w": "jest --watch --verbose",
     "check-cover": "open coverage/lcov-report/index.html",
     "check-bundle": "open coverage/bundle-statistics.html",
+    "prepublish": "./scripts/publish.sh",
     "eslint": "eslint . --ext .js",
     "release": "np"
   },

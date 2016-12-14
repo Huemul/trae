@@ -2,6 +2,7 @@
 
 import { skip } from '../lib/utils';
 
+
 describe('utils', () => {
   describe('skip', () => {
     it('returns an object without the properties to skip', () => {

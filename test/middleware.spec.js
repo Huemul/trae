@@ -2,6 +2,7 @@
 
 import Middleware from '../lib/middleware';
 
+
 describe('Middleware -> middleware', () => {
   const middleware = new Middleware();
 

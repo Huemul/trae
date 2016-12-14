@@ -118,11 +118,11 @@ trae.get('/baz'); // GET: https://www.foo.com/baz
 
 ### Middlewares
 
-`trae` api provides with three middleware methods, `before`, `after` and `finally`.
+`trae` api provides three middleware methods, `before`, `after` and `finally`.
 
 #### `trae.before([middleware])`
 
-Runs before the request is made and it has access to the config file, it is run in a promise chain, so it should always return the config value.
+Runs before the request is made and it has access to the configuration object, it is run in a promise chain, so it should always return the configuration object.
 
 ```js
 const beforeMiddleware = (config) => {
@@ -135,7 +135,7 @@ trae.before(beforeMiddleware);
 
 #### `trae.after(fullfill[, reject])`
 
-Runs after the request is made, it chains the the provided `fullfill` and `reject` methods together to the `then` method from fetch response. When no `fulfill` callback is provided, identity function is used. When no `reject` callback is provided, a rejected promise is returned, to be handled down the chain.
+Runs after the request is made, it chains the the provided `fullfill` and `reject` methods together to the `then` method from fetch response. When no `fulfill` callback is provided, the identity function is used. When no `reject` callback is provided, a rejected promise is returned, to be handled down the chain.
 
 ```js
 const fullfillMiddleware = (res) => {
@@ -153,7 +153,7 @@ const rejectMiddleware = (err) => {
 trae.after(fullfillMiddleware, rejectMiddleware);
 ```
 
-Using the above `after` middleware will result int the following implementation:
+Using the above `after` middleware is the same as doing:
 
 ```js
 trae.get('/api/posts')
@@ -162,7 +162,7 @@ trae.get('/api/posts')
 
 #### `trae.finally([middleware])`
 
-Runs at the end regardless of the request result. Is not a promise. Function provided to this method is run in a sync way.
+Runs at the end regardless of the request result. Is not promise based. Functions provided to this method are run synchronously.
 
 ```js
 const finallyMiddleware = () => {

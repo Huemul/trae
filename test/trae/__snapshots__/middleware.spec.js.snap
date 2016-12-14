@@ -1,0 +1,53 @@
+exports[`trae - middleware after runs the fulfill after middlewares 1`] = `
+Object {
+  "data": Object {
+    "foo": "bar",
+    "test": true,
+  },
+  "headers": Headers {
+    "_headers": Object {
+      "content-type": Array [
+        "application/json",
+      ],
+    },
+  },
+  "status": 200,
+  "statusText": "OK",
+}
+`;
+
+exports[`trae - middleware after runs the reject after middlewares 1`] = `[Error: Internal Server Error]`;
+
+exports[`trae - middleware before runs the before middlewares 1`] = `
+Object {
+  "data": Object {
+    "foo": "bar",
+  },
+  "headers": Headers {
+    "_headers": Object {
+      "content-type": Array [
+        "application/json",
+      ],
+    },
+  },
+  "status": 200,
+  "statusText": "OK",
+}
+`;
+
+exports[`trae - middleware finally runs the finally middlewares 1`] = `
+Object {
+  "data": Object {
+    "foo": "bar",
+  },
+  "headers": Headers {
+    "_headers": Object {
+      "content-type": Array [
+        "application/json",
+      ],
+    },
+  },
+  "status": 200,
+  "statusText": "OK",
+}
+`;

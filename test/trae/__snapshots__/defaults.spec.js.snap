@@ -1,0 +1,23 @@
+exports[`trae -> defaults returns the current default config when no params are passed 1`] = `
+Object {
+  "headers": Object {
+    "Accept": "application/json, text/plain, */*",
+    "Content-Type": "application/json",
+  },
+  "xsrfCookieName": "XSRF-TOKEN",
+  "xsrfHeaderName": "X-XSRF-TOKEN",
+}
+`;
+
+exports[`trae -> defaults sets the default config to be used on all requests for the instance 1`] = `
+Object {
+  "credentials": "same-origin",
+  "headers": Object {
+    "Accept": "application/json, text/plain, */*",
+    "Content-Type": "application/json",
+  },
+  "mode": "no-cors",
+  "xsrfCookieName": "XSRF-TOKEN",
+  "xsrfHeaderName": "X-XSRF-TOKEN",
+}
+`;

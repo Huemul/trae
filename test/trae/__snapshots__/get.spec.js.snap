@@ -1,0 +1,16 @@
+exports[`trae -> get makes a GET request to baseURL + path 1`] = `
+Object {
+  "data": Object {
+    "foo": "bar",
+  },
+  "headers": Headers {
+    "_headers": Object {
+      "content-type": Array [
+        "application/json",
+      ],
+    },
+  },
+  "status": 200,
+  "statusText": "OK",
+}
+`;

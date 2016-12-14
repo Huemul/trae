@@ -3,6 +3,7 @@
 import { merge } from '../lib/utils';
 import Config    from '../lib/config';
 
+
 const DEFAULT_HEADERS = {
   Accept        : 'application/json, text/plain, */*',
   'Content-Type': 'application/json'

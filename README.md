@@ -118,81 +118,59 @@ trae.get('/baz'); // GET: https://www.foo.com/baz
 
 ### Middlewares
 
-#### `trae.use(middlewares)`
+`trae` api provides three middleware methods, `before`, `after` and `finally`.
 
-Sets the middlewares to be used to intercept the requests configuration, fulfilled and rejection responses.
+#### `trae.before([middleware])`
+
+Runs before the request is made and it has access to the configuration object, it is run in a promise chain, so it should always return the configuration object.
 
 ```js
-function addAccessToken(config) {
+const beforeMiddleware = (config) => {
   config.headers['X-ACCESSS-TOKEN'] = getUserToken();
   return config;
 }
 
-function normalizeResponse(response) {
-  response.data.fooAttribute = 'foo';
-  return response;
-}
+trae.before(beforeMiddleware);
+```
 
-function logErrors(err) {
+#### `trae.after(fullfill[, reject])`
+
+Runs after the request is made, it chains the the provided `fullfill` and `reject` methods together to the `then` method from fetch response. When no `fulfill` callback is provided, the identity function is used. When no `reject` callback is provided, a rejected promise is returned, to be handled down the chain.
+
+```js
+const fullfillMiddleware = (res) => {
+  console.log(res);
+  res.data.foo = 'bar'
+  return res;
+};
+
+const rejectMiddleware = (err) => {
   console.error(err);
+  err.foo = 'bar';
   return Promise.reject(err);
-}
+};
 
-trae.use({
-  config : addAccessToken,
-  fulfill: normalizeResponse,
-  reject : logErrors
-})
+trae.after(fullfillMiddleware, rejectMiddleware);
 ```
 
-Note that middlewares can be added separately:
+Using the above `after` middleware is the same as doing:
 
 ```js
-trae.use({
-  config: addAccessToken
-})
-
-trae.use({
-  fulfill: normalizeResponse
-})
-
-trae.use({
-  reject: logErrors
-})
-```
-
-There is one thing to keep in mind though, `fulfill` and `reject` middlewares are chained together in the `then` state of the promise. To keep things more consistent a good practice would be to add them together.
-
-```js
-// Defining fulfill and reject middlewares together
-trae.use({
-  fulfill: normalizeResponse,
-  reject : logErrors
-});
-
-// will result on the following behavior
 trae.get('/api/posts')
-  .then(normalizeResponse, logErrors);
-
+  .then(fullfillMiddleware, rejectMiddleware);
 ```
 
-When no `fulfill` is added, identity function is used, but when no `reject` is added, a rejected promise is returned, to be handled down the chain.
+#### `trae.finally([middleware])`
+
+Runs at the end regardless of the request result. Is not promise based. Functions provided to this method are run synchronously.
 
 ```js
-// Defining fulfill and reject middlewares separately
-trae.use({
-  fulfill: normalizeResponse
-});
+const finallyMiddleware = () => {
+  console.log('The End');
+  makeTheSpinnerStop();
+};
 
-trae.use({
-  reject: logErrors
-});
-
-// will result on the following behavior
-trae.get('/api/posts')
-  .then(normalizeResponse, err => Promise.reject(err))
-  .then(res => res, logErrors)
-
+trae.finally(finallyMiddleware);
 ```
 
 [⬆ back to top](#content)

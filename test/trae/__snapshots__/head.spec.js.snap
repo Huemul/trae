@@ -1,0 +1,10 @@
+exports[`trae -> head makes a HEAD request to baseURL + path 1`] = `
+Object {
+  "data": "",
+  "headers": Headers {
+    "_headers": Object {},
+  },
+  "status": 200,
+  "statusText": "OK",
+}
+`;

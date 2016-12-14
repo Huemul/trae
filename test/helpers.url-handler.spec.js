@@ -2,6 +2,7 @@
 
 import { format, isAbsolute, combine } from '../lib/helpers/url-handler';
 
+
 describe('urlHandler', () => {
   describe('combine', () => {
     it('creates and return a new URL by combining the specified URLs', () => {

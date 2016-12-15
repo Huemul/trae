@@ -25,6 +25,11 @@ main {
   align-items: baseline;
   cursor: default;
 }
+
+.author {
+  margin-bottom: 40px;
+}
+
 a {
   color: #555;
   text-decoration: none;
@@ -34,6 +39,11 @@ a:link,
 a:active {
   color: #D74E69;
   text-decoration: none;
+}
+
+h1, h2, h3 {
+  margin-top: 5px;
+  margin-bottom: 5px;
 }
 
 .code {

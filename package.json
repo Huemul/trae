@@ -30,11 +30,12 @@
     "test:w": "jest --watch --verbose",
     "check-cover": "open coverage/lcov-report/index.html",
     "check-bundle": "open coverage/bundle-statistics.html",
-    "prepublish": "./scripts/publish.sh",
+    "prepublish": "in-publish && ./scripts/publish.sh || echo 'just installing'",
     "eslint": "eslint . --ext .js",
     "release": "np"
   },
   "dependencies": {
+    "in-publish": "^2.0.0",
     "merge": "^1.2.0",
     "trae-query": "^0.1.0",
     "whatwg-fetch": "^1.0.0"

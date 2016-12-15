@@ -4,47 +4,11 @@
     <meta charset="utf-8">
     <title>trae</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
     <link rel="icon" href="/favicon.ico" type="image/x-icon">
-    <style>
-      body {
-        font-family: "Courier New", monospace;
-        color: #555;
-        margin: 0;
-        padding: 0;
-        height: 100vh;
-        background-color: #FDE9C5;
-      }
-      main {
-        width: 100vw;
-        height: 100vh;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-      }
-      .content {
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-      }
-      .title {
-        display: flex;
-        justify-content: center;
-        align-items: baseline;
-        cursor: default;
-      }
-      a {
-        color: #555;
-        text-decoration: none;
-      }
-      a:hover,
-      a:link,
-      a:active {
-        color: #D74E69;
-        text-decoration: none;
-      }
-    </style>
+    <link rel="stylesheet" href="css/prism.min.css">
+    <link rel="stylesheet" href="css/main.css">
   </head>
   <body>
     <main>
@@ -57,7 +21,40 @@
         <h2>
           by <a href="https://github.com/Huemul/" target="_blank" rel="noopener"><i>Huemul</i></a>
         </h2>
+        <h3>Demo</h3>
+        <pre id="result" class="code">
+          <code class="language-javascript">
+  const result = document.getElementById('result');
+  const url = 'https://jsonplaceholder.typicode.com/posts/1';
+
+  function success(res) {
+    res.data.title = res.data.title.slice(0, 8);
+    res.data.body = res.data.body.slice(0, 20) + '...';
+    return Promise.resolve(res);
+  }
+
+  trae.after(success);
+
+  trae.get(url)
+    .then((res) => {
+      let html = '\n// request final reponse\n';
+      html += JSON.stringify(res, null, '\t');
+      result.innerHTML += html;
+    });
+          </code>
+          <div id="loading-text" ></div>
+        </pre>
+        <p class="more">
+          More on
+          <a href="https://github.com/Huemul/trae#trae" target="_blank" rel="noopener">
+            <i class="github-logo"></i>
+          </a>
+        </p>
+
       </div>
-    </div>
+    </main>
+    <script src='js/trae.min.js'></script>
+    <script src='js/prism.min.js'></script>
+    <script src='js/main.js'></script>
   </body>
 </html>

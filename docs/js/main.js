@@ -15,7 +15,6 @@
   }, 200);
 
   function success(res) {
-    console.log(res.data);
     // eslint-disable-next-line prefer-template
     res.data.title = res.data.title.slice(0, 8);
     // eslint-disable-next-line prefer-template

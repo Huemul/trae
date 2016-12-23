@@ -21,4 +21,12 @@ describe('trae - create', () => {
     expect(apiFoo2.defaults().mode).toBe('no-cors');
     expect(apiFoo2.defaults().bodyType).toBe('buffer');
   });
+
+  it('provided config values override the inherited ones', () => {
+    trae.baseUrl('/api/foo');
+    trae.defaults({ mode: 'cache' });
+    const apiBar = trae.create({ baseUrl: '/api/bar', mode: 'no-cors' });
+    expect(apiBar._baseUrl).toBe('/api/bar');
+    expect(apiBar.defaults().mode).toBe('no-cors');
+  });
 });

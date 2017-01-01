@@ -29,4 +29,40 @@ describe('trae - create', () => {
     expect(apiBar._baseUrl).toBe('/api/bar');
     expect(apiBar.defaults().mode).toBe('no-cors');
   });
+
+  it('inherits the middlewares', () => {
+    const testTrue = (obj) => {
+      obj.test = true;
+      return obj;
+    };
+    const testFalse = (obj) => {
+      obj.test = false;
+      return obj;
+    };
+
+    trae.before(testTrue);
+    trae.before(testFalse);
+
+    trae.after(testTrue, testTrue);
+    trae.after(testFalse, testFalse);
+
+    trae.finally(() => 'gotta make sure of this');
+    trae.finally(() => 'add this!!!');
+
+    const apiTest = trae.create();
+
+    expect(apiTest._middleware._before.length).toBe(2);
+    expect(apiTest._middleware._before[0]({})).toEqual({ test: true });
+    expect(apiTest._middleware._before[1]({})).toEqual({ test: false });
+
+    expect(apiTest._middleware._after.length).toBe(2);
+    expect(apiTest._middleware._after[0].fulfill({})).toEqual({ test: true });
+    expect(apiTest._middleware._after[0].reject({})).toEqual({ test: true });
+    expect(apiTest._middleware._after[1].fulfill({})).toEqual({ test: false });
+    expect(apiTest._middleware._after[1].reject({})).toEqual({ test: false });
+
+    expect(apiTest._middleware._finally.length).toBe(2);
+    expect(apiTest._middleware._finally[0]({})).toBe('gotta make sure of this');
+    expect(apiTest._middleware._finally[1]({})).toBe('add this!!!');
+  });
 });

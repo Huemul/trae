@@ -14,3 +14,91 @@ Object {
   "statusText": "OK",
 }
 `;
+
+exports[`trae -> get makes a GET request with raw bodyType and get the body without being parsed 1`] = `
+Object {
+  "data": Readable {
+    "_events": Object {},
+    "_eventsCount": 0,
+    "_maxListeners": undefined,
+    "_readableState": ReadableState {
+      "awaitDrain": 0,
+      "buffer": BufferList {
+        "head": Object {
+          "data": Object {
+            "data": Array [
+              123,
+              34,
+              102,
+              111,
+              111,
+              34,
+              58,
+              34,
+              98,
+              97,
+              114,
+              34,
+              125,
+            ],
+            "type": "Buffer",
+          },
+          "next": null,
+        },
+        "length": 1,
+        "tail": Object {
+          "data": Object {
+            "data": Array [
+              123,
+              34,
+              102,
+              111,
+              111,
+              34,
+              58,
+              34,
+              98,
+              97,
+              114,
+              34,
+              125,
+            ],
+            "type": "Buffer",
+          },
+          "next": null,
+        },
+      },
+      "decoder": null,
+      "defaultEncoding": "utf8",
+      "emittedReadable": true,
+      "encoding": null,
+      "endEmitted": false,
+      "ended": true,
+      "flowing": null,
+      "highWaterMark": 16384,
+      "length": 13,
+      "needReadable": false,
+      "objectMode": false,
+      "pipes": null,
+      "pipesCount": 0,
+      "ranOut": false,
+      "readableListening": false,
+      "reading": false,
+      "readingMore": true,
+      "resumeScheduled": false,
+      "sync": true,
+    },
+    "domain": null,
+    "readable": true,
+  },
+  "headers": Headers {
+    "_headers": Object {
+      "content-type": Array [
+        "application/json",
+      ],
+    },
+  },
+  "status": 200,
+  "statusText": "OK",
+}
+`;

@@ -31,4 +31,26 @@ describe('trae -> get', () => {
       expect(fetchMock.lastOptions().method).toBe('get');
     });
   });
+
+  it('makes a GET request with raw bodyType and get the body without being parsed', () => {
+    const url = `${TEST_URL}/foo`;
+
+    fetchMock.mock(url, {
+      status : 200,
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: {
+        foo: 'bar'
+      }
+    });
+
+    return trae.get(url, { bodyType: 'raw' })
+    .then((res) => {
+      expect(res).toMatchSnapshot();
+      expect(fetchMock.called(url)).toBeTruthy();
+      expect(fetchMock.lastUrl()).toBe(url);
+      expect(fetchMock.lastOptions().method).toBe('get');
+    });
+  });
 });

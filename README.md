@@ -2,7 +2,7 @@
 
 Minimalistic HTTP client for the browser. Based on [Fetch](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API) API, allows `trae` to be future-proofing, to have a clean implementation and support streaming among other goodies.
 
-[ ![Codeship Status for Huemul/trae](https://img.shields.io/codeship/1d9dc9b0-84c0-0134-0393-62ca7b64624e/master.svg)](https://app.codeship.com/projects/183213)
+[![Codeship Status for Huemul/trae](https://img.shields.io/codeship/1d9dc9b0-84c0-0134-0393-62ca7b64624e/master.svg)](https://app.codeship.com/projects/183213)
 [![Coverage Status](https://coveralls.io/repos/github/Huemul/trae/badge.svg?branch=master)](https://coveralls.io/github/Huemul/trae?branch=master)
 [![bitHound Overall Score](https://www.bithound.io/github/Huemul/trae/badges/score.svg)](https://www.bithound.io/github/Huemul/trae)
 [![bitHound Dependencies](https://www.bithound.io/github/Huemul/trae/badges/dependencies.svg)](https://www.bithound.io/github/Huemul/trae/master/dependencies/npm)
@@ -97,7 +97,7 @@ trae.defaults({
 });
 ```
 
-When called with no param it acts as a getter, returning the defined defaults.
+When called with no params acts as a getter, returning the defined defaults.
 
 ```js
 const config = trae.defaults();
@@ -187,6 +187,22 @@ const api = trae.create({baseUrl: '/api'})
 api.get('/posts') // GET: /api/posts
 ```
 
+The created method inherits all the defaults and middlewares from its creator, whether it is the default `trae` instance or a created one.
+
+```js
+trae.baseUrl('/api')
+const api = trae.create()
+
+api.get('/posts') // GET: /api/posts
+
+api.defaults({ mode: 'no-cors' })
+
+const apiFoo = api.create()
+
+apiFoo.defaults() // { mode: 'no-cors', ... }
+```
+
+
 [⬆ back to top](#content)
 
 ## Response
@@ -196,7 +212,7 @@ The request methods return a promise that resolves to this object:
 ```js
 {
   // the response that came from the server
-  data: {},
+  data: { ... },
 
   // status code of the response
   status: 200,
@@ -205,7 +221,7 @@ The request methods return a promise that resolves to this object:
   statusText: 'OK',
 
   // headers of the response
-  headers: {},
+  headers: { ... },
 }
 ```
 
@@ -221,7 +237,7 @@ The request methods return a promise that resolves to this object:
 
 ## Contributing
 
-[Create an issue](https://github.com/Huemul/trae/issues/new) to report bugs or if you have any suggestion on how to improve this project.
+[Create an issue](https://github.com/Huemul/trae/issues/new) to report bugs or give suggestions on how to improve this project.
 
 If you want to submit a PR and do not know where to start or what to add check out the [project page](https://github.com/Huemul/trae/projects/1) to find out what we are working on, and what to contribute next.
 

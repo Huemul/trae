@@ -15,6 +15,7 @@ Minimalistic HTTP client for the browser. Based on [Fetch](https://developer.moz
 1. [Basic Usage](#basic-usage)
 1. [Trae API](#trea-api)
   1. [Request methods](#request-methods)
+  1. [Config](#config)
   1. [Defaults](#defaults)
   1. [Middlewares](#middlewares)
   1. [Instances](#instances)
@@ -83,6 +84,47 @@ trae.patch(url[, body[, config]]);
 *NOTE*: the request method cannot be overwritten for the methods above.
 
 [⬆ back to top](#content)
+
+### Config
+
+The configuration object can be used in all request methods, the following attributes are available:
+
+```javascript
+{
+  // Absolute or relative url of the request
+  url: '/foo/bar',
+  
+  // The URL parameters to be sent with the request
+  params: {
+    id: 123
+  },
+  
+  // Represents the body of the response, allowing you to declare what its content type is and how it should be handled.
+  // Available readers are `arrayBuffer`, `blob`, `formData`, `json`, `text` and `raw` which returns the response body without being     
+  // parsed. `raw` is used for streaming the response body among other things.
+  bodyType: 'json',
+  
+  // The Headers object associated with the request
+  headers: {
+    'X-My-Custom-Header': 'foo-bar'
+  },
+  
+  // The mode of the request. Available values are: `same-origin`, `no-cors`, `cors` and `navigate`
+  mode: 'cors',
+  
+  // Indicates whether the user agent should send cookies from the other domain in the case of cross-origin requests. 
+  // This is similar to XHR’s withCredentials flag, but with three available values (instead of two):
+  // * omit: Never send cookies.
+  // * same-origin: Only send cookies if the URL is on the same origin as the calling script.
+  // * include: Always send cookies, even for cross-origin calls.
+  credentials: 'same-origin',
+  
+  // The cache mode of the request. Available values are: `default`, `no-store`, `reload`, `no-cache`, `force-cache` and 
+  // `only-if-cached` 
+  cache: 'default'
+}
+```
+More information about Request properties can be found at developer mozilla [website](https://developer.mozilla.org/en-US/docs/Web/API/Request)
 
 ### Defaults
 

@@ -80,8 +80,6 @@ trae.put(url[, body[, config]]);
 trae.patch(url[, body[, config]]);
 ```
 
-*NOTE*: the request method cannot be overwritten for the methods above.
-
 [⬆ back to top](#content)
 
 ### Defaults
@@ -187,7 +185,7 @@ const api = trae.create({baseUrl: '/api'})
 api.get('/posts') // GET: /api/posts
 ```
 
-The created method inherits all the defaults and middlewares from its creator, whether it is the default `trae` instance or a created one.
+The created method inherits all the defaults and middlewares from its creator.
 
 ```js
 trae.baseUrl('/api')

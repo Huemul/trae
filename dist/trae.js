@@ -1,7 +1,7 @@
 /**
  * Trae, the fetch library!
  *
- * @version: 0.0.12
+ * @version: 0.0.13
  * @authors: gillchristian <gillchristiang@gmail.com> | ndelvalle <nicolas.delvalle@gmail.com>
  */
 (function (global, factory) {

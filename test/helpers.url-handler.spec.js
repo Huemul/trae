@@ -1,9 +1,24 @@
 /* globals describe it expect */
 
-import { format, isAbsolute, combine } from '../lib/helpers/url-handler';
+import { format, isAbsolute, combine, concatParams } from '../lib/helpers/url-handler';
 
 
 describe('urlHandler', () => {
+  describe('concatParams', () => {
+    it('stringify and concats params to the provided URL', () => {
+      const url    = 'https://www.foo.com/bar';
+      const params =  {
+        foo: {
+          bar: {
+            baz: 'foobarbaz'
+          }
+        }
+      };
+
+      expect(concatParams(url, params)).toEqual('https://www.foo.com/bar?foo%5Bbar%5D%5Bbaz%5D=foobarbaz');
+    });
+  });
+
   describe('combine', () => {
     it('creates and return a new URL by combining the specified URLs', () => {
       const url1  = 'https://www.foo.com/';

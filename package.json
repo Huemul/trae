@@ -39,6 +39,7 @@
   "dependencies": {
     "in-publish": "^2.0.0",
     "merge": "^1.2.0",
+    "qs": "^6.3.0",
     "trae-query": "^0.1.0",
     "whatwg-fetch": "^1.0.0"
   },

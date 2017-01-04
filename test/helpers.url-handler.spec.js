@@ -75,5 +75,15 @@ describe('urlHandler', () => {
 
       expect(format(baseUrl, relativeURL)).toBe('https://www.foo.com/baz/foo');
     });
+
+    it('returns base, realative url and params combined', () => {
+      const baseUrl     = 'https://www.foo.com/baz/';
+      const relativeURL = '/foo';
+      const params      = {
+        foo: 'bar'
+      };
+
+      expect(format(baseUrl, relativeURL, params)).toBe('https://www.foo.com/baz/foo?foo=bar');
+    });
   });
 });

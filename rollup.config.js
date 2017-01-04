@@ -38,7 +38,7 @@ export default {
     }),
     commonjs({
       namedExports: {
-        'node_modules/qs/lib/index.js': ['stringify', 'parse']
+        'node_modules/qs/lib/index.js': ['stringify']
       }
     }),
     babel({

@@ -7,8 +7,6 @@ Object {
     "X-ACCESS-TOKE": "aasdljhf2kjrasdf2l3jrhn2",
   },
   "mode": "cors",
-  "xsrfCookieName": "XSRF-TOKEN",
-  "xsrfHeaderName": "X-XSRF-TOKEN",
 }
 `;
 
@@ -19,8 +17,6 @@ Object {
     "Content-Type": "text/plain",
   },
   "mode": "cors",
-  "xsrfCookieName": "XSRF-TOKEN",
-  "xsrfHeaderName": "X-XSRF-TOKEN",
 }
 `;
 
@@ -32,8 +28,6 @@ Object {
     "Content-Type": "text/plain",
   },
   "mode": "no-cors",
-  "xsrfCookieName": "XSRF-TOKEN",
-  "xsrfHeaderName": "X-XSRF-TOKEN",
 }
 `;
 
@@ -44,8 +38,6 @@ Object {
     "Accept": "application/json, text/plain, */*",
     "Content-Type": "application/json",
   },
-  "xsrfCookieName": "XSRF-TOKEN",
-  "xsrfHeaderName": "X-XSRF-TOKEN",
 }
 `;
 
@@ -57,8 +49,6 @@ Object {
     "Content-Type": "application/json",
   },
   "mode": "no-cors",
-  "xsrfCookieName": "XSRF-TOKEN",
-  "xsrfHeaderName": "X-XSRF-TOKEN",
 }
 `;
 
@@ -70,8 +60,6 @@ Object {
     "Content-Type": "application/json",
   },
   "mode": "no-cors",
-  "xsrfCookieName": "XSRF-TOKEN",
-  "xsrfHeaderName": "X-XSRF-TOKEN",
 }
 `;
 
@@ -79,7 +67,7 @@ exports[`Config -> config set merges the provided config with this._config 1`] =
 Object {
   "credentials": "same-origin",
   "headers": Object {
-    "X-ACCESS-TOKE": "aasdljhf2kjrasdf2l3jrhn2",
+    "X-ACCESS-TOKEN": "aasdljhf2kjrasdf2l3jrhn2",
   },
   "mode": "cors",
 }

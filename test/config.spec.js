@@ -9,12 +9,7 @@ const DEFAULT_HEADERS = {
   'Content-Type': 'application/json'
 };
 
-const DEFAULT_CONFIG = {
-  xsrfCookieName: 'XSRF-TOKEN',
-  xsrfHeaderName: 'X-XSRF-TOKEN'
-};
-
-const defaults = merge(DEFAULT_CONFIG, { headers: DEFAULT_HEADERS });
+const defaults = merge({}, { headers: DEFAULT_HEADERS });
 
 const configParams = {
   mode       : 'no-cors',
@@ -49,7 +44,7 @@ describe('Config -> config', () => {
       config.set({
         mode: 'cors',
         headers: {
-          'X-ACCESS-TOKE': 'aasdljhf2kjrasdf2l3jrhn2'
+          'X-ACCESS-TOKEN': 'aasdljhf2kjrasdf2l3jrhn2'
         }
       });
 
@@ -109,15 +104,6 @@ describe('Config -> config', () => {
 
     it('does not mutate _config or _defaults', () => {
       const config = new Config({ mode: 'no-cors' });
-
-      const defaults = {
-        headers: {
-          Accept: 'application/json, text/plain, */*',
-          'Content-Type': 'application/json'
-        },
-        xsrfCookieName: 'XSRF-TOKEN',
-        xsrfHeaderName: 'X-XSRF-TOKEN'
-      };
 
       expect(config._config).toEqual({ mode: 'no-cors' });
       expect(config._defaults).toEqual(defaults);

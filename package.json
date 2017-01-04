@@ -1,6 +1,6 @@
 {
   "name": "trae",
-  "version": "0.0.12",
+  "version": "0.0.13",
   "description": "Fetch based HTTP client for the browser",
   "keywords": [
     "fetch",
@@ -37,10 +37,9 @@
     "release": "np"
   },
   "dependencies": {
-    "in-publish": "^2.0.0",
     "merge": "^1.2.0",
-    "trae-query": "^0.1.0",
     "whatwg-fetch": "^2.0.1"
+    "qs": "^6.3.0",
   },
   "devDependencies": {
     "babel-core": "^6.21.0",
@@ -58,6 +57,7 @@
     "fetch-mock": "^5.8.0",
     "http-server": "^0.9.0",
     "jest": "^18.1.0",
+    "in-publish": "^2.0.0",
     "node-inspector": "^0.12.8",
     "np": "^2.12.0",
     "pre-commit": "^1.1.3",

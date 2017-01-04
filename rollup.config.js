@@ -36,7 +36,11 @@ export default {
       main   : true,
       browser: true
     }),
-    commonjs(),
+    commonjs({
+      namedExports: {
+        'node_modules/qs/lib/index.js': ['stringify']
+      }
+    }),
     babel({
       babelrc: false, // jest makes use of .babelrc
       presets: ['es2015-rollup']

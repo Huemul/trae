@@ -180,7 +180,7 @@ trae.before(beforeMiddleware);
 
 #### `trae.after(fullfill[, reject])`
 
-Runs after the request is made, it chains the the provided `fullfill` and `reject` methods together to the `then` method from fetch response. When no `fulfill` callback is provided, the identity function is used. When no `reject` callback is provided, a rejected promise is returned, to be handled down the chain.
+Runs after the request is made, it chains the provided `fullfill` and `reject` methods together to the `then` method from fetch response. When no `fulfill` callback is provided, the identity function is used. When no `reject` callback is provided, a rejected promise is returned, to be handled down the chain.
 
 ```js
 const fullfillMiddleware = (res) => {

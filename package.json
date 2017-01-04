@@ -37,7 +37,6 @@
     "release": "np"
   },
   "dependencies": {
-    "in-publish": "^2.0.0",
     "merge": "^1.2.0",
     "qs": "^6.3.0",
     "whatwg-fetch": "^1.0.0"
@@ -57,6 +56,7 @@
     "eslint-plugin-react": "^6.7.1",
     "fetch-mock": "^5.5.0",
     "http-server": "^0.9.0",
+    "in-publish": "^2.0.0",
     "jest": "^16.0.2",
     "node-inspector": "^0.12.8",
     "np": "^2.11.0",

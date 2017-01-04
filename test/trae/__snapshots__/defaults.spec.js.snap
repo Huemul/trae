@@ -4,8 +4,6 @@ Object {
     "Accept": "application/json, text/plain, */*",
     "Content-Type": "application/json",
   },
-  "xsrfCookieName": "XSRF-TOKEN",
-  "xsrfHeaderName": "X-XSRF-TOKEN",
 }
 `;
 
@@ -17,7 +15,5 @@ Object {
     "Content-Type": "application/json",
   },
   "mode": "no-cors",
-  "xsrfCookieName": "XSRF-TOKEN",
-  "xsrfHeaderName": "X-XSRF-TOKEN",
 }
 `;

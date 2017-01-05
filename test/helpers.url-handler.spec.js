@@ -15,7 +15,13 @@ describe('urlHandler', () => {
         }
       };
 
-      expect(concatParams(url, params)).toEqual('https://www.foo.com/bar?foo%5Bbar%5D%5Bbaz%5D=foobarbaz');
+      expect(concatParams(url, params))
+      .toBe('https://www.foo.com/bar?foo%5Bbar%5D%5Bbaz%5D=foobarbaz');
+    });
+
+    it('when params are an empty object it returns the same url', () => {
+      const url = 'https://www.foo.com/bar';
+      expect(concatParams(url, {})).toBe(url);
     });
   });
 

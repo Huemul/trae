@@ -2,8 +2,6 @@ exports[`Config -> config get returns the merged _defaults and _config 1`] = `
 Object {
   "credentials": "same-origin",
   "headers": Object {
-    "Accept": "application/json, text/plain, */*",
-    "Content-Type": "application/json",
     "X-ACCESS-TOKE": "aasdljhf2kjrasdf2l3jrhn2",
   },
   "mode": "cors",
@@ -13,7 +11,6 @@ Object {
 exports[`Config -> config mergeWithDefaults does not mutate _config or _defaults 1`] = `
 Object {
   "headers": Object {
-    "Accept": "application/json, text/plain, */*",
     "Content-Type": "text/plain",
   },
   "mode": "cors",
@@ -24,7 +21,6 @@ exports[`Config -> config mergeWithDefaults merges all the params passed 1`] = `
 Object {
   "credentials": "same-origin",
   "headers": Object {
-    "Accept": "application/json, text/plain, */*",
     "Content-Type": "text/plain",
   },
   "mode": "no-cors",
@@ -33,21 +29,17 @@ Object {
 
 exports[`Config -> config mergeWithDefaults returns body stringified according to Content-Type 1`] = `
 Object {
-  "body": "{\"foo\":\"bar\"}",
-  "headers": Object {
-    "Accept": "application/json, text/plain, */*",
-    "Content-Type": "application/json",
+  "body": Object {
+    "foo": "bar",
   },
+  "headers": Object {},
 }
 `;
 
 exports[`Config -> config mergeWithDefaults returns the config merged with the params 1`] = `
 Object {
   "credentials": "same-origin",
-  "headers": Object {
-    "Accept": "application/json, text/plain, */*",
-    "Content-Type": "application/json",
-  },
+  "headers": Object {},
   "mode": "no-cors",
 }
 `;
@@ -55,10 +47,7 @@ Object {
 exports[`Config -> config mergeWithDefaults returns the config merged with the params 2`] = `
 Object {
   "credentials": "same-origin",
-  "headers": Object {
-    "Accept": "application/json, text/plain, */*",
-    "Content-Type": "application/json",
-  },
+  "headers": Object {},
   "mode": "no-cors",
 }
 `;

@@ -4,12 +4,7 @@ import { merge } from '../lib/utils';
 import Config    from '../lib/config';
 
 
-const DEFAULT_HEADERS = {
-  Accept        : 'application/json, text/plain, */*',
-  'Content-Type': 'application/json'
-};
-
-const defaults = merge({}, { headers: DEFAULT_HEADERS });
+const defaults = { headers: {} };
 
 const configParams = {
   mode       : 'no-cors',

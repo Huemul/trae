@@ -21,7 +21,9 @@ Minimalistic HTTP client for the browser. Based on [Fetch](https://developer.moz
   1. [Middlewares](#middlewares)
   1. [Instances](#instances)
 1. [Response](#response)
+1. [License](#license)
 1. [Contributing](#contributing)
+1. [Contributors](#contributors)
 
 ## Install
 
@@ -281,17 +283,19 @@ The request methods return a promise that resolves to this object:
 
 [⬆ back to top](#content)
 
+## License
+
+[MIT License](https://github.com/Huemul/trae/blob/master/LICENSE)
+
+[⬆ back to top](#content)
+
 ## Contributing
 
 [Create an issue](https://github.com/Huemul/trae/issues/new) to report bugs or give suggestions on how to improve this project.
 
 If you want to submit a PR and do not know where to start or what to add check out the [project page](https://github.com/Huemul/trae/projects/1) to find out what we are working on, and what to contribute next.
 
-## License
-
-[MIT License](https://github.com/Huemul/trae/blob/master/LICENSE)
-
-[⬆ back to top](#content)
+This project follows the [all-contributors](https://github.com/kentcdodds/all-contributors) specification. Contributions of any kind welcome!
 
 ## Contributors
 
@@ -301,7 +305,5 @@ Thanks goes to these wonderful people ([emoji key](https://github.com/kentcdodds
 | [<img src="https://avatars.githubusercontent.com/u/6719053?v=3" width="64px;"/><br /><sub>Nicolas Del Valle</sub>](http://nico.delvalle.xyz)<br />[💻](https://github.com/Huemul/trae/commits?author=ndelvalle) [📖](https://github.com/Huemul/trae/commits?author=ndelvalle) [⚠️](https://github.com/Huemul/trae/commits?author=ndelvalle) 💡 👀 | [<img src="https://avatars.githubusercontent.com/u/8309423?v=3" width="64px;"/><br /><sub>Christian Gill</sub>](https://gillchristian.xyz)<br />[💻](https://github.com/Huemul/trae/commits?author=gillchristian) [📖](https://github.com/Huemul/trae/commits?author=gillchristian) [⚠️](https://github.com/Huemul/trae/commits?author=gillchristian) 💡 👀 | [<img src="https://avatars.githubusercontent.com/u/3258966?v=3" width="64px;"/><br /><sub>Ignacio Anaya</sub>](http://keepe.rs)<br />[💻](https://github.com/Huemul/trae/commits?author=ianaya89) 👀 🎨 [🐛](https://github.com/Huemul/trae/issues?q=author%3Aianaya89) 💁 | [<img src="https://avatars.githubusercontent.com/u/1145624?v=3" width="64px;"/><br /><sub>Fred Guest</sub>](https://twitter.com/fredguest)<br />💁 [🐛](https://github.com/Huemul/trae/issues?q=author%3Afredguest) | [<img src="https://avatars.githubusercontent.com/u/11802102?v=3" width="64px;"/><br /><sub>Joni</sub>](http://joni.website)<br />🎨 |
 | :---: | :---: | :---: | :---: | :---: |
 <!-- ALL-CONTRIBUTORS-LIST:END -->
-
-This project follows the [all-contributors](https://github.com/kentcdodds/all-contributors) specification. Contributions of any kind welcome!
 
 [⬆ back to top](#content)

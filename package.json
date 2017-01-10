@@ -23,6 +23,8 @@
   },
   "homepage": "https://github.com/huemul/trae#readme",
   "scripts": {
+    "add": "all-contributors add",
+    "contributors": "all-contributors generate",
     "build": "NODE_ENV=production rollup -c",
     "build:dev": "rollup -c",
     "build:dev:w": "rollup -c -w",
@@ -37,9 +39,10 @@
     "release": "np"
   },
   "dependencies": {
+    "all-contributors-cli": "^3.0.7",
     "merge": "^1.2.0",
-    "whatwg-fetch": "^2.0.1",
-    "qs": "^6.3.0"
+    "qs": "^6.3.0",
+    "whatwg-fetch": "^2.0.1"
   },
   "devDependencies": {
     "babel-core": "^6.21.0",
@@ -56,8 +59,8 @@
     "eslint-plugin-react": "^6.8.0",
     "fetch-mock": "^5.8.0",
     "http-server": "^0.9.0",
-    "jest": "^18.1.0",
     "in-publish": "^2.0.0",
+    "jest": "^18.1.0",
     "node-inspector": "^0.12.8",
     "np": "^2.12.0",
     "pre-commit": "^1.1.3",

@@ -42,6 +42,19 @@
         "question",
         "bug"
       ]
+    },
+    {
+      "login": "ianaya89",
+      "name": "Ignacio Anaya",
+      "avatar_url": "https://avatars.githubusercontent.com/u/3258966?v=3",
+      "profile": "http://keepe.rs",
+      "contributions": [
+        "code",
+        "review",
+        "design",
+        "bug",
+        "question"
+      ]
     }
   ]
 }

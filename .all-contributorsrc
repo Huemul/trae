@@ -1,0 +1,78 @@
+{
+  "projectName": "trae",
+  "projectOwner": "Huemul",
+  "files": [
+    "README.md"
+  ],
+  "imageSize": 64,
+  "commit": true,
+  "contributors": [
+    {
+      "login": "ndelvalle",
+      "name": "Nicolas Del Valle",
+      "avatar_url": "https://avatars.githubusercontent.com/u/6719053?v=3",
+      "profile": "http://nico.delvalle.xyz",
+      "contributions": [
+        "code",
+        "doc",
+        "test",
+        "example",
+        "review"
+      ]
+    },
+    {
+      "login": "gillchristian",
+      "name": "Christian Gill",
+      "avatar_url": "https://avatars.githubusercontent.com/u/8309423?v=3",
+      "profile": "https://gillchristian.xyz",
+      "contributions": [
+        "code",
+        "doc",
+        "test",
+        "example",
+        "review"
+      ]
+    },
+    {
+      "login": "ianaya89",
+      "name": "Ignacio Anaya",
+      "avatar_url": "https://avatars.githubusercontent.com/u/3258966?v=3",
+      "profile": "http://keepe.rs",
+      "contributions": [
+        "code",
+        "review",
+        "design",
+        "bug",
+        "question"
+      ]
+    },
+    {
+      "login": "fredguest",
+      "name": "Fred Guest",
+      "avatar_url": "https://avatars.githubusercontent.com/u/1145624?v=3",
+      "profile": "https://twitter.com/fredguest",
+      "contributions": [
+        "question",
+        "bug"
+      ]
+    },
+    {
+      "login": "delvallejonatan",
+      "name": "Joni",
+      "avatar_url": "https://avatars.githubusercontent.com/u/11802102?v=3",
+      "profile": "http://joni.website",
+      "contributions": [
+        "design"
+      ]
+    },
+    {
+      "login": "patitonar",
+      "name": "Gerardo Nardelli",
+      "avatar_url": "https://avatars.githubusercontent.com/u/4614574?v=3",
+      "profile": "https://gnardelli.com",
+      "contributions": [
+        "doc"
+      ]
+    }
+  ]
+}

@@ -287,8 +287,6 @@ The request methods return a promise that resolves to this object:
 
 [MIT License](https://github.com/Huemul/trae/blob/master/LICENSE)
 
-[⬆ back to top](#content)
-
 ## Contributing
 
 [Create an issue](https://github.com/Huemul/trae/issues/new) to report bugs or give suggestions on how to improve this project.
@@ -307,3 +305,4 @@ Thanks goes to these wonderful people ([emoji key](https://github.com/kentcdodds
 <!-- ALL-CONTRIBUTORS-LIST:END -->
 
 [⬆ back to top](#content)
+

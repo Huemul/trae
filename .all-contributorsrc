@@ -34,16 +34,6 @@
       ]
     },
     {
-      "login": "fredguest",
-      "name": "Fred Guest",
-      "avatar_url": "https://avatars.githubusercontent.com/u/1145624?v=3",
-      "profile": "https://twitter.com/fredguest",
-      "contributions": [
-        "question",
-        "bug"
-      ]
-    },
-    {
       "login": "ianaya89",
       "name": "Ignacio Anaya",
       "avatar_url": "https://avatars.githubusercontent.com/u/3258966?v=3",
@@ -54,6 +44,25 @@
         "design",
         "bug",
         "question"
+      ]
+    },
+    {
+      "login": "fredguest",
+      "name": "Fred Guest",
+      "avatar_url": "https://avatars.githubusercontent.com/u/1145624?v=3",
+      "profile": "https://twitter.com/fredguest",
+      "contributions": [
+        "question",
+        "bug"
+      ]
+    },
+    {
+      "login": "delvallejonatan",
+      "name": "Joni",
+      "avatar_url": "https://avatars.githubusercontent.com/u/11802102?v=3",
+      "profile": "http://joni.website",
+      "contributions": [
+        "design"
       ]
     }
   ]

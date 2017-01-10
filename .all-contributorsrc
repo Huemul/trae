@@ -32,6 +32,16 @@
         "example",
         "review"
       ]
+    },
+    {
+      "login": "fredguest",
+      "name": "Fred Guest",
+      "avatar_url": "https://avatars.githubusercontent.com/u/1145624?v=3",
+      "profile": "https://twitter.com/fredguest",
+      "contributions": [
+        "question",
+        "bug"
+      ]
     }
   ]
 }

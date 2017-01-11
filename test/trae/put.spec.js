@@ -27,10 +27,10 @@ describe('trae -> put', () => {
 
     const testTrae = trae.create();
 
-    testTrae.before(c => {
+    testTrae.before((c) => {
       expect(c.headers).toMatchSnapshot();
       return c;
-    })
+    });
 
 
     return testTrae.put(url, { foo: 'bar' })

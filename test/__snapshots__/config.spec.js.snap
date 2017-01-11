@@ -8,7 +8,7 @@ Object {
 }
 `;
 
-exports[`Config -> config mergeWithDefaults does not mutate _config or _defaults 1`] = `
+exports[`Config -> config merge does not mutate _config or _defaults 1`] = `
 Object {
   "headers": Object {
     "Content-Type": "text/plain",
@@ -17,7 +17,7 @@ Object {
 }
 `;
 
-exports[`Config -> config mergeWithDefaults merges all the params passed 1`] = `
+exports[`Config -> config merge merges all the params passed 1`] = `
 Object {
   "credentials": "same-origin",
   "headers": Object {
@@ -27,7 +27,7 @@ Object {
 }
 `;
 
-exports[`Config -> config mergeWithDefaults returns body stringified according to Content-Type 1`] = `
+exports[`Config -> config merge returns body stringified according to Content-Type 1`] = `
 Object {
   "body": Object {
     "foo": "bar",
@@ -36,7 +36,7 @@ Object {
 }
 `;
 
-exports[`Config -> config mergeWithDefaults returns the config merged with the params 1`] = `
+exports[`Config -> config merge returns the config merged with the params 1`] = `
 Object {
   "credentials": "same-origin",
   "headers": Object {},
@@ -44,7 +44,7 @@ Object {
 }
 `;
 
-exports[`Config -> config mergeWithDefaults returns the config merged with the params 2`] = `
+exports[`Config -> config merge returns the config merged with the params 2`] = `
 Object {
   "credentials": "same-origin",
   "headers": Object {},

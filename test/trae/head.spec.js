@@ -21,10 +21,10 @@ describe('trae -> head', () => {
 
     const testTrae = trae.create();
 
-    testTrae.before(c => {
+    testTrae.before((c) => {
       expect(c.headers).toEqual({});
       return c;
-    })
+    });
 
 
     return testTrae.head(url)

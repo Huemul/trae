@@ -27,10 +27,10 @@ describe('trae -> patch', () => {
 
     const testTrae = trae.create();
 
-    testTrae.before(c => {
+    testTrae.before((c) => {
       expect(c.headers).toMatchSnapshot();
       return c;
-    })
+    });
 
 
     return testTrae.patch(url, { foo: 'bar' })

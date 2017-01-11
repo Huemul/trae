@@ -25,11 +25,11 @@ describe('trae -> get', () => {
 
     const testTrae = trae.create();
 
-    testTrae.before(c => {
+    testTrae.before((c) => {
       expect(c.headers).toEqual({});
       next();
       return c;
-    })
+    });
 
 
     return testTrae.get(url);

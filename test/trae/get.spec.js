@@ -10,6 +10,31 @@ afterEach(() => {
 const TEST_URL = 'http://localhost:8080/api';
 
 describe('trae -> get', () => {
+  it('does not have headers set by defualt', (next) => {
+    const url = `${TEST_URL}/foo`;
+
+    fetchMock.mock(url, {
+      status : 200,
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: {
+        foo: 'bar'
+      }
+    });
+
+    const testTrae = trae.create();
+
+    testTrae.before(c => {
+      expect(c.headers).toEqual({});
+      next();
+      return c;
+    })
+
+
+    return testTrae.get(url);
+  });
+
   it('makes a GET request to baseURL + path', () => {
     const url = `${TEST_URL}/foo`;
 

@@ -19,16 +19,13 @@ describe('Config -> config', () => {
   it('initializes with the default fetch config', () => {
     const config = new Config();
 
-    expect(config._config).toEqual({});
-    expect(config._defaults).toEqual(defaults);
+    expect(config._config).toEqual(defaults);
     expect(config.get()).toEqual(defaults);
   });
 
   it('initializes with the defaults merged with the provided config', () => {
     const config = getConfigWithParams();
 
-    expect(config._config).toEqual(configParams);
-    expect(config._defaults).toEqual(defaults);
     expect(config.get()).toEqual(merge(defaults, configParams));
   });
 
@@ -100,8 +97,7 @@ describe('Config -> config', () => {
     it('does not mutate _config or _defaults', () => {
       const config = new Config({ mode: 'no-cors' });
 
-      expect(config._config).toEqual({ mode: 'no-cors' });
-      expect(config._defaults).toEqual(defaults);
+      expect(config._config).toEqual({ headers: {}, mode: 'no-cors' });
 
       const actual = config.mergeWithDefaults(
         { headers: { 'Content-Type': 'text/plain' } },
@@ -109,8 +105,7 @@ describe('Config -> config', () => {
       );
       expect(actual).toMatchSnapshot();
 
-      expect(config._config).toEqual({ mode: 'no-cors' });
-      expect(config._defaults).toEqual(defaults);
+      expect(config._config).toEqual({ headers: {}, mode: 'no-cors' });
     });
 
   });

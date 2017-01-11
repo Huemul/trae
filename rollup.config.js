@@ -27,7 +27,7 @@ export default {
   moduleId  : 'trae',
   moduleName: 'trae',
   sourceMap : !isProd && 'inline',
-  context   : 'window',
+  context   : 'global',
   banner,
   plugins: [
     eslint(),

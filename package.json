@@ -41,8 +41,7 @@
   "dependencies": {
     "all-contributors-cli": "^3.0.7",
     "merge": "^1.2.0",
-    "qs": "^6.3.0",
-    "whatwg-fetch": "^2.0.1"
+    "qs": "^6.3.0"
   },
   "devDependencies": {
     "babel-core": "^6.21.0",

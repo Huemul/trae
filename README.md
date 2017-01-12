@@ -108,8 +108,7 @@ The configuration object can be used in all request methods, the following attri
 
   // The Headers object associated with the request
   headers: {
-    'Accept': 'application/json, text/plain, */*', // Default
-    'Content-Type': 'application/json' // Default
+    'Content-Type': 'application/json' // Default header for methods with body (patch, post & put)
     'X-My-Custom-Header': 'foo-bar'
   },
 
@@ -150,6 +149,27 @@ When called with no params acts as a getter, returning the defined defaults.
 ```js
 const config = trae.defaults();
 ```
+
+It is possible to set default configuration for specific methods passing an
+object with the method as key:
+
+```js
+trae.defaults({
+  post: {
+    headers: {
+      'Content-Type': 'application/x-www-form-urlencoded'
+    }
+  }
+});
+```
+
+#### Request configuration precedence
+
+The configuration for a request will be merged following this precedence rules, each level overrides the followings:
+
+  1. Request params config.
+  1. Method config set with `trae.defaults({ [method]: { ... } })`.
+  1. Trae config set with `trae.defaults({ ... })`.
 
 #### `trae.baseUrl([url])`
 
@@ -249,7 +269,6 @@ const apiFoo = api.create()
 
 apiFoo.defaults() // { mode: 'no-cors', ... }
 ```
-
 
 [⬆ back to top](#content)
 

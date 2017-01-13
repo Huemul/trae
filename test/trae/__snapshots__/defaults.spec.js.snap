@@ -3,17 +3,17 @@ Object {
   "headers": Object {},
   "patch": Object {
     "headers": Object {
-      "Contet-Type": "application/json",
+      "Content-Type": "application/json",
     },
   },
   "post": Object {
     "headers": Object {
-      "Contet-Type": "application/json",
+      "Content-Type": "application/json",
     },
   },
   "put": Object {
     "headers": Object {
-      "Contet-Type": "application/json",
+      "Content-Type": "application/json",
     },
   },
 }
@@ -26,17 +26,17 @@ Object {
   "mode": "no-cors",
   "patch": Object {
     "headers": Object {
-      "Contet-Type": "application/json",
+      "Content-Type": "application/json",
     },
   },
   "post": Object {
     "headers": Object {
-      "Contet-Type": "application/json",
+      "Content-Type": "application/json",
     },
   },
   "put": Object {
     "headers": Object {
-      "Contet-Type": "application/json",
+      "Content-Type": "application/json",
     },
   },
 }

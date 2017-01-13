@@ -1,6 +1,6 @@
 exports[`trae -> put makes a PUT request to baseURL + path 1`] = `
 Object {
-  "Contet-Type": "application/json",
+  "Content-Type": "application/json",
 }
 `;
 

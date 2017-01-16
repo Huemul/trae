@@ -462,7 +462,14 @@
     });
   };
   self.fetch.polyfill = true;
-})(typeof self !== 'undefined' ? self : window);
+})(typeof self !== 'undefined' ? self : global);
+
+// the whatwg-fetch polyfill installs the fetch() function
+// on the global object (window or self)
+//
+// Return that as the export for use in Webpack, Browserify etc.
+
+var fetchNpmBrowserify = self.fetch.bind(self);
 
 function createCommonjsModule(fn, module) {
 	return module = { exports: {} }, fn(module, module.exports), module.exports;

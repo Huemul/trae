@@ -25,7 +25,15 @@ describe('trae -> patch', () => {
       method: 'patch'
     });
 
-    return trae.patch(url, { foo: 'bar' })
+    const testTrae = trae.create();
+
+    testTrae.before((c) => {
+      expect(c.headers).toMatchSnapshot();
+      return c;
+    });
+
+
+    return testTrae.patch(url, { foo: 'bar' })
     .then((res) => {
       expect(res).toMatchSnapshot();
       expect(fetchMock.called(url)).toBeTruthy();

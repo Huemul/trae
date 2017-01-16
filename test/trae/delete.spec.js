@@ -23,7 +23,15 @@ describe('trae -> delete', () => {
       method: 'delete'
     });
 
-    return trae.delete(url)
+    const testTrae = trae.create();
+
+    testTrae.before((c) => {
+      expect(c.headers).toEqual({});
+      return c;
+    });
+
+
+    return testTrae.delete(url)
     .then((res) => {
       expect(res).toMatchSnapshot();
       expect(fetchMock.called(url)).toBeTruthy();

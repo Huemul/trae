@@ -1,0 +1,23 @@
+exports[`trae adds "Content-Type": "application/json" header to the methods with body 1`] = `
+Object {
+  "headers": Object {
+    "Content-Type": "application/json",
+  },
+}
+`;
+
+exports[`trae adds "Content-Type": "application/json" header to the methods with body 2`] = `
+Object {
+  "headers": Object {
+    "Content-Type": "application/json",
+  },
+}
+`;
+
+exports[`trae adds "Content-Type": "application/json" header to the methods with body 3`] = `
+Object {
+  "headers": Object {
+    "Content-Type": "application/json",
+  },
+}
+`;

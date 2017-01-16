@@ -4,12 +4,7 @@ import { merge } from '../lib/utils';
 import Config    from '../lib/config';
 
 
-const DEFAULT_HEADERS = {
-  Accept        : 'application/json, text/plain, */*',
-  'Content-Type': 'application/json'
-};
-
-const defaults = merge({}, { headers: DEFAULT_HEADERS });
+const defaults = { headers: {} };
 
 const configParams = {
   mode       : 'no-cors',
@@ -24,16 +19,13 @@ describe('Config -> config', () => {
   it('initializes with the default fetch config', () => {
     const config = new Config();
 
-    expect(config._config).toEqual({});
-    expect(config._defaults).toEqual(defaults);
+    expect(config._config).toEqual(defaults);
     expect(config.get()).toEqual(defaults);
   });
 
   it('initializes with the defaults merged with the provided config', () => {
     const config = getConfigWithParams();
 
-    expect(config._config).toEqual(configParams);
-    expect(config._defaults).toEqual(defaults);
     expect(config.get()).toEqual(merge(defaults, configParams));
   });
 
@@ -69,33 +61,33 @@ describe('Config -> config', () => {
 
   });
 
-  describe('mergeWithDefaults', () => {
+  describe('merge', () => {
 
     it('returns body stringified according to Content-Type', () => {
       const config = new Config();
 
-      const actual = config.mergeWithDefaults({ body: { foo: 'bar' } });
+      const actual = config.merge({ body: { foo: 'bar' } });
       expect(actual).toMatchSnapshot();
     });
 
     it('returns the config merged with the params', () => {
       const config = new Config({ mode: 'no-cors' });
 
-      const actual = config.mergeWithDefaults({ credentials: 'same-origin' });
+      const actual = config.merge({ credentials: 'same-origin' });
       expect(actual).toMatchSnapshot();
     });
 
     it('returns the config merged with the params', () => {
       const config = new Config({ mode: 'no-cors' });
 
-      const actual = config.mergeWithDefaults({ credentials: 'same-origin' });
+      const actual = config.merge({ credentials: 'same-origin' });
       expect(actual).toMatchSnapshot();
     });
 
     it('merges all the params passed', () => {
       const config = new Config({ mode: 'no-cors' });
 
-      const actual = config.mergeWithDefaults(
+      const actual = config.merge(
         { credentials: 'same-origin' },
         { headers: { 'Content-Type': 'text/plain' } }
       );
@@ -105,17 +97,15 @@ describe('Config -> config', () => {
     it('does not mutate _config or _defaults', () => {
       const config = new Config({ mode: 'no-cors' });
 
-      expect(config._config).toEqual({ mode: 'no-cors' });
-      expect(config._defaults).toEqual(defaults);
+      expect(config._config).toEqual({ headers: {}, mode: 'no-cors' });
 
-      const actual = config.mergeWithDefaults(
+      const actual = config.merge(
         { headers: { 'Content-Type': 'text/plain' } },
         { mode: 'cors' }
       );
       expect(actual).toMatchSnapshot();
 
-      expect(config._config).toEqual({ mode: 'no-cors' });
-      expect(config._defaults).toEqual(defaults);
+      expect(config._config).toEqual({ headers: {}, mode: 'no-cors' });
     });
 
   });

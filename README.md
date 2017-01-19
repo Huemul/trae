@@ -21,6 +21,7 @@ Minimalistic HTTP client for the browser. Based on [Fetch](https://developer.moz
   1. [Middlewares](#middlewares)
   1. [Instances](#instances)
 1. [Response](#response)
+1. [Resources](#resources)
 1. [License](#license)
 1. [Contributing](#contributing)
 1. [Contributors](#contributors)
@@ -63,6 +64,8 @@ trae.post('https://www.foo.com/api/posts', {
     console.error(err);
   });
 ```
+
+Check out more examples [here](https://huemul.github.io/trae-examples).
 
 [⬆ back to top](#content)
 
@@ -301,6 +304,12 @@ The request methods return a promise that resolves to this object:
 `headers` is an instance of [Headers](https://developer.mozilla.org/en-US/docs/Web/API/Headers/Headers), it has methods handlers like `append`, `get`, `getAll`, `has`, `set`.
 
 [⬆ back to top](#content)
+
+## Resources
+
+- Middlewares
+  - [`trae-events`](https://github.com/Huemul/trae-events).
+  - [`trae-logger`](https://github.com/Huemul/trae-logger).
 
 ## License
 

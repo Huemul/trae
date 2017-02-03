@@ -25,6 +25,7 @@ Minimalistic HTTP client for the browser. Based on [Fetch](https://developer.moz
 1. [License](#license)
 1. [Contributing](#contributing)
 1. [Contributors](#contributors)
+1. [TODO](#todo)
 
 ## Install
 
@@ -313,7 +314,7 @@ The request methods return a promise that resolves to this object:
 
 ## License
 
-[MIT License](https://github.com/Huemul/trae/blob/master/LICENSE)
+[MIT License](https://github.com/Huemul/trae/blob/master/LICENSE).
 
 ## Contributing
 
@@ -334,3 +335,13 @@ Thanks goes to these wonderful people ([emoji key](https://github.com/kentcdodds
 
 [⬆ back to top](#content)
 
+## TODO
+
+- [ ] Provide a build with no polyfill.
+- [ ] CHANGELOG. [#48](https://github.com/Huemul/trae/issues/48)
+- [ ] Add logging and warnings to the dev build. [#49](https://github.com/Huemul/trae/issues/49#issuecomment-272533323)
+- [ ] Improve examples and add more. [`trae-exampels` repo](https://github.com/Huemul/trae-examples/).
+- [ ] Add a way to remove middlewares.
+- [ ] Add browser based tests.
+
+[⬆ back to top](#content)

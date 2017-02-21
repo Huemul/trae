@@ -142,8 +142,9 @@ describe('trae - middleware', () => {
       };
       fetchMock.mock(url, mockConfig);
 
-      apiFoo.finally((conf) => {
+      apiFoo.finally((conf, passedUrl) => {
         expect(conf.mySpecialConfig).toBe('unicorn');
+        expect(passedUrl).toBe(url);
         finallyRunned = true;
       });
 

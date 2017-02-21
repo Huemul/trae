@@ -1,3 +1,5 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
 exports[`trae -> get get -> params makes a GET request to baseURL + path using a nested object as params 1`] = `
 Object {
   "data": Object {

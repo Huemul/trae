@@ -1,3 +1,5 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
 exports[`trae -> patch makes a PATCH request to baseURL + path 1`] = `
 Object {
   "Content-Type": "application/json",

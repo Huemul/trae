@@ -1,3 +1,5 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
 exports[`trae adds "Content-Type": "application/json" header to the methods with body 1`] = `
 Object {
   "headers": Object {

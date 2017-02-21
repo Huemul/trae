@@ -1,3 +1,5 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
 exports[`Config -> config get returns the merged _defaults and _config 1`] = `
 Object {
   "credentials": "same-origin",

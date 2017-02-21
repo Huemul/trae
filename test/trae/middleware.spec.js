@@ -131,8 +131,7 @@ describe('trae - middleware', () => {
       const apiFoo      = trae.create();
       const url         = `${TEST_URL}/foo`;
       let finallyRunned = false;
-
-      fetchMock.mock(url, {
+      const mockConfig = {
         status : 200,
         headers: {
           'Content-Type': 'application/json'
@@ -140,13 +139,15 @@ describe('trae - middleware', () => {
         body: {
           foo: 'bar'
         }
-      });
+      };
+      fetchMock.mock(url, mockConfig);
 
-      apiFoo.finally(() => {
+      apiFoo.finally((conf) => {
+        expect(conf.mySpecialConfig).toBe('unicorn');
         finallyRunned = true;
       });
 
-      return apiFoo.get(url)
+      return apiFoo.get(url, { mySpecialConfig: 'unicorn' })
       .then((res) => {
         expect(finallyRunned).toBe(true);
         expect(res).toMatchSnapshot();

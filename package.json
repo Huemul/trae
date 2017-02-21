@@ -41,40 +41,40 @@
   "dependencies": {
     "isomorphic-fetch": "^2.2.1",
     "merge": "^1.2.0",
-    "qs": "^6.3.0"
+    "qs": "^6.3.1"
   },
   "devDependencies": {
-    "all-contributors-cli": "^3.0.7",
-    "babel-core": "^6.21.0",
-    "babel-jest": "^18.0.0",
-    "babel-loader": "^6.2.10",
-    "babel-preset-es2015": "^6.18.0",
+    "all-contributors-cli": "^4.0.0",
+    "babel-core": "^6.23.1",
+    "babel-jest": "^19.0.0",
+    "babel-loader": "^6.3.2",
+    "babel-preset-es2015": "^6.22.0",
     "babel-preset-es2015-rollup": "^3.0.0",
-    "coveralls": "^2.11.14",
-    "eslint": "^3.13.1",
-    "eslint-config-airbnb": "^14.0.0",
+    "coveralls": "^2.11.16",
+    "eslint": "^3.16.0",
+    "eslint-config-airbnb": "^14.1.0",
     "eslint-loader": "^1.6.1",
     "eslint-plugin-import": "^2.2.0",
-    "eslint-plugin-jsx-a11y": "^3.0.2",
-    "eslint-plugin-react": "^6.9.0",
-    "fetch-mock": "^5.8.0",
+    "eslint-plugin-jsx-a11y": "^4.0.0",
+    "eslint-plugin-react": "^6.10.0",
+    "fetch-mock": "^5.9.4",
     "http-server": "^0.9.0",
     "in-publish": "^2.0.0",
-    "jest": "^18.1.0",
+    "jest": "^19.0.0",
     "node-inspector": "^0.12.8",
     "np": "^2.12.0",
-    "pre-commit": "^1.1.3",
-    "rollup": "^0.41.2",
-    "rollup-plugin-babel": "^2.6.1",
+    "pre-commit": "^1.2.2",
+    "rollup": "^0.41.4",
+    "rollup-plugin-babel": "^2.7.1",
     "rollup-plugin-commonjs": "^7.0.0",
-    "rollup-plugin-conditional": "^0.1.4",
+    "rollup-plugin-conditional": "^1.1.1",
     "rollup-plugin-eslint": "^3.0.0",
     "rollup-plugin-filesize": "^1.0.1",
     "rollup-plugin-node-resolve": "^2.0.0",
     "rollup-plugin-replace": "^1.1.1",
     "rollup-plugin-uglify": "^1.0.1",
     "rollup-plugin-visualizer": "^0.2.0",
-    "rollup-watch": "^3.1.0"
+    "rollup-watch": "^3.2.2"
   },
   "pre-commit": [
     "eslint",
@@ -93,7 +93,7 @@
       "!**/node_modules/**",
       "lib/**"
     ],
-    "testPathDirs": [
+    "roots": [
       "test/"
     ]
   },

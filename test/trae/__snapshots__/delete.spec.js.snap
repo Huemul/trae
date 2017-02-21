@@ -1,3 +1,5 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
 exports[`trae -> delete makes a DELETE request to baseURL + path 1`] = `
 Object {
   "data": "Deleted!",

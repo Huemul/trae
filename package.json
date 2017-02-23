@@ -9,6 +9,7 @@
     "api"
   ],
   "main": "dist/trae.min.js",
+  "module": "lib/index.js",
   "author": "gillchristian <gillchristiang@gmail.com>",
   "contributors": [
     "ndelvalle <nicolas.delvalle@gmail.com>"

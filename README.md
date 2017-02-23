@@ -234,11 +234,10 @@ trae.get('/api/posts')
 
 #### `trae.finally([middleware])`
 
-Runs at the end regardless of the request result. Is not promise based. Functions provided to this method are run synchronously.
+Runs at the end regardless of the request result, it has access to the configuration object and the url that was used to made the request. Is not promise based. Functions provided to this method are run synchronously. 
 
 ```js
 const finallyMiddleware = (config, url) => {
-  // config is your config object that was used for the original fetch
   console.log('The End');
   makeTheSpinnerStop();
 };

@@ -8,8 +8,8 @@
     "request",
     "api"
   ],
-  "main": "dist/trae.min.js",
-  "module": "lib/index.js",
+  "main": "dist/trae.js",
+  "module": "dist/trae.umd.min.js",
   "author": "gillchristian <gillchristiang@gmail.com>",
   "contributors": [
     "ndelvalle <nicolas.delvalle@gmail.com>"
@@ -26,9 +26,8 @@
   "scripts": {
     "add": "all-contributors add",
     "contributors": "all-contributors generate",
-    "build": "NODE_ENV=production rollup -c",
-    "build:dev": "rollup -c",
-    "build:dev:w": "rollup -c -w",
+    "build": "NODE_ENV=production node build/rollup.js",
+    "build:dev": "node build/rollup.js",
     "build:docs": "npm run build && cp dist/trae.min.js docs/js/trae.min.js",
     "docs": "http-server ./docs -o",
     "test": "npm run eslint && jest --coverage --verbose",
@@ -71,6 +70,8 @@
     "rollup-plugin-conditional": "^1.1.1",
     "rollup-plugin-eslint": "^3.0.0",
     "rollup-plugin-filesize": "^1.0.1",
+    "rollup-plugin-node-builtins": "^2.1.0",
+    "rollup-plugin-node-globals": "^1.1.0",
     "rollup-plugin-node-resolve": "^2.0.0",
     "rollup-plugin-replace": "^1.1.1",
     "rollup-plugin-uglify": "^1.0.1",

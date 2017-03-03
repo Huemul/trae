@@ -9,7 +9,7 @@
     "api"
   ],
   "main": "dist/trae.js",
-  "module": "dist/trae.min.js",
+  "module": "dist/trae.umd.min.js",
   "author": "gillchristian <gillchristiang@gmail.com>",
   "contributors": [
     "ndelvalle <nicolas.delvalle@gmail.com>"
@@ -26,11 +26,8 @@
   "scripts": {
     "add": "all-contributors add",
     "contributors": "all-contributors generate",
-    "build": "NODE_ENV=production npm run build:node && npm run build:browser",
-    "build:dev": "npm run build:node && npm run build:browser",
-    "build:node": "FORMAT=cjs rollup -c",
-    "build:browser": "FORMAT=umd rollup -c",
-    "build:dev:w": "rollup -c -w",
+    "build": "NODE_ENV=production node build/rollup.js",
+    "build:dev": "node build/rollup.js",
     "build:docs": "npm run build && cp dist/trae.min.js docs/js/trae.min.js",
     "docs": "http-server ./docs -o",
     "test": "npm run eslint && jest --coverage --verbose",

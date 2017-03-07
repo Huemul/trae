@@ -1,7 +1,7 @@
 /**
   * Trae, the fetch library!
   *
-  * @version: 1.2.1-0
+  * @version: 1.2.1-1
   * @authors: gillchristian <gillchristiang@gmail.com> | ndelvalle <nicolas.delvalle@gmail.com>
   */
 'use strict';

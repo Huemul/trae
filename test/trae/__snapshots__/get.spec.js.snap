@@ -2,6 +2,16 @@
 
 exports[`trae -> get get -> params makes a GET request to baseURL + path using a nested object as params 1`] = `
 Object {
+  "config": Object {
+    "headers": Object {},
+    "method": "get",
+    "params": Object {
+      "a": Object {
+        "b": "c",
+      },
+    },
+    "url": "http://localhost:8080/api/foo?a%5Bb%5D=c",
+  },
   "data": Object {
     "foo": "bar",
   },
@@ -19,6 +29,16 @@ Object {
 
 exports[`trae -> get get -> params makes a GET request to baseURL + path using params 1`] = `
 Object {
+  "config": Object {
+    "headers": Object {},
+    "method": "get",
+    "params": Object {
+      "foo": "bar",
+      "key": 123,
+      "token": "12345lkjhpor837",
+    },
+    "url": "http://localhost:8080/api/foo?foo=bar&key=123&token=12345lkjhpor837",
+  },
   "data": Object {
     "foo": "bar",
   },
@@ -36,6 +56,11 @@ Object {
 
 exports[`trae -> get makes a GET request to baseURL + path 1`] = `
 Object {
+  "config": Object {
+    "headers": Object {},
+    "method": "get",
+    "url": "http://localhost:8080/api/foo",
+  },
   "data": Object {
     "foo": "bar",
   },
@@ -53,6 +78,12 @@ Object {
 
 exports[`trae -> get makes a GET request with raw bodyType and get the body without being parsed 1`] = `
 Object {
+  "config": Object {
+    "bodyType": "raw",
+    "headers": Object {},
+    "method": "get",
+    "url": "http://localhost:8080/api/foo",
+  },
   "data": Readable {
     "_events": Object {},
     "_eventsCount": 0,

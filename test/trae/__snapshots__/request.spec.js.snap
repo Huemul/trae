@@ -2,6 +2,14 @@
 
 exports[`trae -> request makes a DELETE request to baseURL + path using the request method 1`] = `
 Object {
+  "config": Object {
+    "body": Object {
+      "baz": "foo",
+    },
+    "headers": Object {},
+    "method": "delete",
+    "url": "http://localhost:8080/api/foo",
+  },
   "data": Object {
     "foo": "bar",
   },
@@ -19,6 +27,15 @@ Object {
 
 exports[`trae -> request makes a GET request to baseURL + path using the request method 1`] = `
 Object {
+  "config": Object {
+    "headers": Object {},
+    "method": "get",
+    "params": Object {
+      "bar": "test",
+      "foo": "sar",
+    },
+    "url": "http://localhost:8080/api/foo",
+  },
   "data": Object {
     "foo": "bar",
   },
@@ -36,6 +53,11 @@ Object {
 
 exports[`trae -> request makes a HEAD request to baseURL + path using the request method 1`] = `
 Object {
+  "config": Object {
+    "headers": Object {},
+    "method": "head",
+    "url": "http://localhost:8080/api/foo",
+  },
   "data": Object {
     "foo": "bar",
   },
@@ -53,6 +75,19 @@ Object {
 
 exports[`trae -> request makes a PATCH request to baseURL + path using the request method 1`] = `
 Object {
+  "config": Object {
+    "body": "{\\"foo\\":\\"bar\\"}",
+    "headers": Object {
+      "Content-Type": "application/json",
+    },
+    "method": "patch",
+    "patch": Object {
+      "headers": Object {
+        "Content-Type": "application/json",
+      },
+    },
+    "url": "http://localhost:8080/api/foo",
+  },
   "data": Object {
     "foo": "bar",
   },
@@ -70,6 +105,19 @@ Object {
 
 exports[`trae -> request makes a POST request to baseURL + path using the request method 1`] = `
 Object {
+  "config": Object {
+    "body": "{\\"foo\\":\\"baz\\"}",
+    "headers": Object {
+      "Content-Type": "application/json",
+    },
+    "method": "post",
+    "post": Object {
+      "headers": Object {
+        "Content-Type": "application/json",
+      },
+    },
+    "url": "http://localhost:8080/api/foo",
+  },
   "data": Object {
     "foo": "bar",
   },
@@ -87,6 +135,19 @@ Object {
 
 exports[`trae -> request makes a PUT request to baseURL + path using the request method 1`] = `
 Object {
+  "config": Object {
+    "body": "{\\"foo\\":\\"bar\\"}",
+    "headers": Object {
+      "Content-Type": "application/json",
+    },
+    "method": "put",
+    "put": Object {
+      "headers": Object {
+        "Content-Type": "application/json",
+      },
+    },
+    "url": "http://localhost:8080/api/foo",
+  },
   "data": Object {
     "foo": "bar",
   },

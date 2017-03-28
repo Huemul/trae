@@ -8,6 +8,19 @@ Object {
 
 exports[`trae -> put makes a PUT request to baseURL + path 2`] = `
 Object {
+  "config": Object {
+    "body": "{\\"foo\\":\\"bar\\"}",
+    "headers": Object {
+      "Content-Type": "application/json",
+    },
+    "method": "put",
+    "put": Object {
+      "headers": Object {
+        "Content-Type": "application/json",
+      },
+    },
+    "url": "http://localhost:8080/api/foo",
+  },
   "data": Object {
     "foo": "bar",
   },

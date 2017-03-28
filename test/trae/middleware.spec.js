@@ -102,7 +102,11 @@ describe('trae - middleware', () => {
       const url    = `${TEST_URL}/foo`;
 
       fetchMock.mock(url, {
-        status: 500
+        status: 500,
+        body: { message: 'Error in the server' },
+        headers: {
+          'Content-Type': 'application/json'
+        }
       });
 
       const fulfill = res => Promise.resolve(res);
@@ -118,6 +122,7 @@ describe('trae - middleware', () => {
       .catch((err) => {
         expect(err.status).toBe(500);
         expect(err.test).toBe(true);
+        expect(err.data).toEqual({ message: 'Error in the server' });
         expect(err).toMatchSnapshot();
         expect(fetchMock.called(url)).toBeTruthy();
         expect(fetchMock.lastUrl()).toBe(url);

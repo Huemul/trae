@@ -2,6 +2,11 @@
 
 exports[`trae -> delete makes a DELETE request to baseURL + path 1`] = `
 Object {
+  "config": Object {
+    "headers": Object {},
+    "method": "delete",
+    "url": "http://localhost:8080/api/foo",
+  },
   "data": "Deleted!",
   "headers": Headers {
     "_headers": Object {

@@ -8,6 +8,19 @@ Object {
 
 exports[`trae -> post makes a POST request to baseURL + path 2`] = `
 Object {
+  "config": Object {
+    "body": "{\\"foo\\":\\"bar\\"}",
+    "headers": Object {
+      "Content-Type": "application/json",
+    },
+    "method": "post",
+    "post": Object {
+      "headers": Object {
+        "Content-Type": "application/json",
+      },
+    },
+    "url": "http://localhost:8080/api/foo",
+  },
   "data": Object {
     "foo": "bar",
   },
@@ -25,6 +38,24 @@ Object {
 
 exports[`trae -> post post -> params makes a POST request to baseURL + path using a nested object as params 1`] = `
 Object {
+  "config": Object {
+    "body": "{\\"sarasa\\":\\"request body\\"}",
+    "headers": Object {
+      "Content-Type": "application/json",
+    },
+    "method": "post",
+    "params": Object {
+      "a": Object {
+        "b": "c",
+      },
+    },
+    "post": Object {
+      "headers": Object {
+        "Content-Type": "application/json",
+      },
+    },
+    "url": "http://localhost:8080/api/foo?a%5Bb%5D=c",
+  },
   "data": Object {
     "foo": "bar",
   },
@@ -42,6 +73,24 @@ Object {
 
 exports[`trae -> post post -> params makes a POST request to baseURL + path using params 1`] = `
 Object {
+  "config": Object {
+    "body": "{\\"sarasa\\":\\"request body\\"}",
+    "headers": Object {
+      "Content-Type": "application/json",
+    },
+    "method": "post",
+    "params": Object {
+      "foo": "bar",
+      "key": 123,
+      "token": "12345lkjhpor837",
+    },
+    "post": Object {
+      "headers": Object {
+        "Content-Type": "application/json",
+      },
+    },
+    "url": "http://localhost:8080/api/foo?foo=bar&key=123&token=12345lkjhpor837",
+  },
   "data": Object {
     "foo": "bar",
   },

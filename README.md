@@ -21,6 +21,9 @@ Minimalistic HTTP client for the browser. Based on [Fetch](https://developer.moz
   1. [Middlewares](#middlewares)
   1. [Instances](#instances)
 1. [Response](#response)
+  1. [Data](#data)
+  1. [Headers](#headers)
+1. [Rejection](#rejection)
 1. [Resources](#resources)
 1. [License](#license)
 1. [Contributing](#contributing)
@@ -278,11 +281,11 @@ apiFoo.defaults() // { mode: 'no-cors', ... }
 
 ## Response
 
-The request methods return a promise that resolves to this object:
+The request methods returns a promise that resolves to this object:
 
 ```js
 {
-  // the response that came from the server
+  // body of the response
   data: { ... },
 
   // status code of the response
@@ -293,21 +296,33 @@ The request methods return a promise that resolves to this object:
 
   // headers of the response
   headers: { ... },
+
+  // the config used to execute the request
+  config: { ... },
 }
 ```
 
-#### data
+#### Data
 
-`data` is read using `response.json()` when `response.headers['Content-Type']` contains `application/json` and will be an object, otherwise it is read using `response.text()` and will result in a string. If you need to use [another reader ](https://developer.mozilla.org/en-US/docs/Web/API/Body), it can be specified by setting the `bodyType` [config property](#config).
+Response body is read using `response.json()` when `response.headers['Content-Type']` contains `application/json` and will be an object, otherwise it is read using `response.text()` and will result in a string. If you need to use [another reader ](https://developer.mozilla.org/en-US/docs/Web/API/Body), it can be specified by setting the `bodyType` [config property](#config).
 
-#### headers
+`bodyType` is not used on rejection, response body is read according to `response.headers['Content-Type']`.
+
+In both cases it is passed to the after middleware as the `data` property.
+
+#### Headers
 
 `headers` is an instance of [Headers](https://developer.mozilla.org/en-US/docs/Web/API/Headers/Headers), it has methods handlers like `append`, `get`, `getAll`, `has`, `set`.
+
+## Rejection
+
+On rejection an `Error` is passed to the rejection middleware with the same properties as the response object.
 
 [⬆ back to top](#content)
 
 ## Resources
 
+- Motivation: if you want to know more about the motivations behind this library check out [this article](https://hackernoon.com/trae-another-http-library-70000860a5f4).
 - Middlewares
   - [`trae-events`](https://github.com/Huemul/trae-events).
   - [`trae-logger`](https://github.com/Huemul/trae-logger).

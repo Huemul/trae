@@ -8,6 +8,19 @@ Object {
 
 exports[`trae -> patch makes a PATCH request to baseURL + path 2`] = `
 Object {
+  "config": Object {
+    "body": "{\\"foo\\":\\"bar\\"}",
+    "headers": Object {
+      "Content-Type": "application/json",
+    },
+    "method": "patch",
+    "patch": Object {
+      "headers": Object {
+        "Content-Type": "application/json",
+      },
+    },
+    "url": "http://localhost:8080/api/foo",
+  },
   "data": Object {
     "foo": "bar",
   },

@@ -2,6 +2,11 @@
 
 exports[`trae - middleware after runs the fulfill after middlewares 1`] = `
 Object {
+  "config": Object {
+    "headers": Object {},
+    "method": "get",
+    "url": "http://localhost:8080/api/foo",
+  },
   "data": Object {
     "foo": "bar",
     "test": true,
@@ -22,6 +27,13 @@ exports[`trae - middleware after runs the reject after middlewares 1`] = `[Error
 
 exports[`trae - middleware before runs the before middlewares 1`] = `
 Object {
+  "config": Object {
+    "headers": Object {
+      "Authorization": "12345Foo",
+    },
+    "method": "get",
+    "url": "http://localhost:8080/api/foo",
+  },
   "data": Object {
     "foo": "bar",
   },
@@ -39,6 +51,12 @@ Object {
 
 exports[`trae - middleware finally runs the finally middlewares 1`] = `
 Object {
+  "config": Object {
+    "headers": Object {},
+    "method": "get",
+    "mySpecialConfig": "unicorn",
+    "url": "http://localhost:8080/api/foo",
+  },
   "data": Object {
     "foo": "bar",
   },

@@ -1,9 +1,14 @@
 /* global describe it expect */
 
-import trae from '../../lib';
+import trae        from '../../lib';
+import { version } from '../../package.json';
 
-describe('trae', () => {
-  it('exposed as a singleton instance of Trae class with the default config', () => {
+describe.only('trae', () => {
+  it('exposes the version using the package.json', () => {
+    expect(trae.version).toEqual(version);
+  });
+
+  it('exposes a singleton instance of Trae class with the default config', () => {
     expect(trae._baseUrl).toEqual('');
     expect(trae._middleware).toBeDefined();
     expect(trae._config).toBeDefined();

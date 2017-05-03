@@ -10,6 +10,8 @@ const commonjs           = require('rollup-plugin-commonjs');
 const visualizer         = require('rollup-plugin-visualizer');
 const builtins           = require('rollup-plugin-node-builtins');
 const globals            = require('rollup-plugin-node-globals');
+const json               = require('rollup-plugin-json');
+
 const skipCommentsCustom = require('./uglify-skip-comments');
 const generateBanner     = require('./generate-banner');
 const generateBundleName = require('./generate-bundle-name');
@@ -27,8 +29,14 @@ let promise = Promise.resolve();
     entry  : 'lib/index.js',
     context: 'global',
     plugins: [
+      json({
+        include    : 'package.json',
+        preferConst: true
+      }),
+      eslint({
+        exclude: 'package.json'
+      }),
       conditional(format === 'cjs', [globals(), builtins()]),
-      eslint(),
       resolve({
         jsnext        : format === 'umd',
         main          : true,
@@ -44,10 +52,10 @@ let promise = Promise.resolve();
       babel({
         babelrc: false, // jest makes use of .babelrc
         presets: ['es2015-rollup'],
-        exclude: 'node_modules/**'
+        exclude: ['node_modules/**', '*.json']
       }),
       replace({
-        exclude               : 'node_modules/**',
+        exclude               : ['node_modules/**', '*.json'],
         'process.env.NODE_ENV': JSON.stringify(env),
         NODE_ENV              : JSON.stringify(env)
       }),

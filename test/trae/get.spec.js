@@ -53,7 +53,7 @@ describe('trae -> get', () => {
       expect(res).toMatchSnapshot();
       expect(fetchMock.called(url)).toBeTruthy();
       expect(fetchMock.lastUrl()).toBe(url);
-      expect(fetchMock.lastOptions().method).toBe('get');
+      expect(fetchMock.lastOptions().method).toBe('GET');
     });
   });
 
@@ -75,7 +75,7 @@ describe('trae -> get', () => {
       expect(res).toMatchSnapshot();
       expect(fetchMock.called(url)).toBeTruthy();
       expect(fetchMock.lastUrl()).toBe(url);
-      expect(fetchMock.lastOptions().method).toBe('get');
+      expect(fetchMock.lastOptions().method).toBe('GET');
     });
   });
 
@@ -108,7 +108,7 @@ describe('trae -> get', () => {
         expect(res).toMatchSnapshot();
         expect(fetchMock.called(url + qs)).toBeTruthy();
         expect(fetchMock.lastUrl()).toBe(url + qs);
-        expect(fetchMock.lastOptions().method).toBe('get');
+        expect(fetchMock.lastOptions().method).toBe('GET');
       });
     });
 
@@ -135,7 +135,7 @@ describe('trae -> get', () => {
         expect(res).toMatchSnapshot();
         expect(fetchMock.called(url + qs)).toBeTruthy();
         expect(fetchMock.lastUrl()).toBe(url + qs);
-        expect(fetchMock.lastOptions().method).toBe('get');
+        expect(fetchMock.lastOptions().method).toBe('GET');
       });
     });
   });

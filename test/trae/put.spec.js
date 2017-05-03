@@ -38,7 +38,7 @@ describe('trae -> put', () => {
       expect(res).toMatchSnapshot();
       expect(fetchMock.called(url)).toBeTruthy();
       expect(fetchMock.lastUrl()).toBe(url);
-      expect(fetchMock.lastOptions().method).toBe('put');
+      expect(fetchMock.lastOptions().method).toBe('PUT');
     });
   });
 });

@@ -36,7 +36,7 @@ describe('trae -> delete', () => {
       expect(res).toMatchSnapshot();
       expect(fetchMock.called(url)).toBeTruthy();
       expect(fetchMock.lastUrl()).toBe(url);
-      expect(fetchMock.lastOptions().method).toBe('delete');
+      expect(fetchMock.lastOptions().method).toBe('DELETE');
     });
   });
 });

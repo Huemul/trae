@@ -58,7 +58,7 @@ describe('trae - middleware', () => {
         expect(res).toMatchSnapshot();
         expect(fetchMock.called(url)).toBeTruthy();
         expect(fetchMock.lastUrl()).toBe(url);
-        expect(fetchMock.lastOptions().method).toBe('get');
+        expect(fetchMock.lastOptions().method).toBe('GET');
         expect(fetchMock.lastOptions().headers.Authorization).toBe('12345Foo');
       });
     });
@@ -93,7 +93,7 @@ describe('trae - middleware', () => {
         expect(res).toMatchSnapshot();
         expect(fetchMock.called(url)).toBeTruthy();
         expect(fetchMock.lastUrl()).toBe(url);
-        expect(fetchMock.lastOptions().method).toBe('get');
+        expect(fetchMock.lastOptions().method).toBe('GET');
       });
     });
 
@@ -126,7 +126,7 @@ describe('trae - middleware', () => {
         expect(err).toMatchSnapshot();
         expect(fetchMock.called(url)).toBeTruthy();
         expect(fetchMock.lastUrl()).toBe(url);
-        expect(fetchMock.lastOptions().method).toBe('get');
+        expect(fetchMock.lastOptions().method).toBe('GET');
       });
     });
   });
@@ -159,7 +159,7 @@ describe('trae - middleware', () => {
         expect(res).toMatchSnapshot();
         expect(fetchMock.called(url)).toBeTruthy();
         expect(fetchMock.lastUrl()).toBe(url);
-        expect(fetchMock.lastOptions().method).toBe('get');
+        expect(fetchMock.lastOptions().method).toBe('GET');
       });
     });
   });

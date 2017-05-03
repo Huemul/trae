@@ -13,7 +13,7 @@ Object {
     "headers": Object {
       "Content-Type": "application/json",
     },
-    "method": "put",
+    "method": "PUT",
     "put": Object {
       "headers": Object {
         "Content-Type": "application/json",

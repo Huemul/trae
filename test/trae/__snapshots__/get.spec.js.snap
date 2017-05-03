@@ -4,7 +4,7 @@ exports[`trae -> get get -> params makes a GET request to baseURL + path using a
 Object {
   "config": Object {
     "headers": Object {},
-    "method": "get",
+    "method": "GET",
     "params": Object {
       "a": Object {
         "b": "c",
@@ -31,7 +31,7 @@ exports[`trae -> get get -> params makes a GET request to baseURL + path using p
 Object {
   "config": Object {
     "headers": Object {},
-    "method": "get",
+    "method": "GET",
     "params": Object {
       "foo": "bar",
       "key": 123,
@@ -58,7 +58,7 @@ exports[`trae -> get makes a GET request to baseURL + path 1`] = `
 Object {
   "config": Object {
     "headers": Object {},
-    "method": "get",
+    "method": "GET",
     "url": "http://localhost:8080/api/foo",
   },
   "data": Object {
@@ -81,7 +81,7 @@ Object {
   "config": Object {
     "bodyType": "raw",
     "headers": Object {},
-    "method": "get",
+    "method": "GET",
     "url": "http://localhost:8080/api/foo",
   },
   "data": Readable {

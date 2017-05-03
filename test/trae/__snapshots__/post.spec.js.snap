@@ -13,7 +13,7 @@ Object {
     "headers": Object {
       "Content-Type": "application/json",
     },
-    "method": "post",
+    "method": "POST",
     "post": Object {
       "headers": Object {
         "Content-Type": "application/json",
@@ -43,7 +43,7 @@ Object {
     "headers": Object {
       "Content-Type": "application/json",
     },
-    "method": "post",
+    "method": "POST",
     "params": Object {
       "a": Object {
         "b": "c",
@@ -78,7 +78,7 @@ Object {
     "headers": Object {
       "Content-Type": "application/json",
     },
-    "method": "post",
+    "method": "POST",
     "params": Object {
       "foo": "bar",
       "key": 123,

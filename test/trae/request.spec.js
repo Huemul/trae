@@ -42,7 +42,7 @@ describe('trae -> request', () => {
       expect(res).toMatchSnapshot();
       expect(fetchMock.called(`${url}?foo=sar&bar=test`)).toBeTruthy();
       expect(fetchMock.lastUrl()).toBe(`${url}?foo=sar&bar=test`);
-      expect(fetchMock.lastOptions().method).toBe('get');
+      expect(fetchMock.lastOptions().method).toBe('GET');
     });
   });
 
@@ -72,7 +72,7 @@ describe('trae -> request', () => {
       expect(res).toMatchSnapshot();
       expect(fetchMock.called(url)).toBeTruthy();
       expect(fetchMock.lastUrl()).toBe(url);
-      expect(fetchMock.lastOptions().method).toBe('post');
+      expect(fetchMock.lastOptions().method).toBe('POST');
     });
   });
 
@@ -102,7 +102,7 @@ describe('trae -> request', () => {
       expect(res).toMatchSnapshot();
       expect(fetchMock.called(url)).toBeTruthy();
       expect(fetchMock.lastUrl()).toBe(url);
-      expect(fetchMock.lastOptions().method).toBe('put');
+      expect(fetchMock.lastOptions().method).toBe('PUT');
     });
   });
 
@@ -132,7 +132,7 @@ describe('trae -> request', () => {
       expect(res).toMatchSnapshot();
       expect(fetchMock.called(url)).toBeTruthy();
       expect(fetchMock.lastUrl()).toBe(url);
-      expect(fetchMock.lastOptions().method).toBe('patch');
+      expect(fetchMock.lastOptions().method).toBe('PATCH');
     });
   });
 
@@ -162,7 +162,7 @@ describe('trae -> request', () => {
       expect(res).toMatchSnapshot();
       expect(fetchMock.called(url)).toBeTruthy();
       expect(fetchMock.lastUrl()).toBe(url);
-      expect(fetchMock.lastOptions().method).toBe('delete');
+      expect(fetchMock.lastOptions().method).toBe('DELETE');
     });
   });
 
@@ -189,7 +189,7 @@ describe('trae -> request', () => {
       expect(res).toMatchSnapshot();
       expect(fetchMock.called(url)).toBeTruthy();
       expect(fetchMock.lastUrl()).toBe(url);
-      expect(fetchMock.lastOptions().method).toBe('head');
+      expect(fetchMock.lastOptions().method).toBe('HEAD');
     });
   });
 });

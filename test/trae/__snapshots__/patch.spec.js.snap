@@ -13,7 +13,7 @@ Object {
     "headers": Object {
       "Content-Type": "application/json",
     },
-    "method": "patch",
+    "method": "PATCH",
     "patch": Object {
       "headers": Object {
         "Content-Type": "application/json",

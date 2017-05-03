@@ -38,7 +38,7 @@ describe('trae -> patch', () => {
       expect(res).toMatchSnapshot();
       expect(fetchMock.called(url)).toBeTruthy();
       expect(fetchMock.lastUrl()).toBe(url);
-      expect(fetchMock.lastOptions().method).toBe('patch');
+      expect(fetchMock.lastOptions().method).toBe('PATCH');
     });
   });
 });

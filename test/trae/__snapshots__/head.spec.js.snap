@@ -4,7 +4,7 @@ exports[`trae -> head makes a HEAD request to baseURL + path 1`] = `
 Object {
   "config": Object {
     "headers": Object {},
-    "method": "head",
+    "method": "HEAD",
     "url": "http://localhost:8080/api/foo",
   },
   "data": "",

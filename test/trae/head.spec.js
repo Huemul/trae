@@ -32,7 +32,7 @@ describe('trae -> head', () => {
       expect(res).toMatchSnapshot();
       expect(fetchMock.called(url)).toBeTruthy();
       expect(fetchMock.lastUrl()).toBe(url);
-      expect(fetchMock.lastOptions().method).toBe('head');
+      expect(fetchMock.lastOptions().method).toBe('HEAD');
     });
   });
 });

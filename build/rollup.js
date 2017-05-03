@@ -52,10 +52,10 @@ let promise = Promise.resolve();
       babel({
         babelrc: false, // jest makes use of .babelrc
         presets: ['es2015-rollup'],
-        exclude: ['node_modules/**', '*.json']
+        exclude: ['node_modules/**', 'package.json']
       }),
       replace({
-        exclude               : ['node_modules/**', '*.json'],
+        exclude               : ['node_modules/**', 'package.json'],
         'process.env.NODE_ENV': JSON.stringify(env),
         NODE_ENV              : JSON.stringify(env)
       }),

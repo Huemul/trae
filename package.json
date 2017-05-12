@@ -10,6 +10,11 @@
   ],
   "main": "dist/trae.js",
   "module": "dist/trae.umd.min.js",
+  "unpkg": "dist/trae.umd.min.js",
+  "files": [
+    "src",
+    "dist/*.js"
+  ],
   "author": "gillchristian <gillchristiang@gmail.com>",
   "contributors": [
     "ndelvalle <nicolas.delvalle@gmail.com>"

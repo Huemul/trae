@@ -56,7 +56,7 @@ trae.get('https://www.google.com.ar/search', { params: { q: 'foo' } })
 
 A `POST` request to `https://www.foo.com/api/posts`:
 
-```js
+```js (skip)
 trae.post('https://www.foo.com/api/posts', {
   title  : 'My Post',
   content: 'My awesome post content...'
@@ -77,7 +77,7 @@ Check out more examples [here](https://huemul.github.io/trae-examples).
 
 ### Request methods
 
-```js
+```js (skip)
 trae.get(url[, config]);
 
 trae.delete(url[, config]);
@@ -97,7 +97,7 @@ trae.patch(url[, body[, config]]);
 
 The configuration object can be used in all request methods, the following attributes are available:
 
-```javascript
+```js (skip)
 {
   // Absolute or relative url of the request
   url: '/foo/bar',
@@ -182,7 +182,7 @@ The configuration for a request will be merged following this precedence rules, 
 
 Shorthand for `trae.defaults({baseUrl: url})`. Also returns the `baseUrl` when no params are passed.
 
-```js
+```js (skip)
 trae.baseUrl('https://www.foo.com');
 
 const baseUrl = trae.baseUrl();
@@ -230,7 +230,7 @@ trae.after(fullfillMiddleware, rejectMiddleware);
 
 Using the above `after` middleware is the same as doing:
 
-```js
+```js (skip)
 trae.get('/api/posts')
   .then(fullfillMiddleware, rejectMiddleware);
 ```
@@ -256,7 +256,7 @@ trae.finally(finallyMiddleware);
 
 Creates an instance of `Trae` with its own defaults and middlewares. The API documentation applies for instances as well.
 
-```js
+```js (skip)
 const api = trae.create({baseUrl: '/api'})
 
 api.get('/posts') // GET: /api/posts
@@ -264,7 +264,7 @@ api.get('/posts') // GET: /api/posts
 
 The created method inherits all the defaults and middlewares from its creator.
 
-```js
+```js (skip)
 trae.baseUrl('/api')
 const api = trae.create()
 
@@ -283,7 +283,7 @@ apiFoo.defaults() // { mode: 'no-cors', ... }
 
 The request methods returns a promise that resolves to this object:
 
-```js
+```js (skip)
 {
   // body of the response
   data: { ... },

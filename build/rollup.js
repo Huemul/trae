@@ -11,16 +11,17 @@ const visualizer         = require('rollup-plugin-visualizer');
 const builtins           = require('rollup-plugin-node-builtins');
 const globals            = require('rollup-plugin-node-globals');
 const json               = require('rollup-plugin-json');
+const mkdirp             = require('mkdirp');
 
 const skipCommentsCustom = require('./uglify-skip-comments');
 const generateBanner     = require('./generate-banner');
 const generateBundleName = require('./generate-bundle-name');
 const pkg                = require('../package.json');
 
-
 const env    = process.env.NODE_ENV || 'development';
 const isProd = env === 'production';
 
+mkdirp('./coverage');
 
 let promise = Promise.resolve();
 

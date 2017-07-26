@@ -29,6 +29,7 @@
   },
   "homepage": "https://github.com/huemul/trae#readme",
   "scripts": {
+    "test:docs": "chimi",
     "add": "all-contributors add",
     "contributors": "all-contributors generate",
     "build": "NODE_ENV=production node build/rollup.js",
@@ -54,6 +55,7 @@
     "babel-loader": "^7.0.0",
     "babel-preset-es2015": "^6.22.0",
     "babel-preset-es2015-rollup": "^3.0.0",
+    "chimi": "^0.0.6",
     "coveralls": "^2.11.16",
     "eslint": "^3.16.0",
     "eslint-config-airbnb": "^14.1.0",

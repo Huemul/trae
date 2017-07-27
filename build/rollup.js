@@ -11,16 +11,17 @@ const visualizer         = require('rollup-plugin-visualizer');
 const builtins           = require('rollup-plugin-node-builtins');
 const globals            = require('rollup-plugin-node-globals');
 const json               = require('rollup-plugin-json');
+const mkdirp             = require('mkdirp');
 
 const skipCommentsCustom = require('./uglify-skip-comments');
 const generateBanner     = require('./generate-banner');
 const generateBundleName = require('./generate-bundle-name');
 const pkg                = require('../package.json');
 
-
 const env    = process.env.NODE_ENV || 'development';
 const isProd = env === 'production';
 
+mkdirp('./dist');
 
 let promise = Promise.resolve();
 
@@ -59,7 +60,7 @@ let promise = Promise.resolve();
         'process.env.NODE_ENV': JSON.stringify(env),
         NODE_ENV              : JSON.stringify(env)
       }),
-      visualizer({ filename: `./coverage/${format}-bundle-statistics.html` }),
+      visualizer({ filename: `./dist/${format}-bundle-statistics.html` }),
       conditional(isProd && format === 'umd', [uglify({ output: { comments: skipCommentsCustom } })]),
       filesize()
     ]

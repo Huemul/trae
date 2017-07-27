@@ -21,7 +21,7 @@ const pkg                = require('../package.json');
 const env    = process.env.NODE_ENV || 'development';
 const isProd = env === 'production';
 
-mkdirp('./coverage');
+mkdirp('./dist');
 
 let promise = Promise.resolve();
 
@@ -60,7 +60,7 @@ let promise = Promise.resolve();
         'process.env.NODE_ENV': JSON.stringify(env),
         NODE_ENV              : JSON.stringify(env)
       }),
-      visualizer({ filename: `./coverage/${format}-bundle-statistics.html` }),
+      visualizer({ filename: `./dist/${format}-bundle-statistics.html` }),
       conditional(isProd && format === 'umd', [uglify({ output: { comments: skipCommentsCustom } })]),
       filesize()
     ]

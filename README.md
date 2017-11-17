@@ -1,4 +1,4 @@
-# trae
+<h1 align="center">trae</h1>
 
 Minimalistic HTTP client for the browser and Node. Based on [Fetch](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API) API, allows `trae` to be future-proofing, to have a clean implementation and support streaming among other goodies.
 

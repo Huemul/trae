@@ -1,4 +1,6 @@
-<h1 align="center">trae</h1>
+<h1 align="center">
+  <img src="https://github.com/Huemul/trae/blob/master/assets/logo.png" alt="trae">
+</h1>
 
 Minimalistic HTTP client for the browser and Node. Based on [Fetch](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API) API, allows `trae` to be future-proofing, to have a clean implementation and support streaming among other goodies.
 

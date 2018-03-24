@@ -22,7 +22,7 @@ const env    = process.env.NODE_ENV || 'development';
 const isProd = env === 'production';
 
 mkdirp('./dist');
-mkdirp('./stat');
+mkdirp('./stats');
 
 let bundles = Promise.resolve();
 

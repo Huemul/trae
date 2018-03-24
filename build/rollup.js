@@ -22,6 +22,7 @@ const env    = process.env.NODE_ENV || 'development';
 const isProd = env === 'production';
 
 mkdirp('./dist');
+mkdirp('./stat');
 
 let bundles = Promise.resolve();
 
@@ -42,12 +43,7 @@ const inputOptions = format => ({
       browser       : format === 'umd',
       preferBuiltins: true
     }),
-    commonjs({
-      namedExports: {
-        // 'node_modules/qs/lib/index.js': ['stringify']
-        // 'node_modules/whatwg-fetch/fetch.js': ['default']
-      }
-    }),
+    commonjs(),
     babel({
       babelrc: false, // jest makes use of .babelrc
       presets: ['es2015-rollup'],
@@ -58,7 +54,7 @@ const inputOptions = format => ({
       'process.env.NODE_ENV': JSON.stringify(env),
       NODE_ENV              : JSON.stringify(env)
     }),
-    visualizer({ filename: `./dist/${format}-bundle-statistics.html` }),
+    visualizer({ filename: `./stats/${format}-bundle-statistics.html` }),
     conditional(isProd && format === 'umd', [uglify({ output: { comments: skipCommentsCustom } })]),
     filesize()
   ]
@@ -77,6 +73,8 @@ const outputOptions = format => ({
 
 const build = opts => rollup.rollup(opts.input).then(bundle => bundle.write(opts.output));
 
+// cjs – CommonJS, suitable for Node and Browserify/Webpack
+// umd – Universal Module Definition, works as amd, cjs and iife all in one
 ['cjs', 'umd'].forEach((format) => {
   bundles = bundles.then(() => build({
     input: inputOptions(format),

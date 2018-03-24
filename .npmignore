@@ -2,6 +2,7 @@ docs
 scripts
 test
 utils
+stats
 .babelrc
 .bithoundrc
 .eslintignore

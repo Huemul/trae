@@ -38,7 +38,8 @@
     "test": "npm run eslint && jest --coverage --verbose",
     "test:w": "jest --watch --verbose",
     "check-cover": "open coverage/lcov-report/index.html",
-    "check-bundle": "open dist/bundle-statistics.html",
+    "check-bundle:cjs": "open stats/cjs-bundle-statistics.html",
+    "check-bundle:umd": "open stats/umd-bundle-statistics.html",
     "prepublish": "in-publish && ./scripts/publish.sh || echo 'just installing'",
     "eslint": "eslint . --ext .js",
     "release": "np"

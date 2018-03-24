@@ -46,7 +46,7 @@ const inputOptions = format => ({
     commonjs(),
     babel({
       babelrc: false, // jest makes use of .babelrc
-      presets: [['env', { modules: false }]],
+      presets: [['@babel/preset-env', { modules: false }]],
       exclude: ['node_modules/**', 'package.json'],
       plugins: ['external-helpers']
     }),

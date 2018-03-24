@@ -7,4 +7,5 @@ stats
 .bithoundrc
 .eslintignore
 .eslintrc
+package-lock.json
 rollup.config.js

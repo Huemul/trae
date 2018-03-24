@@ -46,8 +46,9 @@ const inputOptions = format => ({
     commonjs(),
     babel({
       babelrc: false, // jest makes use of .babelrc
-      presets: ['es2015-rollup'],
-      exclude: ['node_modules/**', 'package.json']
+      presets: [['env', { modules: false }]],
+      exclude: ['node_modules/**', 'package.json'],
+      plugins: ['external-helpers']
     }),
     replace({
       exclude               : ['node_modules/**', 'package.json'],

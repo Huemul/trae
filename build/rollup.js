@@ -47,13 +47,15 @@ const inputOptions = format => ({
     babel({
       babelrc: false, // jest makes use of .babelrc
       presets: [['@babel/preset-env', { modules: false }]],
-      exclude: ['node_modules/**', 'package.json'],
-      plugins: ['external-helpers']
+      exclude: ['node_modules/**', 'package.json']
+      // plugins: ['external-helpers']
     }),
     replace({
-      exclude               : ['node_modules/**', 'package.json'],
-      'process.env.NODE_ENV': JSON.stringify(env),
-      NODE_ENV              : JSON.stringify(env)
+      exclude: ['node_modules/**', 'package.json'],
+      values: {
+        'process.env.NODE_ENV': JSON.stringify(env),
+        NODE_ENV              : JSON.stringify(env)
+      }
     }),
     visualizer({ filename: `./stats/${format}-bundle-statistics.html` }),
     conditional(isProd && format === 'umd', [uglify({ output: { comments: skipCommentsCustom } })]),

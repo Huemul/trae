@@ -7,7 +7,7 @@ Object {
     "method": "HEAD",
     "url": "http://localhost:8080/api/foo",
   },
-  "data": "",
+  "data": undefined,
   "headers": Headers {
     "_headers": Object {},
   },

@@ -22,56 +22,66 @@ const env    = process.env.NODE_ENV || 'development';
 const isProd = env === 'production';
 
 mkdirp('./dist');
+mkdirp('./stats');
 
-let promise = Promise.resolve();
+let bundles = Promise.resolve();
 
-['cjs', 'umd'].forEach((format) => {
-  promise = promise.then(() => rollup.rollup({
-    entry  : 'lib/index.js',
-    context: 'global',
-    plugins: [
-      json({
-        include    : 'package.json',
-        preferConst: true
-      }),
-      eslint({
-        exclude: 'package.json'
-      }),
-      conditional(format === 'cjs', [globals(), builtins()]),
-      resolve({
-        jsnext        : format === 'umd',
-        main          : true,
-        browser       : format === 'umd',
-        preferBuiltins: true
-      }),
-      commonjs({
-        namedExports: {
-          'node_modules/qs/lib/index.js': ['stringify']
-          // 'node_modules/whatwg-fetch/fetch.js': ['default']
-        }
-      }),
-      babel({
-        babelrc: false, // jest makes use of .babelrc
-        presets: ['es2015-rollup'],
-        exclude: ['node_modules/**', 'package.json']
-      }),
-      replace({
-        exclude               : ['node_modules/**', 'package.json'],
+const inputOptions = format => ({
+  input: 'lib/index.js',
+  plugins: [
+    json({
+      include    : 'package.json',
+      preferConst: true
+    }),
+    eslint({
+      exclude: 'package.json'
+    }),
+    conditional(format === 'cjs', [globals(), builtins()]),
+    resolve({
+      jsnext        : format === 'umd',
+      main          : true,
+      browser       : format === 'umd',
+      preferBuiltins: true
+    }),
+    commonjs(),
+    babel({
+      babelrc: false, // jest makes use of .babelrc
+      presets: [['@babel/preset-env', { modules: false }]],
+      exclude: ['node_modules/**', 'package.json']
+    }),
+    replace({
+      exclude: ['node_modules/**', 'package.json'],
+      values: {
         'process.env.NODE_ENV': JSON.stringify(env),
         NODE_ENV              : JSON.stringify(env)
-      }),
-      visualizer({ filename: `./dist/${format}-bundle-statistics.html` }),
-      conditional(isProd && format === 'umd', [uglify({ output: { comments: skipCommentsCustom } })]),
-      filesize()
-    ]
-  })
-  .then(bundle => bundle.write({
-    dest      : `dist/${generateBundleName(format, isProd)}.js`,
-    banner    : generateBanner(pkg.version, pkg.author, pkg.contributors),
-    sourceMap : !isProd && format === 'umd' && 'inline',
-    moduleName: format === 'umd' ? pkg.name : undefined,
-    format
-  })));
+      }
+    }),
+    visualizer({ filename: `./stats/${format}-bundle-statistics.html` }),
+    conditional(isProd && format === 'umd', [uglify({ output: { comments: skipCommentsCustom } })]),
+    filesize()
+  ]
 });
 
-promise.catch(err => console.error(err.stack));
+const outputOptions = format => ({
+  format,
+  dir : 'dist',
+  file: `dist/${generateBundleName(format, isProd)}.js`,
+  // The variable name, representing the umd bundle, by which other scripts on the same
+  // page can access it
+  name         : format === 'umd' ? pkg.name : undefined,
+  sourcemapFile: 'dist',
+  banner       : generateBanner(pkg.version, pkg.author, pkg.contributors)
+});
+
+const build = opts => rollup.rollup(opts.input).then(bundle => bundle.write(opts.output));
+
+// cjs – CommonJS, suitable for Node and Browserify/Webpack
+// umd – Universal Module Definition, works as amd, cjs and iife all in one
+['cjs', 'umd'].forEach((format) => {
+  bundles = bundles.then(() => build({
+    input: inputOptions(format),
+    output: outputOptions(format)
+  }));
+});
+
+bundles.catch(err => console.error(err.stack));

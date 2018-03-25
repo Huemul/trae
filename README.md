@@ -16,6 +16,7 @@ Minimalistic HTTP client for the browser and Node. Based on [Fetch](https://deve
 
 1.  [Install](#install)
 1.  [Basic Usage](#basic-usage)
+1.  [Polyfill](#Polyfill)
 1.  [Trae API](#trea-api)
     1.  [Request methods](#request-methods)
     1.  [Config](#config)
@@ -40,6 +41,12 @@ $ npm install --save trae
 
 ```bash
 $ yarn add trae
+```
+
+[UMD](https://github.com/umdjs/umd) is also provided.
+
+```html
+<script src="//unpkg.com/trae"></script>
 ```
 
 ## Basic Usage
@@ -75,6 +82,19 @@ trae.post('https://www.foo.com/api/posts', {
 Check out more examples [here](https://huemul.github.io/trae-examples).
 
 [⬆ back to top](#content)
+
+## Polyfills
+
+Since most browsers ([caniuse](https://caniuse.com/#search=fetch)) support Fetch already and some common boilerplates include it (i.e. [create-react-app](https://github.com/facebook/create-react-app)) `trae` does not add a polyfill by default.
+
+If you do need the poyfill, we provide two options:
+
+* `trae/unfetch`: uses [`unfetch`](https://github.com/developit/unfetch), a bare minimum fetch polyfill in **500 bytes** by [@developit](https://github.com/developit). Check the README to make sure your use case is supported.
+* `trae/isomorphic`: uses [`isomorphic-fetch`](https://github.com/matthew-andrews/isomorphic-fetch). Use this one if you are working on **node**, or need things not covered by `unfetch`.
+
+### Promises
+
+If your environment doesn't support ES6 Promises, add the [polyfill](https://github.com/stefanpenner/es6-promise).
 
 ## Trae API
 
@@ -359,7 +379,6 @@ Thanks goes to these wonderful people ([emoji key](https://github.com/kentcdodds
 
 ## TODO
 
-* [ ] Provide a build with no polyfill.
 * [ ] CHANGELOG. [#48](https://github.com/Huemul/trae/issues/48)
 * [ ] Add logging and warnings to the dev build. [#49](https://github.com/Huemul/trae/issues/49#issuecomment-272533323)
 * [ ] Improve examples and add more. [`trae-exampels` repo](https://github.com/Huemul/trae-examples/).

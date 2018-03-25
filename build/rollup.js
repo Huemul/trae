@@ -24,10 +24,8 @@ const isProd = env === 'production'
 mkdirp('./dist')
 mkdirp('./stats')
 
-let bundles = Promise.resolve()
-
-const inputOptions = (format) => ({
-  input: 'lib/index.js',
+const inputOptions = (input, format) => ({
+  input,
   plugins: [
     json({
       include: 'package.json',
@@ -64,10 +62,10 @@ const inputOptions = (format) => ({
   ],
 })
 
-const outputOptions = (format) => ({
+const outputOptions = (file, format) => ({
   format,
   dir: 'dist',
-  file: `dist/${generateBundleName(format, isProd)}.js`,
+  file: generateBundleName(file, format),
   // The variable name, representing the umd bundle, by which other scripts on the same
   // page can access it
   name: format === 'umd' ? pkg.name : undefined,
@@ -75,18 +73,26 @@ const outputOptions = (format) => ({
   banner: generateBanner(pkg.version, pkg.author, pkg.contributors),
 })
 
-const build = (opts) =>
-  rollup.rollup(opts.input).then((bundle) => bundle.write(opts.output))
+const build = ({ input, output }) =>
+  rollup.rollup(input).then((bundle) => bundle.write(output))
 
-// cjs – CommonJS, suitable for Node and Browserify/Webpack
-// umd – Universal Module Definition, works as amd, cjs and iife all in one
-;['cjs', 'umd'].forEach((format) => {
-  bundles = bundles.then(() =>
-    build({
-      input: inputOptions(format),
-      output: outputOptions(format),
-    }),
-  )
+// cjs - CommonJS, suitable for Node and Browserify/Webpack
+// umd - Universal Module Definition, works as amd, cjs and iife all in one
+const formats = ['cjs', 'umd']
+const entries = ['lib/index.js', 'lib/isomorphic.js', 'lib/unfetch.js']
+let bundles = Promise.resolve()
+
+const flatten = (xs) => [].concat(...xs)
+
+const builds = formats.map((format) =>
+  entries.map((entry) => ({ format, entry })),
+)
+
+flatten(builds).forEach(({ format, entry }) => {
+  bundles = build({
+    input: inputOptions(entry, format),
+    output: outputOptions(entry, format),
+  })
 })
 
 bundles.catch((err) => console.error(err.stack))

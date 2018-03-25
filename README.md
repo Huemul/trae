@@ -14,23 +14,23 @@ Minimalistic HTTP client for the browser and Node. Based on [Fetch](https://deve
 
 ## Content
 
-1. [Install](#install)
-1. [Basic Usage](#basic-usage)
-1. [Trae API](#trea-api)
-  1. [Request methods](#request-methods)
-  1. [Config](#config)
-  1. [Defaults](#defaults)
-  1. [Middlewares](#middlewares)
-  1. [Instances](#instances)
-1. [Response](#response)
-  1. [Data](#data)
-  1. [Headers](#headers)
-1. [Rejection](#rejection)
-1. [Resources](#resources)
-1. [License](#license)
-1. [Contributing](#contributing)
-1. [Contributors](#contributors)
-1. [TODO](#todo)
+1.  [Install](#install)
+1.  [Basic Usage](#basic-usage)
+1.  [Trae API](#trea-api)
+    1.  [Request methods](#request-methods)
+    1.  [Config](#config)
+    1.  [Defaults](#defaults)
+    1.  [Middlewares](#middlewares)
+    1.  [Instances](#instances)
+1.  [Response](#response)
+    1.  [Data](#data)
+    1.  [Headers](#headers)
+1.  [Rejection](#rejection)
+1.  [Resources](#resources)
+1.  [License](#license)
+1.  [Contributing](#contributing)
+1.  [Contributors](#contributors)
+1.  [TODO](#todo)
 
 ## Install
 
@@ -47,13 +47,14 @@ $ yarn add trae
 A `GET` request to `https://www.google.com.ar/search?q=foo`:
 
 ```js
-trae.get('https://www.google.com.ar/search', { params: { q: 'foo' } })
+trae
+  .get('https://www.google.com.ar/search', { params: { q: 'foo' } })
   .then((response) => {
-    console.log(response);
+    console.log(response)
   })
   .catch((err) => {
-    console.error(err);
-  });
+    console.error(err)
+  })
 ```
 
 A `POST` request to `https://www.foo.com/api/posts`:
@@ -110,7 +111,7 @@ The configuration object can be used in all request methods, the following attri
   },
 
   // Represents the body of the response, allowing you to declare what its content type is and how it should be handled.
-  // Available readers are `arrayBuffer`, `blob`, `formData`, `json`, `text` and `raw`. The last one returns the response body without being     
+  // Available readers are `arrayBuffer`, `blob`, `formData`, `json`, `text` and `raw`. The last one returns the response body without being
   // parsed. `raw` is used for streaming the response body among other things.
   // @link: https://developer.mozilla.org/en-US/docs/Web/API/Body
   bodyType: 'json',
@@ -138,6 +139,7 @@ The configuration object can be used in all request methods, the following attri
   cache: 'only-if-cached'
 }
 ```
+
 More information about Request properties can be found on this [`MDN article`](https://developer.mozilla.org/en-US/docs/Web/API/Request).
 
 ### Defaults
@@ -148,15 +150,15 @@ Sets the default configuration to use on every requests. This is merged with the
 
 ```js
 trae.defaults({
-  mode       : 'no-cors',
-  credentials: 'same-origin'
-});
+  mode: 'no-cors',
+  credentials: 'same-origin',
+})
 ```
 
 When called with no params acts as a getter, returning the defined defaults.
 
 ```js
-const config = trae.defaults();
+const config = trae.defaults()
 ```
 
 It is possible to set default configuration for specific methods passing an
@@ -166,19 +168,19 @@ object with the method as key:
 trae.defaults({
   post: {
     headers: {
-      'Content-Type': 'application/x-www-form-urlencoded'
-    }
-  }
-});
+      'Content-Type': 'application/x-www-form-urlencoded',
+    },
+  },
+})
 ```
 
 #### Request configuration precedence
 
 The configuration for a request will be merged following this precedence rules, each level overrides the followings:
 
-  1. Request params config.
-  1. Method config set with `trae.defaults({ [method]: { ... } })`.
-  1. Trae config set with `trae.defaults({ ... })`.
+1.  Request params config.
+1.  Method config set with `trae.defaults({ [method]: { ... } })`.
+1.  Trae config set with `trae.defaults({ ... })`.
 
 #### `trae.baseUrl([url])`
 
@@ -203,11 +205,11 @@ Runs before the request is made and it has access to the configuration object, i
 
 ```js
 const beforeMiddleware = (config) => {
-  config.headers['X-ACCESSS-TOKEN'] = getUserToken();
-  return config;
+  config.headers['X-ACCESSS-TOKEN'] = getUserToken()
+  return config
 }
 
-trae.before(beforeMiddleware);
+trae.before(beforeMiddleware)
 ```
 
 #### `trae.after(fullfill[, reject])`
@@ -216,18 +218,18 @@ Runs after the request is made, it chains the provided `fullfill` and `reject` m
 
 ```js
 const fullfillMiddleware = (res) => {
-  console.log(res);
+  console.log(res)
   res.data.foo = 'bar'
-  return res;
-};
+  return res
+}
 
 const rejectMiddleware = (err) => {
-  console.error(err);
-  err.foo = 'bar';
-  return Promise.reject(err);
-};
+  console.error(err)
+  err.foo = 'bar'
+  return Promise.reject(err)
+}
 
-trae.after(fullfillMiddleware, rejectMiddleware);
+trae.after(fullfillMiddleware, rejectMiddleware)
 ```
 
 Using the above `after` middleware is the same as doing:
@@ -239,15 +241,15 @@ trae.get('/api/posts')
 
 #### `trae.finally([middleware])`
 
-Runs at the end regardless of the request result, it has access to the configuration object and the url that was used to made the request. Is not promise based. Functions provided to this method are run synchronously. 
+Runs at the end regardless of the request result, it has access to the configuration object and the url that was used to made the request. Is not promise based. Functions provided to this method are run synchronously.
 
 ```js
 const finallyMiddleware = (config, url) => {
-  console.log('The End');
-  makeTheSpinnerStop();
-};
+  console.log('The End')
+  makeTheSpinnerStop()
+}
 
-trae.finally(finallyMiddleware);
+trae.finally(finallyMiddleware)
 ```
 
 [⬆ back to top](#content)
@@ -324,10 +326,10 @@ On rejection an `Error` is passed to the rejection middleware with the same prop
 
 ## Resources
 
-- Motivation: if you want to know more about the motivations behind this library check out [this article](https://hackernoon.com/trae-another-http-library-70000860a5f4).
-- Middlewares
-  - [`trae-events`](https://github.com/Huemul/trae-events).
-  - [`trae-logger`](https://github.com/Huemul/trae-logger).
+* Motivation: if you want to know more about the motivations behind this library check out [this article](https://hackernoon.com/trae-another-http-library-70000860a5f4).
+* Middlewares
+  * [`trae-events`](https://github.com/Huemul/trae-events).
+  * [`trae-logger`](https://github.com/Huemul/trae-logger).
 
 ## License
 
@@ -346,19 +348,22 @@ This project follows the [all-contributors](https://github.com/kentcdodds/all-co
 Thanks goes to these wonderful people ([emoji key](https://github.com/kentcdodds/all-contributors#emoji-key)):
 
 <!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
+
 | [<img src="https://avatars.githubusercontent.com/u/6719053?v=3" width="64px;"/><br /><sub>Nicolas Del Valle</sub>](http://nico.delvalle.xyz)<br />[💻](https://github.com/Huemul/trae/commits?author=ndelvalle) [📖](https://github.com/Huemul/trae/commits?author=ndelvalle) [⚠️](https://github.com/Huemul/trae/commits?author=ndelvalle) 💡 👀 | [<img src="https://avatars.githubusercontent.com/u/8309423?v=3" width="64px;"/><br /><sub>Christian Gill</sub>](https://gillchristian.xyz)<br />[💻](https://github.com/Huemul/trae/commits?author=gillchristian) [📖](https://github.com/Huemul/trae/commits?author=gillchristian) [⚠️](https://github.com/Huemul/trae/commits?author=gillchristian) 💡 👀 | [<img src="https://avatars.githubusercontent.com/u/3258966?v=3" width="64px;"/><br /><sub>Ignacio Anaya</sub>](http://keepe.rs)<br />[💻](https://github.com/Huemul/trae/commits?author=ianaya89) 👀 🎨 [🐛](https://github.com/Huemul/trae/issues?q=author%3Aianaya89) 💁 | [<img src="https://avatars.githubusercontent.com/u/1145624?v=3" width="64px;"/><br /><sub>Fred Guest</sub>](https://twitter.com/fredguest)<br />💁 [🐛](https://github.com/Huemul/trae/issues?q=author%3Afredguest) | [<img src="https://avatars.githubusercontent.com/u/11802102?v=3" width="64px;"/><br /><sub>Joni</sub>](http://joni.website)<br />🎨 | [<img src="https://avatars.githubusercontent.com/u/4614574?v=3" width="64px;"/><br /><sub>Gerardo Nardelli</sub>](https://gnardelli.com)<br />[📖](https://github.com/Huemul/trae/commits?author=patitonar) |
-| :---: | :---: | :---: | :---: | :---: | :---: |
+| :-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------: | :---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------: | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------: | :-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------: | :---------------------------------------------------------------------------------------------------------------------------------: | :---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------: |
+
+
 <!-- ALL-CONTRIBUTORS-LIST:END -->
 
 [⬆ back to top](#content)
 
 ## TODO
 
-- [ ] Provide a build with no polyfill.
-- [ ] CHANGELOG. [#48](https://github.com/Huemul/trae/issues/48)
-- [ ] Add logging and warnings to the dev build. [#49](https://github.com/Huemul/trae/issues/49#issuecomment-272533323)
-- [ ] Improve examples and add more. [`trae-exampels` repo](https://github.com/Huemul/trae-examples/).
-- [ ] Add a way to remove middlewares.
-- [ ] Add browser based tests.
+* [ ] Provide a build with no polyfill.
+* [ ] CHANGELOG. [#48](https://github.com/Huemul/trae/issues/48)
+* [ ] Add logging and warnings to the dev build. [#49](https://github.com/Huemul/trae/issues/49#issuecomment-272533323)
+* [ ] Improve examples and add more. [`trae-exampels` repo](https://github.com/Huemul/trae-examples/).
+* [ ] Add a way to remove middlewares.
+* [ ] Add browser based tests.
 
 [⬆ back to top](#content)

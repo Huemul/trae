@@ -29,19 +29,23 @@
   },
   "homepage": "https://github.com/huemul/trae#readme",
   "scripts": {
-    "test:docs": "chimi",
     "add": "all-contributors add",
     "contributors": "all-contributors generate",
     "build": "NODE_ENV=production node build/rollup.js",
     "build:dev": "node build/rollup.js",
     "docs": "http-server ./docs -o",
-    "test": "npm run eslint && jest --coverage --verbose",
+    "test": "npm run lint && jest --coverage --verbose",
     "test:w": "jest --watch --verbose",
+    "test:docs": "chimi",
     "check-cover": "open coverage/lcov-report/index.html",
     "check-bundle:cjs": "open stats/cjs-bundle-statistics.html",
     "check-bundle:umd": "open stats/umd-bundle-statistics.html",
+    "eslint-check": "eslint --print-config .eslintrc.js | eslint-config-prettier-check",
     "prepublish": "in-publish && ./scripts/publish.sh || echo 'just installing'",
-    "eslint": "eslint . --ext .js",
+    "lint": "eslint . --ext .js",
+    "format": "prettier --write '**/*.{js,json,md}'",
+    "format:changed": "pretty-quick",
+    "format:staged": "pretty-quick --staged",
     "release": "np"
   },
   "dependencies": {
@@ -60,6 +64,7 @@
     "coveralls": "^3.0.0",
     "eslint": "^3.16.0",
     "eslint-config-airbnb": "^14.1.0",
+    "eslint-config-prettier": "^2.9.0",
     "eslint-loader": "^1.6.1",
     "eslint-plugin-import": "^2.2.0",
     "eslint-plugin-jsx-a11y": "^4.0.0",
@@ -71,6 +76,8 @@
     "mkdirp": "^0.5.1",
     "np": "^2.14.1",
     "pre-commit": "^1.2.2",
+    "prettier": "^1.11.1",
+    "pretty-quick": "^1.4.1",
     "regenerator-runtime": "^0.11.1",
     "rollup": "^0.57.1",
     "rollup-plugin-babel": "^4.0.0-beta.2",
@@ -88,7 +95,8 @@
     "rollup-watch": "^4.3.1"
   },
   "pre-commit": [
-    "eslint",
+    "format:staged",
+    "lint",
     "test"
   ],
   "jest": {

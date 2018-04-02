@@ -5613,10 +5613,11 @@ rollup-plugin-uglify@^3.0.0:
   dependencies:
     uglify-es "^3.3.7"
 
-rollup-plugin-visualizer@^0.4.0:
-  version "0.4.0"
-  resolved "https://registry.yarnpkg.com/rollup-plugin-visualizer/-/rollup-plugin-visualizer-0.4.0.tgz#11237cf8678b1a41f664722820fe8592330c8923"
+rollup-plugin-visualizer@^0.5.0:
+  version "0.5.0"
+  resolved "https://registry.yarnpkg.com/rollup-plugin-visualizer/-/rollup-plugin-visualizer-0.5.0.tgz#6f7746db519dc1d334179e187d6bc064e1f27a21"
   dependencies:
+    mkdirp "^0.5.1"
     source-map "^0.7.2"
 
 rollup-pluginutils@^2.0.1:

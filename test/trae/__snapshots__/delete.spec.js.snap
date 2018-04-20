@@ -10,6 +10,9 @@ Object {
   "data": "Deleted!",
   "headers": Headers {
     "_headers": Object {
+      "content-length": Array [
+        "8",
+      ],
       "content-type": Array [
         "application/text",
       ],

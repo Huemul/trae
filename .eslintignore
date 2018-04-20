@@ -1,5 +1,5 @@
 node_modules
 coverage
 dist/*
-docs/js/*.min.js
+docs/js/*.js
 examples

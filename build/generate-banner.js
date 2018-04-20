@@ -4,7 +4,7 @@ module.exports = (version, author, contributors) => {
   *
   * @version: ${version}
   * @authors: ${author} | ${contributors[0]}
-  */`;
+  */`
 
-  return banner;
-};
+  return banner
+}

@@ -17,6 +17,9 @@ Object {
   },
   "headers": Headers {
     "_headers": Object {
+      "content-length": Array [
+        "13",
+      ],
       "content-type": Array [
         "application/json",
       ],
@@ -44,6 +47,9 @@ Object {
   },
   "headers": Headers {
     "_headers": Object {
+      "content-length": Array [
+        "13",
+      ],
       "content-type": Array [
         "application/json",
       ],
@@ -66,6 +72,9 @@ Object {
   },
   "headers": Headers {
     "_headers": Object {
+      "content-length": Array [
+        "13",
+      ],
       "content-type": Array [
         "application/json",
       ],
@@ -84,82 +93,12 @@ Object {
     "method": "GET",
     "url": "http://localhost:8080/api/foo",
   },
-  "data": Readable {
-    "_events": Object {},
-    "_eventsCount": 0,
-    "_maxListeners": undefined,
-    "_readableState": ReadableState {
-      "awaitDrain": 0,
-      "buffer": BufferList {
-        "head": Object {
-          "data": Object {
-            "data": Array [
-              123,
-              34,
-              102,
-              111,
-              111,
-              34,
-              58,
-              34,
-              98,
-              97,
-              114,
-              34,
-              125,
-            ],
-            "type": "Buffer",
-          },
-          "next": null,
-        },
-        "length": 1,
-        "tail": Object {
-          "data": Object {
-            "data": Array [
-              123,
-              34,
-              102,
-              111,
-              111,
-              34,
-              58,
-              34,
-              98,
-              97,
-              114,
-              34,
-              125,
-            ],
-            "type": "Buffer",
-          },
-          "next": null,
-        },
-      },
-      "decoder": null,
-      "defaultEncoding": "utf8",
-      "destroyed": false,
-      "emittedReadable": true,
-      "encoding": null,
-      "endEmitted": false,
-      "ended": true,
-      "flowing": null,
-      "highWaterMark": 16384,
-      "length": 13,
-      "needReadable": false,
-      "objectMode": false,
-      "pipes": null,
-      "pipesCount": 0,
-      "readableListening": false,
-      "reading": false,
-      "readingMore": true,
-      "resumeScheduled": false,
-      "sync": true,
-    },
-    "domain": null,
-    "readable": true,
-  },
+  "data": "{\\"foo\\":\\"bar\\"}",
   "headers": Headers {
     "_headers": Object {
+      "content-length": Array [
+        "13",
+      ],
       "content-type": Array [
         "application/json",
       ],

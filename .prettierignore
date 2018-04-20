@@ -2,6 +2,5 @@ node_modules
 coverage
 dist
 stats
-*.log
-.DS_Store
 package-lock.json
+package.json

@@ -13,6 +13,9 @@ Object {
   },
   "headers": Headers {
     "_headers": Object {
+      "content-length": Array [
+        "13",
+      ],
       "content-type": Array [
         "application/json",
       ],
@@ -39,6 +42,9 @@ Object {
   },
   "headers": Headers {
     "_headers": Object {
+      "content-length": Array [
+        "13",
+      ],
       "content-type": Array [
         "application/json",
       ],
@@ -62,6 +68,9 @@ Object {
   },
   "headers": Headers {
     "_headers": Object {
+      "content-length": Array [
+        "13",
+      ],
       "content-type": Array [
         "application/json",
       ],

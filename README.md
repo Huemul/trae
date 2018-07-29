@@ -4,7 +4,7 @@
 
 Minimalistic HTTP client for the browser and Node. Based on [Fetch](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API) API, allows `trae` to be future-proofing, to have a clean implementation and support streaming among other goodies.
 
-[![Codeship Status for Huemul/trae](https://img.shields.io/codeship/1d9dc9b0-84c0-0134-0393-62ca7b64624e/master.svg)](https://app.codeship.com/projects/183213)
+[![Codeship Status for Huemul/trae](https://app.codeship.com/projects/1d9dc9b0-84c0-0134-0393-62ca7b64624e/status?branch=master)](https://app.codeship.com/projects/183213)
 [![Coverage Status](https://coveralls.io/repos/github/Huemul/trae/badge.svg?branch=master)](https://coveralls.io/github/Huemul/trae?branch=master)
 [![bitHound Overall Score](https://www.bithound.io/github/Huemul/trae/badges/score.svg)](https://www.bithound.io/github/Huemul/trae)
 [![bitHound Dependencies](https://www.bithound.io/github/Huemul/trae/badges/dependencies.svg)](https://www.bithound.io/github/Huemul/trae/master/dependencies/npm)
@@ -16,6 +16,7 @@ Minimalistic HTTP client for the browser and Node. Based on [Fetch](https://deve
 
 1.  [Install](#install)
 1.  [Basic Usage](#basic-usage)
+1.  [Polyfill](#Polyfill)
 1.  [Trae API](#trea-api)
     1.  [Request methods](#request-methods)
     1.  [Config](#config)
@@ -42,6 +43,12 @@ $ npm install --save trae
 $ yarn add trae
 ```
 
+[UMD](https://github.com/umdjs/umd) is also provided.
+
+```html
+<script src="//unpkg.com/trae"></script>
+```
+
 ## Basic Usage
 
 A `GET` request to `https://www.google.com.ar/search?q=foo`:
@@ -60,21 +67,35 @@ trae
 A `POST` request to `https://www.foo.com/api/posts`:
 
 ```js (skip)
-trae.post('https://www.foo.com/api/posts', {
-  title  : 'My Post',
-  content: 'My awesome post content...'
-})
+trae
+  .post('https://www.foo.com/api/posts', {
+    title: 'My Post',
+    content: 'My awesome post content...',
+  })
   .then(() => {
-    console.log('Success!!!');
+    console.log('Success!!!')
   })
   .catch((err) => {
-    console.error(err);
-  });
+    console.error(err)
+  })
 ```
 
 Check out more examples [here](https://huemul.github.io/trae-examples).
 
 [⬆ back to top](#content)
+
+## Polyfills
+
+Since most browsers ([caniuse](https://caniuse.com/#search=fetch)) support Fetch already and some common boilerplates include it (i.e. [create-react-app](https://github.com/facebook/create-react-app)) `trae` does not add a polyfill by default.
+
+If you do need the poyfill, we provide two options:
+
+* `trae/unfetch`: uses [`unfetch`](https://github.com/developit/unfetch), a bare minimum fetch polyfill in **500 bytes** by [@developit](https://github.com/developit). Check the README to make sure your use case is supported.
+* `trae/isomorphic`: uses [`isomorphic-fetch`](https://github.com/matthew-andrews/isomorphic-fetch). Use this one if you are working on **node**, or need things not covered by `unfetch`.
+
+### Promises
+
+If your environment doesn't support ES6 Promises, add the [polyfill](https://github.com/stefanpenner/es6-promise).
 
 ## Trae API
 
@@ -187,12 +208,12 @@ The configuration for a request will be merged following this precedence rules, 
 Shorthand for `trae.defaults({baseUrl: url})`. Also returns the `baseUrl` when no params are passed.
 
 ```js (skip)
-trae.baseUrl('https://www.foo.com');
+trae.baseUrl('https://www.foo.com')
 
-const baseUrl = trae.baseUrl();
-console.log(baseUrl); // 'https://www.foo.com'
+const baseUrl = trae.baseUrl()
+console.log(baseUrl) // 'https://www.foo.com'
 
-trae.get('/baz'); // GET: https://www.foo.com/baz
+trae.get('/baz') // GET: https://www.foo.com/baz
 ```
 
 ### Middlewares
@@ -235,8 +256,7 @@ trae.after(fullfillMiddleware, rejectMiddleware)
 Using the above `after` middleware is the same as doing:
 
 ```js (skip)
-trae.get('/api/posts')
-  .then(fullfillMiddleware, rejectMiddleware);
+trae.get('/api/posts').then(fullfillMiddleware, rejectMiddleware)
 ```
 
 #### `trae.finally([middleware])`
@@ -261,7 +281,7 @@ trae.finally(finallyMiddleware)
 Creates an instance of `Trae` with its own defaults and middlewares. The API documentation applies for instances as well.
 
 ```js (skip)
-const api = trae.create({baseUrl: '/api'})
+const api = trae.create({ baseUrl: '/api' })
 
 api.get('/posts') // GET: /api/posts
 ```
@@ -359,7 +379,6 @@ Thanks goes to these wonderful people ([emoji key](https://github.com/kentcdodds
 
 ## TODO
 
-* [ ] Provide a build with no polyfill.
 * [ ] CHANGELOG. [#48](https://github.com/Huemul/trae/issues/48)
 * [ ] Add logging and warnings to the dev build. [#49](https://github.com/Huemul/trae/issues/49#issuecomment-272533323)
 * [ ] Improve examples and add more. [`trae-exampels` repo](https://github.com/Huemul/trae-examples/).

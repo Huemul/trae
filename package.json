@@ -8,9 +8,9 @@
     "request",
     "api"
   ],
-  "main": "dist/trae.js",
-  "module": "dist/trae.umd.min.js",
-  "unpkg": "dist/trae.umd.min.js",
+  "main": "dist/isomorphic.js",
+  "module": "dist/index.js",
+  "unpkg": "dist/index.umd.js",
   "files": [
     "src",
     "dist/*.js"
@@ -51,7 +51,8 @@
   "dependencies": {
     "isomorphic-fetch": "^2.2.1",
     "merge": "^1.2.0",
-    "qs": "^6.5.1"
+    "qs": "^6.5.1",
+    "unfetch": "^3.0.0"
   },
   "devDependencies": {
     "@babel/core": "^7.0.0-beta.42",

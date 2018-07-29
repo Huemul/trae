@@ -1,6 +1,6 @@
-module.exports = (format, isProd) => {
-  if (format === 'cjs') {
-    return 'trae'
-  }
-  return isProd ? 'trae.umd.min' : 'trae.umd'
+module.exports = (n, f) => {
+  const name = n.replace('.js', '').replace('lib/', '')
+  const format = f === 'cjs' ? '' : '.umd'
+
+  return `dist/${name}${format}.js`
 }

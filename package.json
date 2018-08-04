@@ -8,15 +8,15 @@
     "request",
     "api"
   ],
-  "main": "dist/isomorphic.js",
+  "main": "lib/index.js",
   "module": "dist/index.js",
   "unpkg": "dist/index.umd.js",
   "files": [
     "src",
     "dist/*.js"
   ],
-  "author": "gillchristian <gillchristiang@gmail.com>",
   "contributors": [
+    "gillchristian <gillchristiang@gmail.com>",
     "ndelvalle <nicolas.delvalle@gmail.com>"
   ],
   "license": "MIT",
@@ -49,10 +49,8 @@
     "release": "np"
   },
   "dependencies": {
-    "isomorphic-fetch": "^2.2.1",
     "merge": "^1.2.0",
-    "qs": "^6.5.1",
-    "unfetch": "^3.0.0"
+    "qs": "^6.5.1"
   },
   "devDependencies": {
     "@babel/core": "^7.0.0-beta.42",

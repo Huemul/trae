@@ -4514,9 +4514,12 @@ rollup-plugin-uglify@^3.0.0:
   dependencies:
     uglify-es "^3.3.7"
 
-rollup-plugin-visualizer@^0.2.0:
-  version "0.2.1"
-  resolved "https://registry.yarnpkg.com/rollup-plugin-visualizer/-/rollup-plugin-visualizer-0.2.1.tgz#f8ce144a23f3f41d6bc930066119b47f1415d4ab"
+rollup-plugin-visualizer@^0.8.0:
+  version "0.8.0"
+  resolved "https://registry.yarnpkg.com/rollup-plugin-visualizer/-/rollup-plugin-visualizer-0.8.0.tgz#dd4df7c7d4dc49443ab6b62a729ff9977aea0697"
+  dependencies:
+    mkdirp "^0.5.1"
+    source-map "^0.7.3"
 
 rollup-pluginutils@^1.5.0, rollup-pluginutils@^1.5.2:
   version "1.5.2"
@@ -4696,6 +4699,10 @@ source-map@^0.4.4:
 source-map@^0.5.0, source-map@^0.5.3, source-map@^0.5.6, source-map@~0.5.1:
   version "0.5.6"
   resolved "https://registry.yarnpkg.com/source-map/-/source-map-0.5.6.tgz#75ce38f52bf0733c5a7f0c118d81334a2bb5f412"
+
+source-map@^0.7.3:
+  version "0.7.3"
+  resolved "https://registry.yarnpkg.com/source-map/-/source-map-0.7.3.tgz#5302f8169031735226544092e64981f751750383"
 
 source-map@~0.2.0:
   version "0.2.0"

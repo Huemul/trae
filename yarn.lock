@@ -4466,8 +4466,8 @@ rollup-plugin-filesize@^1.0.1:
     gzip-size "^3.0.0"
 
 rollup-plugin-json@^2.1.1:
-  version "2.3.0"
-  resolved "https://registry.yarnpkg.com/rollup-plugin-json/-/rollup-plugin-json-2.3.0.tgz#3c07a452c1b5391be28006fbfff3644056ce0add"
+  version "2.3.1"
+  resolved "https://registry.yarnpkg.com/rollup-plugin-json/-/rollup-plugin-json-2.3.1.tgz#9759d27f33dcd2c896de18b6235df162b88edd77"
   dependencies:
     rollup-pluginutils "^2.0.1"
 

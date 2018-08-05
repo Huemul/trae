@@ -115,7 +115,7 @@
     "roots": [
       "test/"
     ],
-    "testURL": "http://localhost"
+    "testEnvironment": "node"
   },
   "engines": {
     "node": ">=6"

@@ -73,6 +73,7 @@
     "in-publish": "^2.0.0",
     "jest": "^22.4.3",
     "mkdirp": "^0.5.1",
+    "node-fetch": "^2.2.0",
     "np": "^2.14.1",
     "pre-commit": "^1.2.2",
     "prettier": "^1.11.1",
@@ -113,7 +114,8 @@
     ],
     "roots": [
       "test/"
-    ]
+    ],
+    "testURL": "http://localhost"
   },
   "engines": {
     "node": ">=6"

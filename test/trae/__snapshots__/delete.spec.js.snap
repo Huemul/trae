@@ -9,11 +9,11 @@ Object {
   },
   "data": "Deleted!",
   "headers": Headers {
-    "_headers": Object {
-      "content-length": Array [
+    Symbol(map): Object {
+      "Content-Length": Array [
         "8",
       ],
-      "content-type": Array [
+      "Content-Type": Array [
         "application/text",
       ],
     },

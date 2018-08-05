@@ -8,7 +8,6 @@ Minimalistic HTTP client for the browser and Node. Based on [Fetch](https://deve
 [![Coverage Status](https://coveralls.io/repos/github/Huemul/trae/badge.svg?branch=master)](https://coveralls.io/github/Huemul/trae?branch=master)
 [![dependencies Status](https://david-dm.org/Huemul/trae/status.svg)](https://david-dm.org/Huemul/trae)
 [![devDependencies Status](https://david-dm.org/Huemul/trae/dev-status.svg)](https://david-dm.org/Huemul/trae?type=dev)
-[![All Contributors](https://img.shields.io/badge/all_contributors-6-orange.svg?style=flat-square)](#contributors)
 
 ## Content
 

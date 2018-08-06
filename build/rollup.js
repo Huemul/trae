@@ -66,32 +66,21 @@ const outputOptions = (file, format) => ({
   format,
   dir: 'dist',
   file: generateBundleName(file, format),
-  // The variable name, representing the umd bundle, by which other scripts on the same
+  // The variable name, represents the umd bundle by which other scripts on the same
   // page can access it
   name: format === 'umd' ? pkg.name : undefined,
   sourcemapFile: 'dist',
-  banner: generateBanner(pkg.version, pkg.author, pkg.contributors),
+  banner: generateBanner(pkg.version, pkg.contributors),
 })
 
 const build = ({ input, output }) =>
   rollup.rollup(input).then((bundle) => bundle.write(output))
 
-// cjs - CommonJS, suitable for Node and Browserify/Webpack
-// umd - Universal Module Definition, works as amd, cjs and iife all in one
-const formats = ['cjs', 'umd']
-const entries = ['lib/index.js', 'lib/isomorphic.js', 'lib/unfetch.js']
 let bundles = Promise.resolve()
-
-const flatten = (xs) => [].concat(...xs)
-
-const builds = formats.map((format) =>
-  entries.map((entry) => ({ format, entry })),
-)
-
-flatten(builds).forEach(({ format, entry }) => {
+;['cjs', 'umd'].forEach((format) => {
   bundles = build({
-    input: inputOptions(entry, format),
-    output: outputOptions(entry, format),
+    input: inputOptions('lib/index.js', format),
+    output: outputOptions('lib/index.js', format),
   })
 })
 

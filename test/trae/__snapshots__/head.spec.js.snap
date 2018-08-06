@@ -7,9 +7,9 @@ Object {
     "method": "HEAD",
     "url": "http://localhost:8080/api/foo",
   },
-  "data": undefined,
+  "data": "",
   "headers": Headers {
-    "_headers": Object {},
+    Symbol(map): Object {},
   },
   "status": 200,
   "statusText": "OK",

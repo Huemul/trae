@@ -1,9 +1,9 @@
-module.exports = (version, author, contributors) => {
+module.exports = (version, contributors) => {
   const banner = `/**
   * Trae, the fetch library!
   *
   * @version: ${version}
-  * @authors: ${author} | ${contributors[0]}
+  * @authors: ${contributors.join(', ')}
   */`
 
   return banner

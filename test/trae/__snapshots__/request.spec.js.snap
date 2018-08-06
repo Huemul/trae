@@ -14,11 +14,11 @@ Object {
     "foo": "bar",
   },
   "headers": Headers {
-    "_headers": Object {
-      "content-length": Array [
+    Symbol(map): Object {
+      "Content-Length": Array [
         "13",
       ],
-      "content-type": Array [
+      "Content-Type": Array [
         "application/json",
       ],
     },
@@ -43,11 +43,11 @@ Object {
     "foo": "bar",
   },
   "headers": Headers {
-    "_headers": Object {
-      "content-length": Array [
+    Symbol(map): Object {
+      "Content-Length": Array [
         "13",
       ],
-      "content-type": Array [
+      "Content-Type": Array [
         "application/json",
       ],
     },
@@ -68,11 +68,11 @@ Object {
     "foo": "bar",
   },
   "headers": Headers {
-    "_headers": Object {
-      "content-length": Array [
+    Symbol(map): Object {
+      "Content-Length": Array [
         "13",
       ],
-      "content-type": Array [
+      "Content-Type": Array [
         "application/json",
       ],
     },
@@ -101,11 +101,11 @@ Object {
     "foo": "bar",
   },
   "headers": Headers {
-    "_headers": Object {
-      "content-length": Array [
+    Symbol(map): Object {
+      "Content-Length": Array [
         "13",
       ],
-      "content-type": Array [
+      "Content-Type": Array [
         "application/json",
       ],
     },
@@ -134,11 +134,11 @@ Object {
     "foo": "bar",
   },
   "headers": Headers {
-    "_headers": Object {
-      "content-length": Array [
+    Symbol(map): Object {
+      "Content-Length": Array [
         "13",
       ],
-      "content-type": Array [
+      "Content-Type": Array [
         "application/json",
       ],
     },
@@ -167,11 +167,11 @@ Object {
     "foo": "bar",
   },
   "headers": Headers {
-    "_headers": Object {
-      "content-length": Array [
+    Symbol(map): Object {
+      "Content-Length": Array [
         "13",
       ],
-      "content-type": Array [
+      "Content-Type": Array [
         "application/json",
       ],
     },

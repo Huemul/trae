@@ -90,8 +90,8 @@ Since most browsers ([caniuse](https://caniuse.com/#search=fetch)) support Fetch
 
 If you do need the poyfill, we provide two options:
 
-* `trae/unfetch`: uses [`unfetch`](https://github.com/developit/unfetch), a bare minimum fetch polyfill in **500 bytes** by [@developit](https://github.com/developit). Check the README to make sure your use case is supported.
-* `trae/isomorphic`: uses [`isomorphic-fetch`](https://github.com/matthew-andrews/isomorphic-fetch). Use this one if you are working on **node**, or need things not covered by `unfetch`.
+- `trae/unfetch`: uses [`unfetch`](https://github.com/developit/unfetch), a bare minimum fetch polyfill in **500 bytes** by [@developit](https://github.com/developit). Check the README to make sure your use case is supported.
+- `trae/isomorphic`: uses [`isomorphic-fetch`](https://github.com/matthew-andrews/isomorphic-fetch). Use this one if you are working on **node**, or need things not covered by `unfetch`.
 
 ### Promises
 
@@ -346,10 +346,10 @@ On rejection an `Error` is passed to the rejection middleware with the same prop
 
 ## Resources
 
-* Motivation: if you want to know more about the motivations behind this library check out [this article](https://hackernoon.com/trae-another-http-library-70000860a5f4).
-* Middlewares
-  * [`trae-events`](https://github.com/Huemul/trae-events).
-  * [`trae-logger`](https://github.com/Huemul/trae-logger).
+- Motivation: if you want to know more about the motivations behind this library check out [this article](https://hackernoon.com/trae-another-http-library-70000860a5f4).
+- Middlewares
+  - [`trae-events`](https://github.com/Huemul/trae-events).
+  - [`trae-logger`](https://github.com/Huemul/trae-logger).
 
 ## License
 
@@ -379,10 +379,10 @@ Thanks goes to these wonderful people ([emoji key](https://github.com/kentcdodds
 
 ## TODO
 
-* [ ] CHANGELOG. [#48](https://github.com/Huemul/trae/issues/48)
-* [ ] Add logging and warnings to the dev build. [#49](https://github.com/Huemul/trae/issues/49#issuecomment-272533323)
-* [ ] Improve examples and add more. [`trae-exampels` repo](https://github.com/Huemul/trae-examples/).
-* [ ] Add a way to remove middlewares.
-* [ ] Add browser based tests.
+- [ ] CHANGELOG. [#48](https://github.com/Huemul/trae/issues/48)
+- [ ] Add logging and warnings to the dev build. [#49](https://github.com/Huemul/trae/issues/49#issuecomment-272533323)
+- [ ] Improve examples and add more. [`trae-exampels` repo](https://github.com/Huemul/trae-examples/).
+- [ ] Add a way to remove middlewares.
+- [ ] Add browser based tests.
 
 [⬆ back to top](#content)

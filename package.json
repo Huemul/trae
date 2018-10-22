@@ -75,7 +75,7 @@
     "rollup-plugin-commonjs": "^9.1.0",
     "rollup-plugin-conditional": "^1.1.1",
     "rollup-plugin-eslint": "^4.0.0",
-    "rollup-plugin-filesize": "^1.0.1",
+    "rollup-plugin-filesize": "^5.0.1",
     "rollup-plugin-json": "^2.1.1",
     "rollup-plugin-node-builtins": "^2.1.0",
     "rollup-plugin-node-globals": "^1.1.0",

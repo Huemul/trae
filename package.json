@@ -70,7 +70,7 @@
     "mkdirp": "^0.5.1",
     "np": "^2.14.1",
     "pre-commit": "^1.2.2",
-    "rollup": "^0.58.2",
+    "rollup": "^1.13.1",
     "rollup-plugin-babel": "^2.7.1",
     "rollup-plugin-commonjs": "^9.1.0",
     "rollup-plugin-conditional": "^1.1.1",

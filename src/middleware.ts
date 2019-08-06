@@ -23,7 +23,7 @@ function createMiddleware () {
     resolveBefore(config) {
       const chain = (promise, task) => promise.then(task);
       return collections.before.reduce(chain, Promise.resolve(config));
-    }
+    },
 
     resolveAfter(err, response) {
       const chain   = (promise, task) => promise.then(...task);

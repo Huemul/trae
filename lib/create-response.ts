@@ -45,9 +45,8 @@ export default function responseHandler(response, config) {
     const err  = new Error(response.statusText);
     err.config = config;
     return upgradeResponse(response, err)
-      .then((e) => { throw e; });
+      .then((err) => { throw err; });
   }
 
   return upgradeResponse(response, { config });
 }
-

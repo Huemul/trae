@@ -16,7 +16,6 @@ Minimalistic HTTP client for the browser and Node. Based on [Fetch](https://deve
 1. [Trae API](#trea-api)
   1. [Request methods](#request-methods)
   1. [Config](#config)
-  1. [Defaults](#defaults)
   1. [Middlewares](#middlewares)
   1. [Instances](#instances)
 1. [Response](#response)
@@ -55,7 +54,7 @@ trae.get('https://www.google.com.ar/search', { params: { q: 'foo' } })
 
 A `POST` request to `https://www.foo.com/api/posts`:
 
-```js (skip)
+```js
 trae.post('https://www.foo.com/api/posts', {
   title  : 'My Post',
   content: 'My awesome post content...'
@@ -76,7 +75,7 @@ Check out more examples [here](https://huemul.github.io/trae-examples).
 
 ### Request methods
 
-```js (skip)
+```js
 trae.get(url[, config]);
 
 trae.delete(url[, config]);
@@ -96,7 +95,7 @@ trae.patch(url[, body[, config]]);
 
 The configuration object can be used in all request methods, the following attributes are available:
 
-```js (skip)
+```js
 {
   // Absolute or relative url of the request
   url: '/foo/bar',
@@ -137,58 +136,6 @@ The configuration object can be used in all request methods, the following attri
 ```
 More information about Request properties can be found on this [`MDN article`](https://developer.mozilla.org/en-US/docs/Web/API/Request).
 
-### Defaults
-
-#### `trae.defaults([config])`
-
-Sets the default configuration to use on every requests. This is merged with the existing configuration.
-
-```js
-trae.defaults({
-  mode       : 'no-cors',
-  credentials: 'same-origin'
-});
-```
-
-When called with no params acts as a getter, returning the defined defaults.
-
-```js
-const config = trae.defaults();
-```
-
-It is possible to set default configuration for specific methods passing an
-object with the method as key:
-
-```js
-trae.defaults({
-  post: {
-    headers: {
-      'Content-Type': 'application/x-www-form-urlencoded'
-    }
-  }
-});
-```
-
-#### Request configuration precedence
-
-The configuration for a request will be merged following this precedence rules, each level overrides the followings:
-
-  1. Request params config.
-  1. Method config set with `trae.defaults({ [method]: { ... } })`.
-  1. Trae config set with `trae.defaults({ ... })`.
-
-#### `trae.baseUrl([url])`
-
-Shorthand for `trae.defaults({baseUrl: url})`. Also returns the `baseUrl` when no params are passed.
-
-```js (skip)
-trae.baseUrl('https://www.foo.com');
-
-const baseUrl = trae.baseUrl();
-console.log(baseUrl); // 'https://www.foo.com'
-
-trae.get('/baz'); // GET: https://www.foo.com/baz
-```
 
 ### Middlewares
 
@@ -229,22 +176,9 @@ trae.after(fullfillMiddleware, rejectMiddleware);
 
 Using the above `after` middleware is the same as doing:
 
-```js (skip)
+```js
 trae.get('/api/posts')
   .then(fullfillMiddleware, rejectMiddleware);
-```
-
-#### `trae.finally([middleware])`
-
-Runs at the end regardless of the request result, it has access to the configuration object and the url that was used to made the request. Is not promise based. Functions provided to this method are run synchronously. 
-
-```js
-const finallyMiddleware = (config, url) => {
-  console.log('The End');
-  makeTheSpinnerStop();
-};
-
-trae.finally(finallyMiddleware);
 ```
 
 [⬆ back to top](#content)
@@ -255,25 +189,21 @@ trae.finally(finallyMiddleware);
 
 Creates an instance of `Trae` with its own defaults and middlewares. The API documentation applies for instances as well.
 
-```js (skip)
-const api = trae.create({baseUrl: '/api'})
+```js
+const api = trae.create({ url: '/api' })
 
 api.get('/posts') // GET: /api/posts
 ```
 
 The created method inherits all the defaults and middlewares from its creator.
 
-```js (skip)
+```js
 trae.baseUrl('/api')
-const api = trae.create()
+const api = trae.create({ url: 'http://localhost:8080/api' })
 
-api.get('/posts') // GET: /api/posts
-
-api.defaults({ mode: 'no-cors' })
+api.get('/posts') // GET: http://localhost:8080/api/posts
 
 const apiFoo = api.create()
-
-apiFoo.defaults() // { mode: 'no-cors', ... }
 ```
 
 [⬆ back to top](#content)
@@ -282,7 +212,7 @@ apiFoo.defaults() // { mode: 'no-cors', ... }
 
 The request methods returns a promise that resolves to this object:
 
-```js (skip)
+```js
 {
   // body of the response
   data: { ... },
@@ -335,17 +265,6 @@ On rejection an `Error` is passed to the rejection middleware with the same prop
 [Create an issue](https://github.com/Huemul/trae/issues/new) to report bugs or give suggestions on how to improve this project.
 
 If you want to submit a PR and do not know where to start or what to add check out the [project page](https://github.com/Huemul/trae/projects/1) to find out what we are working on, and what to contribute next.
-
-This project follows the [all-contributors](https://github.com/kentcdodds/all-contributors) specification. Contributions of any kind welcome!
-
-## Contributors
-
-Thanks goes to these wonderful people ([emoji key](https://github.com/kentcdodds/all-contributors#emoji-key)):
-
-<!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
-| [<img src="https://avatars.githubusercontent.com/u/6719053?v=3" width="64px;"/><br /><sub>Nicolas Del Valle</sub>](http://nico.delvalle.xyz)<br />[💻](https://github.com/Huemul/trae/commits?author=ndelvalle) [📖](https://github.com/Huemul/trae/commits?author=ndelvalle) [⚠️](https://github.com/Huemul/trae/commits?author=ndelvalle) 💡 👀 | [<img src="https://avatars.githubusercontent.com/u/8309423?v=3" width="64px;"/><br /><sub>Christian Gill</sub>](https://gillchristian.xyz)<br />[💻](https://github.com/Huemul/trae/commits?author=gillchristian) [📖](https://github.com/Huemul/trae/commits?author=gillchristian) [⚠️](https://github.com/Huemul/trae/commits?author=gillchristian) 💡 👀 | [<img src="https://avatars.githubusercontent.com/u/3258966?v=3" width="64px;"/><br /><sub>Ignacio Anaya</sub>](http://keepe.rs)<br />[💻](https://github.com/Huemul/trae/commits?author=ianaya89) 👀 🎨 [🐛](https://github.com/Huemul/trae/issues?q=author%3Aianaya89) 💁 | [<img src="https://avatars.githubusercontent.com/u/1145624?v=3" width="64px;"/><br /><sub>Fred Guest</sub>](https://twitter.com/fredguest)<br />💁 [🐛](https://github.com/Huemul/trae/issues?q=author%3Afredguest) | [<img src="https://avatars.githubusercontent.com/u/11802102?v=3" width="64px;"/><br /><sub>Joni</sub>](http://joni.website)<br />🎨 | [<img src="https://avatars.githubusercontent.com/u/4614574?v=3" width="64px;"/><br /><sub>Gerardo Nardelli</sub>](https://gnardelli.com)<br />[📖](https://github.com/Huemul/trae/commits?author=patitonar) |
-| :---: | :---: | :---: | :---: | :---: | :---: |
-<!-- ALL-CONTRIBUTORS-LIST:END -->
 
 [⬆ back to top](#content)
 

@@ -1,5 +1,0 @@
-{
-  "dependencies": {
-    "./dist/trae": "trae"
-  }
-}

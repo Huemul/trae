@@ -1,32 +1,34 @@
-import merge from 'lodash/merge'
+import merge from 'lodash/merge';
 
-import createMiddleware from './middleware'
-import createResponse from '../lib/create-response'
+import createMiddleware from './middleware';
+import createResponse from '../lib/create-response';
 import { format as formatUrl } from '../lib/url';
+import { PublicRequestConfig, RequestConfig, InstanceConfig } from './types';
 
-function createTrae (config = {}) {
-  const middleware = createMiddleware()
-  const defaults = {
-    headers: { 'Content-Type': 'application/json' }
-  }
+function createTrae(config: InstanceConfig = {}) {
+  const middleware = createMiddleware();
+  const defaults: InstanceConfig = {
+    headers: { 'Content-Type': 'application/json' },
+  };
 
-  function request(url, requestConfig) {
-    const fetchConfig = merge(defaults, config, requestConfig)
-    const url = formatUrl(config.url, url, fetchConfig.params)
+  function request(endpoint: string, requestConfig: RequestConfig) {
+    const fetchConfig = merge(defaults, config, requestConfig);
+    const url = formatUrl(config.url, endpoint, fetchConfig.params);
 
-    return middleware.resolveBefore(fetchConfig)
-      .then(config => fetch(url, config))
-      .then(res => createResponse(res, fetchConfig))
+    return middleware
+      .resolveBefore(fetchConfig)
+      .then((config) => fetch(url, config))
+      .then((res) => createResponse(res, fetchConfig))
       .then(
-        res => middleware.resolveAfter(undefined, res),
-        err => middleware.resolveAfter(err)
-      )
+        (res) => middleware.resolveAfter(undefined, res),
+        (err) => middleware.resolveAfter(err),
+      );
   }
 
   const trae = {
-    create: (instanceConfig) => {
-      const instance = createTrae(merge(config, instanceConfig))
-      const { collections } = middleware
+    create: (instanceConfig: InstanceConfig) => {
+      const instance = createTrae(merge(config, instanceConfig));
+      const { collections } = middleware;
 
       collections.before.forEach(instance.before);
       collections.after.forEach((args) => instance.after(...args));
@@ -34,40 +36,41 @@ function createTrae (config = {}) {
       return instance;
     },
 
-    get: (endpoint, requestConfig = {}) => {
-      return request(endpoint, merge(requestConfig, { method: 'GET' }))
+    get: (endpoint: string, requestConfig: PublicRequestConfig = {}) =>
+      request(endpoint, { ...requestConfig, method: 'GET' }),
+
+    delete: (endpoint: string, requestConfig: PublicRequestConfig = {}) =>
+      request(endpoint, { ...requestConfig, method: 'DELETE' }),
+
+    head: (endpoint: string, requestConfig: PublicRequestConfig = {}) =>
+      request(endpoint, { ...requestConfig, method: 'HEAD' }),
+
+    post: (
+      endpoint: string,
+      body: any = {},
+      requestConfig: PublicRequestConfig = {},
+    ) => request(endpoint, { ...requestConfig, method: 'POST', body }),
+
+    put: (
+      endpoint: string,
+      body: any = {},
+      requestConfig: PublicRequestConfig = {},
+    ) => request(endpoint, { ...requestConfig, method: 'PUT', body }),
+
+    patch: (
+      endpoint: string,
+      body: any = {},
+      requestConfig: PublicRequestConfig = {},
+    ) => {
+      return;
     },
 
-    delete: (endpoint, requestConfig = {}) => {
-      return request(endpoint, merge(requestConfig, { method: 'DELETE' }))
-    },
+    before: middleware.before,
 
-    head: (endpoint, requestConfig = {}) => {
-      return request(endpoint, merge(requestConfig, { method: 'HEAD' }))
-    },
+    after: middleware.after,
+  };
 
-    post: (endpoint, body = {}, requestConfig = {}) => {
-      return request(endpoint, merge(requestConfig, { method: 'POST', body }))
-    },
-
-    put: (endpoint, body = {}, requestConfig = {}) => {
-      return request(endpoint, merge(requestConfig, { method: 'PUT', body }))
-    },
-
-    patch: () => {
-      return request(endpoint, merge(requestConfig, { method: 'PATCH', body }))
-    },
-
-    before: (fn) => {
-      return middleware.before(fn)
-    },
-
-    after: (resolve, reject) => {
-      return middleware.before(resolve, reject)
-    }
-  }
-
-  return trae
+  return trae;
 }
 
-export default createTrae
+export default createTrae;

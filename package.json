@@ -39,6 +39,8 @@
     "test:w": "jest --watch --verbose",
     "check-cover": "open coverage/lcov-report/index.html",
     "check-bundle": "open coverage/bundle-statistics.html",
+    "ts:check": "tsc --pretty --noEmit",
+    "ts:check:watch": "tsc --pretty --noEmit --watch",
     "prepublish": "in-publish && ./scripts/publish.sh || echo 'just installing'",
     "eslint": "eslint . --ext .js",
     "release": "np"
@@ -55,6 +57,7 @@
     "typescript": "^3.5.3"
   },
   "devDependencies": {
+    "@types/lodash": "^4.14.136",
     "all-contributors-cli": "^4.0.0",
     "babel-core": "^6.23.1",
     "babel-jest": "^20.0.1",

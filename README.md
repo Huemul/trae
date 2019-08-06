@@ -139,7 +139,7 @@ More information about Request properties can be found on this [`MDN article`](h
 
 ### Middlewares
 
-`trae` api provides three middleware methods, `before`, `after` and `finally`.
+`trae` api provides two middleware methods, `before` and `after`.
 
 #### `trae.before([middleware])`
 
@@ -147,7 +147,7 @@ Runs before the request is made and it has access to the configuration object, i
 
 ```js
 const beforeMiddleware = (config) => {
-  config.headers['X-ACCESSS-TOKEN'] = getUserToken();
+  config.headers['X-ACCESSS-TOKEN'] = 'Bearer xxxx-xxxx-xx';
   return config;
 }
 
@@ -156,7 +156,7 @@ trae.before(beforeMiddleware);
 
 #### `trae.after(fullfill[, reject])`
 
-Runs after the request is made, it chains the provided `fullfill` and `reject` methods together to the `then` method from fetch response. When no `fulfill` callback is provided, the identity function is used. When no `reject` callback is provided, a rejected promise is returned, to be handled down the chain.
+Runs after the request is made, it chains the provided `fullfill` and `reject` methods together to the `then` method from fetch response. When no `fulfill` callback is provided, the identity function is used. When no `reject` callback is provided, a rejected promise is returned to be handled down the promise chain.
 
 ```js
 const fullfillMiddleware = (res) => {
@@ -187,23 +187,24 @@ trae.get('/api/posts')
 
 #### `trae.create([config])`
 
-Creates an instance of `Trae` with its own defaults and middlewares. The API documentation applies for instances as well.
+Creates an instance of `Trae` with its own config and middlewares. The API documentation applies for instances as well.
 
 ```js
-const api = trae.create({ url: '/api' })
+const api = trae.create({ url: 'http:localhost:8080/api' })
 
-api.get('/posts') // GET: /api/posts
+api.get('/posts') // GET: http:localhost:8080/api/posts
 ```
 
-The created method inherits all the defaults and middlewares from its creator.
+The created method inherits all the config and middlewares from its creator.
 
 ```js
-trae.baseUrl('/api')
 const api = trae.create({ url: 'http://localhost:8080/api' })
 
 api.get('/posts') // GET: http://localhost:8080/api/posts
 
-const apiFoo = api.create()
+const apibaz = api.create()
+
+apibaz.get('/bazs') // GET: http://localhost:8080/api/bazs
 ```
 
 [⬆ back to top](#content)
@@ -253,8 +254,8 @@ On rejection an `Error` is passed to the rejection middleware with the same prop
 
 - Motivation: if you want to know more about the motivations behind this library check out [this article](https://hackernoon.com/trae-another-http-library-70000860a5f4).
 - Middlewares
-  - [`trae-events`](https://github.com/Huemul/trae-events).
-  - [`trae-logger`](https://github.com/Huemul/trae-logger).
+  - [`trae-events`](https://github.com/Huemul/trae-events)
+  - [`trae-logger`](https://github.com/Huemul/trae-logger)
 
 ## License
 
@@ -270,11 +271,10 @@ If you want to submit a PR and do not know where to start or what to add check o
 
 ## TODO
 
-- [ ] Provide a build with no polyfill.
+- [ ] Provide a build with no polyfill
 - [ ] CHANGELOG. [#48](https://github.com/Huemul/trae/issues/48)
-- [ ] Add logging and warnings to the dev build. [#49](https://github.com/Huemul/trae/issues/49#issuecomment-272533323)
-- [ ] Improve examples and add more. [`trae-exampels` repo](https://github.com/Huemul/trae-examples/).
-- [ ] Add a way to remove middlewares.
-- [ ] Add browser based tests.
+- [ ] Improve examples and add more [`trae-exampels` repo](https://github.com/Huemul/trae-examples/)
+- [ ] Add a way to remove middlewares
+- [ ] Add browser based tests
 
 [⬆ back to top](#content)

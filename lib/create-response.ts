@@ -2,11 +2,10 @@ const READERS = ['arrayBuffer', 'blob', 'formData', 'json', 'text'];
 const isValidReader = reader => READERS.includes(reader);
 
 class TraeResponseError extends Error {
-  constructor ({ message, config, status, statusText }) {
+  constructor ({ message, config, response }) {
     super(message)
     this.config = config
-    this.status = status
-    this.statusText = statusText
+    this.response = response
   }
 }
 
@@ -38,33 +37,24 @@ function deriveReader(response, config) {
   }
 }
 
-fetch;
-
 function parseResponse(response, config) {
   const { body, headers, status, statusText } = response;
+  const res = { headers, status, statusText, body }
 
-  const response = {
-    response,
-    headers,
-    status,
-    statusText,
-    body
-  }
-
-  const reader = deriveReader(response, config);
+  const reader = deriveReader(res, config);
 
   return response[reader]()
-    .then((data) => ({ ...response, data }))
+    .then((data) => ({ ...res, data }))
 }
 
 export default function createResponse (response, config) {
   if (!response.ok) {
-    return Promise.reject(new TraeResponseError({
-      message: response.statusText,
-      statusText: response.statusText,
-      status: response.status,
-      config: config
-    }))
+    return parseResponse(response, config)
+      .then((data) => Promise.reject(new TraeResponseError({
+        message: response.statusText,
+        config,
+        response
+      })))
   }
 
   return parseResponse(response, config)

@@ -1,15 +1,14 @@
 /* global describe it expect */
 
-import Middleware from '../lib/middleware';
+import createMiddleware from '../src/middleware';
 
 
 describe('Middleware -> middleware', () => {
-  const middleware = new Middleware();
+  const middleware = createMiddleware();
 
-  it('initialize before, after and finally middlewares attributes', () => {
-    expect(middleware._before).toEqual([]);
-    expect(middleware._after).toEqual([]);
-    expect(middleware._finally).toEqual([]);
+  it.only('initialize before, after and finally middlewares attributes', () => {
+    expect(middleware.before).toEqual([]);
+    expect(middleware.after).toEqual([]);
   });
 
   describe('before', () => {

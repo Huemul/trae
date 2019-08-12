@@ -1,7 +1,7 @@
 /* global describe it expect afterEach */
 
 import fetchMock from 'fetch-mock';
-import trae      from '../../lib';
+import trae      from '../../src';
 
 afterEach(() => {
   fetchMock.restore();

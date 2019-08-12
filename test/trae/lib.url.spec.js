@@ -1,6 +1,6 @@
 /* globals describe it expect */
 
-import { format, isAbsolute, combine, concatParams } from '../lib/helpers/url-handler';
+import { format, isAbsolute, combine, concatParams } from '../../lib/url';
 
 
 describe('urlHandler', () => {

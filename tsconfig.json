@@ -3,7 +3,7 @@
     "target": "es5",
     "module": "commonjs",
     "lib": ["es6", "dom"],
-    "rootDir": "./",
+    "rootDir": ".",
     "declarationDir": "./",
     "sourceMap": true,
     "declaration": true,

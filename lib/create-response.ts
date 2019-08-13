@@ -1,6 +1,11 @@
 const READERS = ['arrayBuffer', 'blob', 'formData', 'json', 'text'];
 const isValidReader = reader => READERS.includes(reader);
 
+
+function isFormData(body) {
+  return typeof FormData !== 'undefined' && body instanceof FormData
+}
+
 class TraeResponseError extends Error {
   constructor ({ message, config, response }) {
     super(message)
@@ -23,7 +28,7 @@ function deriveReader(response, config) {
     return 'json'
   } else if (
     contentType && contentType === 'multipart/form-data' ||
-    body instanceof FormData
+    isFormData(body)
   ) {
     return 'formData'
   } else if (body instanceof ArrayBuffer) {

@@ -21,7 +21,7 @@ function createTrae(config: InstanceConfig = {}) {
       .then((res) => createResponse(res, fetchConfig))
       .then(
         (res) => middleware.resolveAfter(undefined, res),
-        (err) => middleware.resolveAfter(err),
+        (err) => middleware.resolveAfter(err, undefined),
       );
   }
 
@@ -31,7 +31,9 @@ function createTrae(config: InstanceConfig = {}) {
       const { collections } = middleware;
 
       collections.before.forEach(instance.before);
-      collections.after.forEach((args) => instance.after(...args));
+      collections.after.forEach(([fulfilled, rejected]) =>
+        instance.after(fulfilled, rejected),
+      );
 
       return instance;
     },
@@ -58,9 +60,9 @@ function createTrae(config: InstanceConfig = {}) {
     ) => request(endpoint, { ...requestConfig, method: 'PUT', body }),
 
     patch: (
-      endpoint: string,
-      body: any = {},
-      requestConfig: PublicRequestConfig = {},
+      _endpoint: string,
+      _body: any = {},
+      _requestConfig: PublicRequestConfig = {},
     ) => {
       return;
     },

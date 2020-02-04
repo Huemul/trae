@@ -16,6 +16,7 @@ export interface PublicRequestConfig {
   referrerPolicy?: ReferrerPolicy;
   signal?: AbortSignal | null;
   window?: any;
+  params?: { [x: string]: unknown };
 }
 
 interface WithBody extends PublicRequestConfig {

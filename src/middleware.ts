@@ -1,17 +1,29 @@
-const identity  = response => response;
-const rejection = err => Promise.reject(err);
+import { PublicRequestConfig } from './types';
 
-function createMiddleware () {
-  const collections = {
+type UnkwnownIdentity = (a: unknown) => unknown;
+
+const identity: UnkwnownIdentity = (response) => response;
+const rejection: UnkwnownIdentity = (err) => Promise.reject(err);
+
+type HandlerBefore = (conf: PublicRequestConfig) => PublicRequestConfig;
+type HandlerAfter = [UnkwnownIdentity, UnkwnownIdentity];
+
+interface Collections {
+  before: HandlerBefore[];
+  after: HandlerAfter[];
+}
+
+function createMiddleware() {
+  const collections: Collections = {
     before: [],
-    after: []
-  }
+    after: [],
+  };
 
   const middleware = {
     collections,
 
-    before: (fn) => {
-      collections.before.push(fn)
+    before: (fn: HandlerBefore) => {
+      collections.before.push(fn);
       return collections.before.length - 1;
     },
 
@@ -20,19 +32,22 @@ function createMiddleware () {
       return collections.after.length - 1;
     },
 
-    resolveBefore(config) {
-      const chain = (promise, task) => promise.then(task);
-      return collections.before.reduce(chain, Promise.resolve(config));
+    resolveBefore(config: PublicRequestConfig) {
+      return collections.before.reduce(
+        (promise, task) => promise.then(task),
+        Promise.resolve(config),
+      );
     },
 
-    resolveAfter(err, response) {
-      const chain   = (promise, task) => promise.then(...task);
-      const initial = err ? Promise.reject(err) : Promise.resolve(response);
-      return collections.after.reduce(chain, initial);
-    }
-  }
+    resolveAfter(err: Error | undefined, response: unknown | undefined) {
+      return collections.after.reduce(
+        (promise, [fulfilled, rejected]) => promise.then(fulfilled, rejected),
+        err ? Promise.reject(err) : Promise.resolve(response),
+      );
+    },
+  };
 
-  return middleware
+  return middleware;
 }
 
-export default createMiddleware
+export default createMiddleware;

@@ -1,66 +1,75 @@
-const READERS = ['arrayBuffer', 'blob', 'formData', 'json', 'text'];
-const isValidReader = reader => READERS.includes(reader);
+import { BodyType, PublicRequestConfig } from '../src/types';
 
+const isValidReader = (reader: string): reader is BodyType =>
+  ['arrayBuffer', 'blob', 'formData', 'json', 'text'].includes(reader);
 
-function isFormData(body) {
-  return typeof FormData !== 'undefined' && body instanceof FormData
+function isFormData(body: unknown): body is FormData {
+  return typeof FormData !== 'undefined' && body instanceof FormData;
 }
 
+interface TraeResponseErrorArgs {
+  message: string;
+  config: PublicRequestConfig;
+  response: Response;
+}
 class TraeResponseError extends Error {
-  constructor ({ message, config, response }) {
-    super(message)
-    this.config = config
-    this.response = response
+  config: PublicRequestConfig;
+  response: Response;
+
+  constructor({ message, config, response }: TraeResponseErrorArgs) {
+    super(message);
+    this.config = config;
+    this.response = response;
   }
 }
 
-function deriveReader(response, config) {
-  const { bodyType } = config
-  const { headers, body } = response
+function deriveReader(response: Response, config: PublicRequestConfig) {
+  const { bodyType } = config;
+  const { headers, body } = response;
 
-  if (isValidReader(bodyType)) {
-    return bodyType
+  if (bodyType && isValidReader(bodyType)) {
+    return bodyType;
   }
 
-  const contentType = headers.get('Content-Type')
+  const contentType = headers.get('Content-Type');
 
   if (contentType && contentType === 'application/json') {
-    return 'json'
+    return 'json';
   } else if (
-    contentType && contentType === 'multipart/form-data' ||
+    (contentType && contentType === 'multipart/form-data') ||
     isFormData(body)
   ) {
-    return 'formData'
+    return 'formData';
   } else if (body instanceof ArrayBuffer) {
-    return 'arrayBuffer'
+    return 'arrayBuffer';
   } else if (body instanceof Blob) {
     // TODO: Investigate edge cases
     //       https://stackoverflow.com/a/55271454/3377073
-    return 'blob'
+    return 'blob';
   } else {
-    return 'text'
+    return 'text';
   }
 }
 
-function parseResponse(response, config) {
-  const { body, headers, status, statusText } = response;
-  const res = { headers, status, statusText, body }
+function parseResponse(response: Response, config: PublicRequestConfig) {
+  const reader = deriveReader(response, config);
 
-  const reader = deriveReader(res, config);
-
-  return response[reader]()
-    .then((data) => ({ ...res, data }))
+  return response[reader]().then((data: unknown) => ({ ...response, data }));
 }
 
-export default function createResponse (response, config) {
-  if (!response.ok) {
-    return parseResponse(response, config)
-      .then((data) => Promise.reject(new TraeResponseError({
-        message: response.statusText,
-        config,
-        response
-      })))
+export default function createResponse(
+  response: Response,
+  config: PublicRequestConfig,
+) {
+  if (response.ok) {
+    return parseResponse(response, config);
   }
 
-  return parseResponse(response, config)
+  const error = new TraeResponseError({
+    message: response.statusText,
+    config,
+    response,
+  });
+
+  return parseResponse(response, config).then(() => Promise.reject(error));
 }

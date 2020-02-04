@@ -10,7 +10,7 @@ afterEach(() => {
 
 const TEST_URL = 'http://localhost:8080/api';
 
-describe('trae -> delete', () => {
+xdescribe('trae -> delete', () => {
   it('makes a DELETE request to baseURL + path', () => {
     const url = `${TEST_URL}/foo`;
 

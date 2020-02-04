@@ -10,7 +10,7 @@ afterEach(() => {
 
 const TEST_URL = 'http://localhost:8080/api';
 
-describe('trae -> patch', () => {
+xdescribe('trae -> patch', () => {
   it('makes a PATCH request to baseURL + path', () => {
     const url = `${TEST_URL}/foo`;
 

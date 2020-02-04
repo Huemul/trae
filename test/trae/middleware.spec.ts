@@ -10,7 +10,7 @@ afterEach(() => {
 
 const TEST_URL = 'http://localhost:8080/api';
 
-describe('trae - middleware', () => {
+xdescribe('trae - middleware', () => {
 
   it('sets the middlewares', () => {
     const apiFoo    = trae.create();

@@ -10,7 +10,7 @@ afterEach(() => {
 
 const TEST_URL = 'http://localhost:8080/api';
 
-describe('trae -> post', () => {
+xdescribe('trae -> post', () => {
   it('makes a POST request to baseURL + path', () => {
     const url = `${TEST_URL}/foo`;
 

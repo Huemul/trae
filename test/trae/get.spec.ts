@@ -10,7 +10,7 @@ afterEach(() => {
 
 const TEST_URL = 'http://localhost:8080/api';
 
-describe('trae -> get', () => {
+xdescribe('trae -> get', () => {
   it('does not have headers set by defualt', (next) => {
     const url = `${TEST_URL}/foo`;
 

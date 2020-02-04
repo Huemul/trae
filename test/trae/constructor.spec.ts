@@ -1,3 +1,4 @@
+// @ts-nocheck
 /* global describe it expect */
 
 import trae from '../../src';

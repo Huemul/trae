@@ -1,3 +1,4 @@
+// @ts-nocheck
 /* global describe it expect afterEach */
 
 import fetchMock from 'fetch-mock';

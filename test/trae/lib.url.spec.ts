@@ -1,3 +1,4 @@
+// @ts-nocheck
 /* globals describe it expect */
 
 import { format, isAbsolute, combine, concatParams } from '../../lib/url';

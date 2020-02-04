@@ -1,3 +1,4 @@
+// @ts-nocheck
 /* global describe it expect afterEach */
 
 import fetchMock from 'fetch-mock';
@@ -9,36 +10,30 @@ afterEach(() => {
 
 const TEST_URL = 'http://localhost:8080/api';
 
-describe('trae -> put', () => {
-  it('makes a PUT request to baseURL + path', () => {
+describe('trae -> head', () => {
+  it('makes a HEAD request to baseURL + path', () => {
     const url = `${TEST_URL}/foo`;
 
     fetchMock.mock(url, {
-      status : 200,
-      body   : {
-        foo: 'bar'
-      },
-      headers: {
-        'Content-Type': 'application/json'
-      }
+      status: 200
     }, {
-      method: 'put'
+      method: 'head'
     });
 
     const testTrae = trae.create();
 
     testTrae.before((c) => {
-      expect(c.headers).toMatchSnapshot();
+      expect(c.headers).toEqual({});
       return c;
     });
 
 
-    return testTrae.put(url, { foo: 'bar' })
+    return testTrae.head(url)
     .then((res) => {
       expect(res).toMatchSnapshot();
       expect(fetchMock.called(url)).toBeTruthy();
       expect(fetchMock.lastUrl()).toBe(url);
-      expect(fetchMock.lastOptions().method).toBe('PUT');
+      expect(fetchMock.lastOptions().method).toBe('HEAD');
     });
   });
 });

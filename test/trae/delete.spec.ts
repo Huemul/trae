@@ -1,3 +1,4 @@
+// @ts-nocheck
 /* global describe it expect afterEach */
 
 import fetchMock from 'fetch-mock';
@@ -9,36 +10,34 @@ afterEach(() => {
 
 const TEST_URL = 'http://localhost:8080/api';
 
-describe('trae -> patch', () => {
-  it('makes a PATCH request to baseURL + path', () => {
+describe('trae -> delete', () => {
+  it('makes a DELETE request to baseURL + path', () => {
     const url = `${TEST_URL}/foo`;
 
     fetchMock.mock(url, {
       status : 200,
-      body   : {
-        foo: 'bar'
-      },
+      body   : 'Deleted!',
       headers: {
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/text'
       }
     }, {
-      method: 'patch'
+      method: 'delete'
     });
 
     const testTrae = trae.create();
 
     testTrae.before((c) => {
-      expect(c.headers).toMatchSnapshot();
+      expect(c.headers).toEqual({});
       return c;
     });
 
 
-    return testTrae.patch(url, { foo: 'bar' })
+    return testTrae.delete(url)
     .then((res) => {
       expect(res).toMatchSnapshot();
       expect(fetchMock.called(url)).toBeTruthy();
       expect(fetchMock.lastUrl()).toBe(url);
-      expect(fetchMock.lastOptions().method).toBe('PATCH');
+      expect(fetchMock.lastOptions().method).toBe('DELETE');
     });
   });
 });

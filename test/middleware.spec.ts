@@ -1,3 +1,4 @@
+// @ts-nocheck
 /* global describe it expect */
 
 import createMiddleware from '../src/middleware';

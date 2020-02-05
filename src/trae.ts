@@ -1,78 +1,87 @@
 import merge from 'lodash/merge';
 
-import createMiddleware from './middleware';
 import createResponse from '../lib/create-response';
 import { format as formatUrl } from '../lib/url';
 import { PublicRequestConfig, RequestConfig, InstanceConfig } from './types';
 
 function createTrae(config: InstanceConfig = {}) {
-  const middleware = createMiddleware();
   const defaults: InstanceConfig = {
     headers: { 'Content-Type': 'application/json' },
+    middleware: {
+      before: (item: any) => Promise.resolve(item),
+      after: [
+        (item: any) => Promise.resolve(item),
+        (err: any) => Promise.reject(err)
+      ]
+    }
   };
 
   function request(endpoint: string, requestConfig: RequestConfig) {
-    const fetchConfig = merge(defaults, config, requestConfig);
-    const url = formatUrl(config.url, endpoint, fetchConfig.params);
+    // TODO: We should extract some attributes to avoid exposing unnecessary
+    //       data to the before middleware and fetch function.
+    //       Example: 'middleware' attribute.
+
+    const settings = merge(defaults, config, requestConfig);
+    const url = formatUrl(config.url, endpoint, settings.params);
+    const middleware = settings.middleware;
 
     return middleware
-      .resolveBefore(fetchConfig)
-      .then((config) => fetch(url, config))
-      .then((res) => createResponse(res, fetchConfig))
-      .then(
-        (res) => middleware.resolveAfter(undefined, res),
-        (err) => middleware.resolveAfter(err, undefined),
-      );
+      .before(settings)
+      .then((config: any) => fetch(url, config))
+      .then((res: any) => createResponse(res, settings))
+      .then(...middleware.after)
   }
 
-  const trae = {
-    create: (instanceConfig: InstanceConfig) => {
-      const instance = createTrae(merge(config, instanceConfig));
-      const { collections } = middleware;
+  function create (instanceConfig: InstanceConfig) {
+    return createTrae(merge(config, instanceConfig))
+  }
 
-      collections.before.forEach(instance.before);
-      collections.after.forEach(([fulfilled, rejected]) =>
-        instance.after(fulfilled, rejected),
-      );
+  function get (endpoint: string, requestConfig: PublicRequestConfig = {}) {
+    return request(endpoint, { ...requestConfig, method: 'GET' })
+  }
 
-      return instance;
-    },
+  function remove (endpoint: string, requestConfig: PublicRequestConfig = {}) {
+    return request(endpoint, { ...requestConfig, method: 'DELETE' })
+  }
 
-    get: (endpoint: string, requestConfig: PublicRequestConfig = {}) =>
-      request(endpoint, { ...requestConfig, method: 'GET' }),
+  function head (endpoint: string, requestConfig: PublicRequestConfig = {}) {
+    return request(endpoint, { ...requestConfig, method: 'HEAD' })
+  }
 
-    delete: (endpoint: string, requestConfig: PublicRequestConfig = {}) =>
-      request(endpoint, { ...requestConfig, method: 'DELETE' }),
+  function post (
+    endpoint: string,
+    body: any = {},
+    requestConfig: PublicRequestConfig = {},
+  ) {
+    return request(endpoint, { ...requestConfig, method: 'POST', body })
+  }
 
-    head: (endpoint: string, requestConfig: PublicRequestConfig = {}) =>
-      request(endpoint, { ...requestConfig, method: 'HEAD' }),
+  function put(
+    endpoint: string,
+    body: any = {},
+    requestConfig: PublicRequestConfig = {},
+  ) {
+    return request(endpoint, { ...requestConfig, method: 'PUT', body })
+  }
 
-    post: (
-      endpoint: string,
-      body: any = {},
-      requestConfig: PublicRequestConfig = {},
-    ) => request(endpoint, { ...requestConfig, method: 'POST', body }),
+  // TODO implement
+  function patch (
+    _endpoint: string,
+    _body: any = {},
+    _requestConfig: PublicRequestConfig = {},
+  ) {
+    return
+  }
 
-    put: (
-      endpoint: string,
-      body: any = {},
-      requestConfig: PublicRequestConfig = {},
-    ) => request(endpoint, { ...requestConfig, method: 'PUT', body }),
-
-    patch: (
-      _endpoint: string,
-      _body: any = {},
-      _requestConfig: PublicRequestConfig = {},
-    ) => {
-      return;
-    },
-
-    before: middleware.before,
-
-    after: middleware.after,
-  };
-
-  return trae;
+  return {
+    create,
+    get,
+    delete: remove,
+    head,
+    post,
+    put,
+    patch
+  }
 }
 
 export default createTrae;

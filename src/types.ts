@@ -32,6 +32,7 @@ export type RequestConfig = WithBody | NoBody;
 
 export interface InstanceConfig extends PublicRequestConfig {
   url?: string;
+  middleware: any;
 }
 
 export type BeforeHandler = (conf: PublicRequestConfig) => PublicRequestConfig

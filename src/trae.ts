@@ -2,18 +2,18 @@ import merge from 'lodash/merge';
 
 import createResponse from '../lib/create-response';
 import { format as formatUrl } from '../lib/url';
-import { PublicRequestConfig, RequestConfig, InstanceConfig } from './types';
+import { TraeSettings, RequestConfig, InstanceConfig } from './types';
 
-function createTrae(config: InstanceConfig = {}) {
-  const defaults: InstanceConfig = {
-    headers: { 'Content-Type': 'application/json' },
-    middleware: {
-      before: (item: any) => Promise.resolve(item),
-      after: [
-        (item: any) => Promise.resolve(item),
-        (err: any) => Promise.reject(err)
-      ]
-    }
+const defaults: RequestInit = {
+  headers: { 'Content-Type': 'application/json' },
+};
+
+function createTrae(providedConf?: Partial<TraeSettings>) {
+  const config: TraeSettings = {
+    before: (conf: RequestInit) => conf,
+    onFulfil: (item: unknown) => Promise.resolve(item),
+    onReject: (err: unknown) => Promise.reject(err),
+    ...providedConf,
   };
 
   function request(endpoint: string, requestConfig: RequestConfig) {
@@ -21,56 +21,54 @@ function createTrae(config: InstanceConfig = {}) {
     //       data to the before middleware and fetch function.
     //       Example: 'middleware' attribute.
 
-    const settings = merge(defaults, config, requestConfig);
-    const url = formatUrl(config.url, endpoint, settings.params);
-    const middleware = settings.middleware;
+    const settings: TraeSettings = merge(defaults, config, requestConfig);
+    const url = formatUrl(settings.url, endpoint, settings.params);
 
-    return middleware
-      .before(settings)
-      .then((config: any) => fetch(url, config))
+    return fetch(url, config.before(settings))
       .then((res: any) => createResponse(res, settings))
-      .then(...middleware.after)
+      .then(config.onFulfil)
+      .catch(config.onReject);
   }
 
-  function create (instanceConfig: InstanceConfig) {
-    return createTrae(merge(config, instanceConfig))
+  function create(instanceConfig: InstanceConfig) {
+    return createTrae(merge(config, instanceConfig));
   }
 
-  function get (endpoint: string, requestConfig: PublicRequestConfig = {}) {
-    return request(endpoint, { ...requestConfig, method: 'GET' })
+  function get(endpoint: string, requestConfig: RequestInit = {}) {
+    return request(endpoint, { ...requestConfig, method: 'GET' });
   }
 
-  function remove (endpoint: string, requestConfig: PublicRequestConfig = {}) {
-    return request(endpoint, { ...requestConfig, method: 'DELETE' })
+  function remove(endpoint: string, requestConfig: RequestInit = {}) {
+    return request(endpoint, { ...requestConfig, method: 'DELETE' });
   }
 
-  function head (endpoint: string, requestConfig: PublicRequestConfig = {}) {
-    return request(endpoint, { ...requestConfig, method: 'HEAD' })
+  function head(endpoint: string, requestConfig: RequestInit = {}) {
+    return request(endpoint, { ...requestConfig, method: 'HEAD' });
   }
 
-  function post (
+  function post(
     endpoint: string,
     body: any = {},
-    requestConfig: PublicRequestConfig = {},
+    requestConfig: RequestInit = {},
   ) {
-    return request(endpoint, { ...requestConfig, method: 'POST', body })
+    return request(endpoint, { ...requestConfig, method: 'POST', body });
   }
 
   function put(
     endpoint: string,
     body: any = {},
-    requestConfig: PublicRequestConfig = {},
+    requestConfig: RequestInit = {},
   ) {
-    return request(endpoint, { ...requestConfig, method: 'PUT', body })
+    return request(endpoint, { ...requestConfig, method: 'PUT', body });
   }
 
   // TODO implement
-  function patch (
-    _endpoint: string,
-    _body: any = {},
-    _requestConfig: PublicRequestConfig = {},
+  function patch(
+    endpoint: string,
+    body: any = {},
+    requestConfig: RequestInit = {},
   ) {
-    return
+    return request(endpoint, { ...requestConfig, method: 'PATCH', body });
   }
 
   return {
@@ -80,8 +78,8 @@ function createTrae(config: InstanceConfig = {}) {
     head,
     post,
     put,
-    patch
-  }
+    patch,
+  };
 }
 
 export default createTrae;

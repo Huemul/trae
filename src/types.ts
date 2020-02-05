@@ -1,38 +1,31 @@
-export type BodyType = 'arrayBuffer' | 'blob' | 'formData' | 'json' | 'text' | 'raw';
+export type BodyType =
+  | 'arrayBuffer'
+  | 'blob'
+  | 'formData'
+  | 'json'
+  | 'text'
+  | 'raw';
 
-export interface PublicRequestConfig {
-  // TODO: match `bodyType` to the type `body` can be
+export interface TraeSettings extends RequestInit {
+  url?: string;
   bodyType?: BodyType;
-
-  // types from `RequestInit`
-  cache?: RequestCache;
-  credentials?: RequestCredentials;
-  headers?: HeadersInit;
-  mode?: RequestMode;
-  redirect?: RequestRedirect;
-  integrity?: string;
-  keepalive?: boolean;
-  referrer?: string;
-  referrerPolicy?: ReferrerPolicy;
-  signal?: AbortSignal | null;
-  window?: any;
+  before: (conf: RequestInit) => RequestInit;
+  onFulfil: (response: unknown) => Promise<unknown>;
+  onReject: (error: unknown) => Promise<unknown>;
   params?: { [x: string]: unknown };
 }
 
-interface WithBody extends PublicRequestConfig {
+interface WithBody extends RequestInit {
   method: 'PUT' | 'PATCH' | 'POST';
   body?: BodyInit | null;
 }
 
-interface NoBody extends PublicRequestConfig {
+interface NoBody extends RequestInit {
   method: 'GET' | 'HEAD' | 'DELETE';
 }
 
 export type RequestConfig = WithBody | NoBody;
 
-export interface InstanceConfig extends PublicRequestConfig {
+export interface InstanceConfig extends TraeSettings {
   url?: string;
-  middleware: any;
 }
-
-export type BeforeHandler = (conf: PublicRequestConfig) => PublicRequestConfig

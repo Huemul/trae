@@ -1,7 +1,7 @@
-import { BodyType, PublicRequestConfig } from '../src/types';
+import { BodyType, TraeSettings } from '../src/types';
 
 const isValidReader = (reader: string): reader is BodyType =>
-  ['arrayBuffer', 'blob', 'formData', 'json', 'text'].includes(reader);
+  ['arrayBuffer', 'blob', 'formData', 'json', 'text', 'raw'].includes(reader);
 
 function isFormData(body: unknown): body is FormData {
   return typeof FormData !== 'undefined' && body instanceof FormData;
@@ -9,11 +9,11 @@ function isFormData(body: unknown): body is FormData {
 
 interface TraeResponseErrorArgs {
   message: string;
-  config: PublicRequestConfig;
+  config: TraeSettings;
   response: Response;
 }
 class TraeResponseError extends Error {
-  config: PublicRequestConfig;
+  config: TraeSettings;
   response: Response;
 
   constructor({ message, config, response }: TraeResponseErrorArgs) {
@@ -23,7 +23,7 @@ class TraeResponseError extends Error {
   }
 }
 
-function deriveReader(response: Response, config: PublicRequestConfig) {
+function deriveReader(response: Response, config: TraeSettings) {
   const { bodyType } = config;
   const { headers, body } = response;
 
@@ -33,33 +33,38 @@ function deriveReader(response: Response, config: PublicRequestConfig) {
 
   const contentType = headers.get('Content-Type');
 
-  if (contentType && contentType === 'application/json') {
+  if (contentType === 'application/json') {
     return 'json';
-  } else if (
-    (contentType && contentType === 'multipart/form-data') ||
-    isFormData(body)
-  ) {
+  }
+
+  if (contentType === 'multipart/form-data' || isFormData(body)) {
     return 'formData';
-  } else if (body instanceof ArrayBuffer) {
+  }
+
+  if (body instanceof ArrayBuffer) {
     return 'arrayBuffer';
-  } else if (body instanceof Blob) {
+  }
+
+  if (body instanceof Blob) {
     // TODO: Investigate edge cases
     //       https://stackoverflow.com/a/55271454/3377073
     return 'blob';
-  } else {
-    return 'text';
   }
+
+  return 'text';
 }
 
-function parseResponse(response: Response, config: PublicRequestConfig) {
+function parseResponse(response: Response, config: TraeSettings) {
   const reader = deriveReader(response, config);
 
-  return response[reader]().then((data: unknown) => ({ ...response, data }));
+  return reader === 'raw'
+    ? Promise.resolve(response)
+    : response[reader]().then((data: unknown) => ({ ...response, data }));
 }
 
 export default function createResponse(
   response: Response,
-  config: PublicRequestConfig,
+  config: TraeSettings,
 ) {
   if (response.ok) {
     return parseResponse(response, config);
@@ -71,5 +76,6 @@ export default function createResponse(
     response,
   });
 
+  // TODO: Why isn't the parsed response part of the object we reject with?
   return parseResponse(response, config).then(() => Promise.reject(error));
 }

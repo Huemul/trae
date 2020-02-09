@@ -25,7 +25,6 @@ Minimalistic HTTP client for the browser and Node. Based on [Fetch](https://deve
 1. [Resources](#resources)
 1. [License](#license)
 1. [Contributing](#contributing)
-1. [Contributors](#contributors)
 1. [TODO](#todo)
 
 ## Install

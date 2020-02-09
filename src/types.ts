@@ -10,7 +10,7 @@ export interface TraeSettings extends RequestInit {
   url?: string;
   bodyType?: BodyType;
   before: (conf: RequestInit) => RequestInit;
-  onFulfil: (response: unknown) => Promise<unknown>;
+  onResolve: (response: unknown) => Promise<unknown>;
   onReject: (error: unknown) => Promise<unknown>;
   params?: { [x: string]: unknown };
 }

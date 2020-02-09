@@ -9,24 +9,24 @@ const defaults: RequestInit = {
 };
 
 function createTrae(providedConf?: Partial<TraeSettings>) {
-  const config: TraeSettings = {
+  const config: TraeSettings = Object.freeze(merge(defaults, {
     before: (conf: RequestInit) => conf,
-    onFulfil: (item: unknown) => Promise.resolve(item),
+    onResolve: (item: unknown) => Promise.resolve(item),
     onReject: (err: unknown) => Promise.reject(err),
     ...providedConf,
-  };
+  }));
 
   function request(endpoint: string, requestConfig: RequestConfig) {
     // TODO: We should extract some attributes to avoid exposing unnecessary
     //       data to the before middleware and fetch function.
     //       Example: 'middleware' attribute.
 
-    const settings: TraeSettings = merge(defaults, config, requestConfig);
+    const settings: TraeSettings = merge(config, requestConfig);
     const url = formatUrl(settings.url, endpoint, settings.params);
 
     return fetch(url, config.before(settings))
       .then((res: any) => createResponse(res, settings))
-      .then(config.onFulfil)
+      .then(config.onResolve)
       .catch(config.onReject);
   }
 
@@ -62,7 +62,6 @@ function createTrae(providedConf?: Partial<TraeSettings>) {
     return request(endpoint, { ...requestConfig, method: 'PUT', body });
   }
 
-  // TODO implement
   function patch(
     endpoint: string,
     body: any = {},
@@ -79,6 +78,7 @@ function createTrae(providedConf?: Partial<TraeSettings>) {
     post,
     put,
     patch,
+    config,
   };
 }
 

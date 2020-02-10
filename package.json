@@ -67,7 +67,7 @@
     "http-server": "^0.11.1",
     "in-publish": "^2.0.0",
     "jest": "^20.0.1",
-    "mkdirp": "^0.5.1",
+    "mkdirp": "^1.0.3",
     "np": "^2.14.1",
     "pre-commit": "^1.2.2",
     "rollup": "^0.58.2",

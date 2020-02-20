@@ -82,4 +82,4 @@ function createTrae(providedConf?: Partial<TraeSettings>) {
   };
 }
 
-export default createTrae;
+export default createTrae();

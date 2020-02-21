@@ -8,7 +8,7 @@ describe('Trae', function () {
     const actual = Object.keys(trae).sort()
     const expected = ['create', 'get', 'delete', 'head', 'post', 'put', 'patch', 'config'].sort()
 
-    expect(actual).toEqual(expected)
+    expect(actual).toStrictEqual(expected)
   });
 
   describe('Trae instance configuration', function () {

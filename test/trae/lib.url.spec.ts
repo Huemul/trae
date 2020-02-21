@@ -4,7 +4,8 @@
 import { format, isAbsolute, combine, concatParams } from '../../lib/url';
 
 
-xdescribe('urlHandler', () => {
+describe('URL Handler', () => {
+
   describe('concatParams', () => {
     it('stringify and concats params to the provided URL', () => {
       const url    = 'https://www.foo.com/bar';
@@ -15,14 +16,18 @@ xdescribe('urlHandler', () => {
           }
         }
       };
+      const actual = concatParams(url, params)
+      const expectted = 'https://www.foo.com/bar?foo%5Bbar%5D%5Bbaz%5D=foobarbaz'
 
-      expect(concatParams(url, params))
-      .toBe('https://www.foo.com/bar?foo%5Bbar%5D%5Bbaz%5D=foobarbaz');
+      expect(actual).toBe(expectted);
     });
 
     it('when params are an empty object it returns the same url', () => {
       const url = 'https://www.foo.com/bar';
-      expect(concatParams(url, {})).toBe(url);
+      const params = {}
+      const actual = concatParams(url, {})
+
+      expect(actual).toBe(url);
     });
   });
 
@@ -65,22 +70,29 @@ xdescribe('urlHandler', () => {
     it('returns the relative url if base url argument is not defined', () => {
       const baseUrl     = undefined;
       const relativeURL = 'https://www.foo.com/bar';
+      const actual = format(baseUrl, relativeURL)
+      const expected = relativeURL
 
-      expect(format(baseUrl, relativeURL)).toBe(relativeURL);
+      expect(actual).toBe(expected);
     });
 
     it('returns the relative url if it is an absolute url', () => {
       const baseUrl     = 'https://www.foo.com/baz';
       const relativeURL = 'https://www.foo.com/bar';
 
-      expect(format(baseUrl, relativeURL)).toBe(relativeURL);
+      const actual = format(baseUrl, relativeURL);
+      const expected = relativeURL
+
+      expect(actual).toBe(expected);
     });
 
     it('returns base and realative url combined', () => {
       const baseUrl     = 'https://www.foo.com/baz/';
       const relativeURL = '/foo';
+      const actual = format(baseUrl, relativeURL);
+      const expected = 'https://www.foo.com/baz/foo'
 
-      expect(format(baseUrl, relativeURL)).toBe('https://www.foo.com/baz/foo');
+      expect(actual).toBe(expected);
     });
 
     it('returns base, realative url and params combined', () => {
@@ -89,8 +101,10 @@ xdescribe('urlHandler', () => {
       const params      = {
         foo: 'bar'
       };
+      const actual = format(baseUrl, relativeURL, params)
+      const expected = 'https://www.foo.com/baz/foo?foo=bar'
 
-      expect(format(baseUrl, relativeURL, params)).toBe('https://www.foo.com/baz/foo?foo=bar');
+      expect(actual).toBe(expected);
     });
   });
 });

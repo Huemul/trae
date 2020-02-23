@@ -1,116 +1,153 @@
 // @ts-nocheck
-/* global describe it expect afterEach */
+/* global describe beforeAll beforeEach afterEach it expect */
 
-import fetchMock from 'fetch-mock';
-import trae      from '../../src';
+import nock from 'nock';
+import fetch from 'node-fetch';
+import trae from '../../src';
 
-afterEach(() => {
-  fetchMock.restore();
-});
+const TEST_URL = 'http://localhost:8080';
 
-const TEST_URL = 'http://localhost:8080/api';
+describe('trae -> post', () => {
+  beforeAll(function() {
+    global.fetch = fetch;
+  });
 
-xdescribe('trae -> post', () => {
-  it('makes a POST request to baseURL + path', () => {
-    const url = `${TEST_URL}/foo`;
+  let request;
+  let response;
 
-    fetchMock.mock(url, {
-      status: 200,
-      body  : {
-        foo: 'bar'
+  beforeAll(function createNock() {
+    request = nock(TEST_URL, {
+      reqheaders: {
+        'content-type': 'application/json',
       },
-      headers: {
-        'Content-Type': 'application/json'
-      }
-    }, {
-      method: 'post'
+    })
+      .post('/foo', { pizza: 'guerrin' })
+      .reply(200, { foo: 'bar' });
+  });
+
+  beforeAll(function executeRequest() {
+    return trae
+      .post(TEST_URL + '/foo', { pizza: 'guerrin' })
+      .then(function(res) {
+        response = res;
+      });
+  });
+
+  it('should make an HTTP post request', function() {
+    const actual = request.isDone();
+    const expected = true;
+
+    expect(actual).toStrictEqual(expected);
+  });
+
+  it('should have 200 in the response status code', function() {
+    const actual = response.status;
+    const expected = 200;
+
+    expect(actual).toStrictEqual(expected);
+  });
+
+  it('should have "OK" in the response status text', function() {
+    const actual = response.statusText;
+    const expected = 'OK';
+
+    expect(actual).toStrictEqual(expected);
+  });
+
+  it('should have foo bar in the response data', function() {
+    const actual = response.data;
+    const expected = { foo: 'bar' };
+
+    expect(actual).toStrictEqual(expected);
+  });
+
+  describe('post using params', function() {
+    let request;
+
+    beforeAll(function createNock() {
+      request = nock(TEST_URL, {
+        reqheaders: {
+          'content-type': 'application/json',
+        },
+      })
+        .post('/cats?name=tigrin')
+        .reply(200, { yay: 'OK' });
     });
 
-    const testTrae = trae.create();
-
-    testTrae.before((c) => {
-      expect(c.headers).toMatchSnapshot();
-      return c;
+    beforeAll(function executeRequest() {
+      return trae.post(TEST_URL + '/cats', {}, { params: { name: 'tigrin' } });
     });
 
+    it('should make an HTTP post request', function() {
+      const actual = request.isDone();
+      const expected = true;
 
-    return testTrae.post(url, { foo: 'bar' })
-    .then((res) => {
-      expect(res).toMatchSnapshot();
-      expect(fetchMock.called(url)).toBeTruthy();
-      expect(fetchMock.lastUrl()).toBe(url);
-      expect(fetchMock.lastOptions().method).toBe('POST');
+      expect(actual).toStrictEqual(expected);
+    });
+
+    it('should have 200 in the response status code', function() {
+      const actual = response.status;
+      const expected = 200;
+
+      expect(actual).toStrictEqual(expected);
+    });
+
+    it('should have "OK" in the response status text', function() {
+      const actual = response.statusText;
+      const expected = 'OK';
+
+      expect(actual).toStrictEqual(expected);
     });
   });
 
-  describe('post -> params', () => {
+  describe('post using nested params', function() {
+    let request;
 
-    afterEach(() => {
-      fetchMock.restore();
+    beforeAll(function createNock() {
+      request = nock(TEST_URL, {
+        reqheaders: {
+          'content-type': 'application/json',
+        },
+      })
+        .post('/foo?a%5Bb%5D=c')
+        // TODO: Apparently we do not support empty responses yet. Wen we do
+        //       let's remove the unused response object.
+        .reply(200, { yay: 'OK' });
     });
 
-    it('makes a POST request to baseURL + path using params', () => {
-      const url = `${TEST_URL}/foo`;
-      const qs  = '?foo=bar&key=123&token=12345lkjhpor837';
-
-      fetchMock.mock(url + qs, {
-        status : 200,
-        headers: {
-          'Content-Type': 'application/json'
+    beforeAll(function executeRequest() {
+      return trae.post(
+        TEST_URL + '/foo',
+        {},
+        {
+          params: {
+            a: {
+              b: 'c',
+            },
+          },
         },
-        body: {
-          foo: 'bar'
-        }
-      }, {
-        method: 'post'
-      });
-
-      return trae.post(url, {
-        sarasa: 'request body'
-      }, {
-        params: {
-          foo  : 'bar',
-          key  : 123,
-          token: '12345lkjhpor837'
-        }
-      })
-      .then((res) => {
-        expect(res).toMatchSnapshot();
-        expect(fetchMock.called(url + qs)).toBeTruthy();
-        expect(fetchMock.lastUrl()).toBe(url + qs);
-        expect(fetchMock.lastOptions().method).toBe('POST');
-      });
+      );
     });
 
-    it('makes a POST request to baseURL + path using a nested object as params', () => {
-      const url = `${TEST_URL}/foo`;
-      const qs  = '?a%5Bb%5D=c';
+    it('should make an HTTP post request', function() {
+      const actual = request.isDone();
+      const expected = true;
 
-      fetchMock.mock(url + qs, {
-        status : 200,
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: {
-          foo: 'bar'
-        }
-      });
+      expect(actual).toStrictEqual(expected);
+    });
 
-      return trae.post(url, {
-        sarasa: 'request body'
-      }, {
-        params: {
-          a: {
-            b: 'c'
-          }
-        }
-      })
-      .then((res) => {
-        expect(res).toMatchSnapshot();
-        expect(fetchMock.called(url + qs)).toBeTruthy();
-        expect(fetchMock.lastUrl()).toBe(url + qs);
-        expect(fetchMock.lastOptions().method).toBe('POST');
-      });
+    it('should have 200 in the response status code', function() {
+      const actual = response.status;
+      const expected = 200;
+
+      expect(actual).toStrictEqual(expected);
+    });
+
+    it('should have "OK" in the response status text', function() {
+      const actual = response.statusText;
+      const expected = 'OK';
+
+      expect(actual).toStrictEqual(expected);
     });
   });
 });

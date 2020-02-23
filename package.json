@@ -36,6 +36,7 @@
     "test": "jest --coverage --verbose",
     "test:w": "jest --watch --verbose",
     "check-cover": "open coverage/lcov-report/index.html",
+    "format": "prettier --write '**/*.js'",
     "check-bundle": "open coverage/bundle-statistics.html",
     "ts:check": "tsc --pretty --noEmit",
     "ts:check:watch": "tsc --pretty --noEmit --watch",

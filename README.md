@@ -4,7 +4,7 @@
 
 Minimalistic HTTP client for the browser and Node. Based on [Fetch](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API) API, allows `trae` to be future-proofing, to have a clean implementation and support streaming among other goodies.
 
-[![Codeship Status for Huemul/trae](https://app.codeship.com/projects/1d9dc9b0-84c0-0134-0393-62ca7b64624e/status?branch=master)](https://app.codeship.com/projects/183213)
+![](https://github.com/Huemul/trae/workflows/JavaScript%20workflow/badge.svg)
 [![Coverage Status](https://coveralls.io/repos/github/Huemul/trae/badge.svg?branch=master)](https://coveralls.io/github/Huemul/trae?branch=master)
 [![dependencies Status](https://david-dm.org/Huemul/trae/status.svg)](https://david-dm.org/Huemul/trae)
 [![devDependencies Status](https://david-dm.org/Huemul/trae/dev-status.svg)](https://david-dm.org/Huemul/trae?type=dev)

@@ -59,23 +59,28 @@ function parseResponse(response: Response, config: TraeSettings) {
 
   return reader === 'raw'
     ? Promise.resolve(response)
-    : response[reader]().then((data: unknown) => ({ ...response, data }));
+    : response[reader]().then((data: unknown) => ({
+        status: response.status,
+        statusText: response.statusText,
+        data,
+      }));
 }
 
 export default function createResponse(
   response: Response,
   config: TraeSettings,
 ) {
-  if (response.ok) {
-    return parseResponse(response, config);
+    if (response.ok) {
+      return parseResponse(response, config);
+    }
+
+    const error = new TraeResponseError({
+      message: response.statusText,
+      config,
+      response,
+    });
+
+    // TODO: Why isn't the parsed response part of the object we reject with?
+    // @ts-ignore
+    return parseResponse(response, config).then(() => Promise.reject(error));
   }
-
-  const error = new TraeResponseError({
-    message: response.statusText,
-    config,
-    response,
-  });
-
-  // TODO: Why isn't the parsed response part of the object we reject with?
-  return parseResponse(response, config).then(() => Promise.reject(error));
-}

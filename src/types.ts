@@ -15,17 +15,6 @@ export interface TraeSettings extends RequestInit {
   params?: { [x: string]: unknown };
 }
 
-interface WithBody extends RequestInit {
-  method: 'PUT' | 'PATCH' | 'POST';
-  body?: BodyInit | null;
-}
-
-interface NoBody extends RequestInit {
-  method: 'GET' | 'HEAD' | 'DELETE';
-}
-
-export type RequestConfig = WithBody | NoBody;
-
 export interface InstanceConfig extends TraeSettings {
   url?: string;
 }

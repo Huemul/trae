@@ -3,7 +3,7 @@ import { BodyType, TraeSettings } from '../src/types';
 const isValidReader = (reader: string): reader is BodyType =>
   ['arrayBuffer', 'blob', 'formData', 'json', 'text', 'raw'].includes(reader);
 
-function isFormData(body: unknown): body is FormData {
+export function isFormData(body: unknown): body is FormData {
   return typeof FormData !== 'undefined' && body instanceof FormData;
 }
 
@@ -12,6 +12,7 @@ interface TraeResponseErrorArgs {
   config: TraeSettings;
   response: Response;
 }
+
 class TraeResponseError extends Error {
   config: TraeSettings;
   response: Response;
@@ -23,7 +24,7 @@ class TraeResponseError extends Error {
   }
 }
 
-function deriveReader(response: Response, config: TraeSettings) {
+function deriveReader(response: Response, config: TraeSettings): BodyType {
   const { bodyType } = config;
   const { headers, body } = response;
 
@@ -54,7 +55,21 @@ function deriveReader(response: Response, config: TraeSettings) {
   return 'text';
 }
 
-function parseResponse(response: Response, config: TraeSettings) {
+interface TraeResponse {
+  status: number;
+  statusText: string;
+  data: unknown;
+}
+
+// TODO: we should return one type or the other depending on the reader type so
+// the user doesn't get the union always but the right type according to the
+// config they have
+type ParsedResponse = Promise<Response | TraeResponse>;
+
+function parseResponse(
+  response: Response,
+  config: TraeSettings,
+): ParsedResponse {
   const reader = deriveReader(response, config);
 
   return reader === 'raw'
@@ -66,21 +81,19 @@ function parseResponse(response: Response, config: TraeSettings) {
       }));
 }
 
-export default function createResponse(
-  response: Response,
-  config: TraeSettings,
-) {
-    if (response.ok) {
-      return parseResponse(response, config);
-    }
-
-    const error = new TraeResponseError({
-      message: response.statusText,
-      config,
-      response,
-    });
-
-    // TODO: Why isn't the parsed response part of the object we reject with?
-    // @ts-ignore
-    return parseResponse(response, config).then(() => Promise.reject(error));
+const createResponse = (config: TraeSettings) => (response: Response) => {
+  if (response.ok) {
+    return parseResponse(response, config);
   }
+
+  const error = new TraeResponseError({
+    message: response.statusText,
+    config,
+    response,
+  });
+
+  // TODO: Why isn't the parsed response part of the object we reject with?
+  return parseResponse(response, config).then(() => Promise.reject(error));
+};
+
+export default createResponse;

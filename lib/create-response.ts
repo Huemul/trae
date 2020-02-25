@@ -1,11 +1,5 @@
 import { BodyType, TraeSettings } from '../src/types';
-
-const isValidReader = (reader: string): reader is BodyType =>
-  ['arrayBuffer', 'blob', 'formData', 'json', 'text', 'raw'].includes(reader);
-
-export function isFormData(body: unknown): body is FormData {
-  return typeof FormData !== 'undefined' && body instanceof FormData;
-}
+import { isFormData, isBlob, isArrayBuffer, isValidReader } from './guards';
 
 interface TraeResponseErrorArgs {
   message: string;
@@ -32,21 +26,24 @@ function deriveReader(response: Response, config: TraeSettings): BodyType {
     return bodyType;
   }
 
-  const contentType = headers.get('Content-Type');
+  const contentType = headers.get('Content-Type') || '';
 
-  if (contentType === 'application/json') {
+  if (contentType.toLowerCase().includes('application/json')) {
     return 'json';
   }
 
-  if (contentType === 'multipart/form-data' || isFormData(body)) {
+  if (
+    contentType.toLowerCase().includes('multipart/form-data') ||
+    isFormData(body)
+  ) {
     return 'formData';
   }
 
-  if (body instanceof ArrayBuffer) {
+  if (isArrayBuffer(body)) {
     return 'arrayBuffer';
   }
 
-  if (body instanceof Blob) {
+  if (isBlob(body)) {
     // TODO: Investigate edge cases
     //       https://stackoverflow.com/a/55271454/3377073
     return 'blob';

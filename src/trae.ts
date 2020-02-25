@@ -36,17 +36,17 @@ function createTrae(providedConf?: Partial<TraeSettings>) {
     return createTrae(merge(config, instanceConfig));
   }
 
-  function get(endpoint: string, requestConfig: RequestInit = {}) {
+  function get(endpoint: string, requestConfig?: RequestInit) {
     const settings: TraeSettings = merge({}, config, requestConfig);
     return request(endpoint, { ...settings, method: 'GET' });
   }
 
-  function remove(endpoint: string, requestConfig: RequestInit = {}) {
+  function remove(endpoint: string, requestConfig?: RequestInit) {
     const settings: TraeSettings = merge({}, config, requestConfig);
     return request(endpoint, { ...settings, method: 'DELETE' });
   }
 
-  function head(endpoint: string, requestConfig: RequestInit = {}) {
+  function head(endpoint: string, requestConfig?: RequestInit) {
     const settings: TraeSettings = merge({}, config, requestConfig);
     return request(endpoint, { ...settings, method: 'HEAD' });
   }

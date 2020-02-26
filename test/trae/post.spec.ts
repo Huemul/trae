@@ -5,6 +5,8 @@ import nock from 'nock';
 import fetch from 'node-fetch';
 import trae from '../../src';
 
+global.Headers = fetch.Headers;
+
 const TEST_URL = 'http://localhost:8080';
 
 describe('trae -> post', () => {

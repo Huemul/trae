@@ -1,29 +1,10 @@
 import { TraeSettings } from '../src/types';
-import { isValidBody, isHeaders } from './guards';
+import { isValidBody } from './guards';
 
 function isJSON({ headers }: TraeSettings) {
-  if (!headers) {
-    return false;
-  }
+  const header = new Headers(headers).get('Content-Type') || '';
 
-  if (isHeaders(headers)) {
-    const headerValue = headers.get('Content-Type') || '';
-    return headerValue.toLowerCase().includes('application/json');
-  }
-
-  if (Array.isArray(headers)) {
-    return headers.some(
-      ([name, value]) =>
-        name.toLowerCase() === 'content-type' &&
-        value.toLowerCase().includes('application/json'),
-    );
-  }
-
-  return Object.keys(headers).some(
-    (name: string) =>
-      name.toLowerCase().includes('content-type') &&
-      headers[name].toLowerCase().includes('application/json'),
-  );
+  return header.toLowerCase().includes('application/json');
 }
 
 function createRequestBody(content: unknown, config: TraeSettings) {

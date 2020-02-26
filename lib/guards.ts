@@ -4,10 +4,6 @@ export function isFormData(body: unknown): body is FormData {
   return typeof FormData !== 'undefined' && body instanceof FormData;
 }
 
-export function isHeaders(headers: unknown): headers is Headers {
-  return typeof Headers !== 'undefined' && headers instanceof Headers;
-}
-
 export function isArrayBuffer(value: unknown): value is ArrayBuffer {
   return typeof ArrayBuffer !== 'undefined' && value instanceof ArrayBuffer;
 }

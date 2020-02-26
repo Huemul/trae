@@ -1,18 +1,24 @@
 import { TraeSettings } from '../src/types';
+import { isValidBody } from './guards';
 
-function isJSON(config: TraeSettings) {
-  const headers = config.headers;
-  // @ts-ignore
-  const key = Object.keys(headers).find(
-    // @ts-ignore
-    (header: any) => header.toLowerCase() === 'content-type',
-  );
-  // @ts-ignore
-  return key && headers[key].toLowerCase() === 'application/json';
+function isJSON({ headers }: TraeSettings) {
+  const header = new Headers(headers).get('Content-Type') || '';
+
+  return header.toLowerCase().includes('application/json');
 }
 
-function createRequestBody(content: any, config: TraeSettings) {
-  return isJSON(config) ? JSON.stringify(content) : content;
+function createRequestBody(content: unknown, config: TraeSettings) {
+  if (isJSON(config)) {
+    return JSON.stringify(content);
+  }
+
+  if (isValidBody(content)) {
+    return content;
+  }
+
+  // TODO do not throw here, return a promise instead
+  // TODO what does fetch do when body is invalid?
+  throw new Error(`Invalid body type: ${typeof content}`);
 }
 
 export default createRequestBody;

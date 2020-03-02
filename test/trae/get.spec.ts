@@ -153,17 +153,18 @@ describe('trae -> get', () => {
   });
 
   describe('Using http server', () => {
-    let shutdown;
+    let server;
     let response: http.Response;
 
     beforeAll(function createServer() {
-      function middleware(req: http.IncomingMessage, res: http.ServerResponse) {
+      function handler(req: http.IncomingMessage, res: http.ServerResponse) {
         res.end('Hello from API!');
       }
 
-      shutdown = util.createServer({
+      server = util.createServer({
         port: 8082,
-        use: ['/comida', middleware],
+        endpoint: '/comida',
+        handler,
       });
     });
 
@@ -173,7 +174,7 @@ describe('trae -> get', () => {
       });
     });
 
-    afterAll(() => server.shutdown());
+    afterAll((done) => server.shutdown(done));
 
     it('should make an HTTP get request', function() {
       expect(response).toBeDefined();

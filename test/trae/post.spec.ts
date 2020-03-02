@@ -1,7 +1,6 @@
 // @ts-nocheck
 /* global describe beforeAll beforeEach afterEach it expect */
 
-import url from 'url';
 import nock from 'nock';
 import fetch from 'node-fetch';
 import trae from '../../src';
@@ -158,18 +157,19 @@ describe('trae -> post', () => {
   });
 
   describe('Using http server', () => {
-    let shutdown;
+    let server;
     let response: http.Response;
 
     beforeAll(function createServer() {
-      function middleware(req: http.IncomingMessage, res: http.ServerResponse) {
+      function handler(req: http.IncomingMessage, res: http.ServerResponse) {
         res.setHeader('Content-Type', 'application/json');
         res.end(JSON.stringify(req.body));
       }
 
-      shutdown = util.createServer({
+      server = util.createServer({
         port: 8084,
-        use: ['/cities/echo', middleware],
+        endpoint: '/cities/echo',
+        handler,
       });
     });
 
@@ -183,7 +183,7 @@ describe('trae -> post', () => {
         });
     });
 
-    afterAll(() => server.shutdown());
+    afterAll((done) => server.shutdown(done));
 
     it('should make an HTTP post request', function() {
       expect(response).toBeDefined();

@@ -167,7 +167,7 @@ describe('trae -> post', () => {
       }
 
       server = util.createServer({
-        port: 8084,
+        port: 8085,
         endpoint: '/cities/echo',
         handler,
       });
@@ -175,7 +175,7 @@ describe('trae -> post', () => {
 
     beforeAll(function executeRequest() {
       return trae
-        .post('http://localhost:8084/cities/echo', {
+        .post('http://localhost:8085/cities/echo', {
           city: 'istanbul',
         })
         .then(function(res) {

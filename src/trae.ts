@@ -11,7 +11,7 @@ const defaults: RequestInit = {
 
 function createTrae(providedConf?: Partial<TraeSettings>) {
   const config: TraeSettings = Object.freeze(
-    merge(defaults, {
+    merge({}, defaults, {
       before: (conf: RequestInit) => conf,
       onResolve: (item: unknown) => Promise.resolve(item),
       onReject: (err: unknown) => Promise.reject(err),
@@ -33,7 +33,7 @@ function createTrae(providedConf?: Partial<TraeSettings>) {
   }
 
   function create(instanceConfig: InstanceConfig) {
-    return createTrae(merge(config, instanceConfig));
+    return createTrae(merge({}, config, instanceConfig));
   }
 
   function get(endpoint: string, requestConfig?: RequestInit) {

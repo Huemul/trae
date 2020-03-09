@@ -64,6 +64,7 @@ describe('trae -> get', () => {
 
     describe('get using params', function() {
       let request;
+      let response;
 
       beforeAll(function createNock() {
         request = nock(TEST_URL, {
@@ -81,7 +82,10 @@ describe('trae -> get', () => {
           params: {
             name: 'tigrin',
           },
-        });
+        })
+          .then(function (res) {
+            response = res
+          })
       });
 
       it('should make an HTTP get request', function() {
@@ -108,6 +112,7 @@ describe('trae -> get', () => {
 
     describe('get using nested params', function() {
       let request;
+      let response;
 
       beforeAll(function createNock() {
         request = nock(TEST_URL, {
@@ -126,7 +131,10 @@ describe('trae -> get', () => {
               b: 'c',
             },
           },
-        });
+        })
+          .then(function (res) {
+            response = res
+          })
       });
 
       it('should make an HTTP get request', function() {

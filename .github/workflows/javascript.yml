@@ -1,0 +1,24 @@
+name: JavaScript workflow
+
+on: [push]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node: ['8', '10', '12']
+    name: Node.js ${{ matrix.node }}
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Install Node.js ${{ matrix.node }}
+      uses: actions/setup-node@v1
+      with:
+        node-version: ${{ matrix.node }}
+    - name: test
+      run: |
+        npm install
+        npm test
+      env:
+        CI: true

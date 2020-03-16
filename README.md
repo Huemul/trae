@@ -3,6 +3,7 @@
 </h1>
 
 :warning: The `master` branch contains the **work in progess** for Trae v2.
+:soon:
 
 If you are looking for the current version, check the
 [v1 branch](https://github.com/Huemul/trae/tree/v1).

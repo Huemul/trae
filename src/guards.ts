@@ -1,4 +1,4 @@
-import { BodyType } from '../src/types';
+import { BodyType } from './types';
 
 export function isFormData(body: unknown): body is FormData {
   return typeof FormData !== 'undefined' && body instanceof FormData;

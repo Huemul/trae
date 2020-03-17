@@ -1,10 +1,9 @@
 // @ts-nocheck
 /* global describe beforeAll beforeEach afterEach it expect */
 
-import url from 'url';
 import nock from 'nock';
 import fetch from 'node-fetch';
-import trae from '../../src';
+import trae from '../src';
 import util from './util';
 import http from 'http';
 
@@ -13,7 +12,7 @@ global.Headers = fetch.Headers;
 
 const TEST_URL = 'http://localhost:8080';
 
-describe('trae -> delete', () => {
+describe('trae -> put', () => {
   describe('Using nock', () => {
     let request;
     let response;
@@ -24,40 +23,48 @@ describe('trae -> delete', () => {
           'content-type': 'application/json',
         },
       })
-        .delete('/airports/barcelona')
-        .reply(204);
+        .put('/foo', { pizza: 'guerrin' })
+        .reply(200, { foo: 'bar' });
     });
 
     beforeAll(function executeRequest() {
-      return trae.delete(TEST_URL + '/airports/barcelona').then(function (res) {
-        response = res;
-      });
+      return trae
+        .put(TEST_URL + '/foo', { pizza: 'guerrin' })
+        .then(function (res) {
+          response = res;
+        });
     });
 
-    it('should make an HTTP delete request', function () {
+    it('should make an HTTP put request', function () {
       const actual = request.isDone();
       const expected = true;
 
       expect(actual).toStrictEqual(expected);
     });
 
-    it('should have 204 in the response status code', function () {
+    it('should have 200 in the response status code', function () {
       const actual = response.status;
-      const expected = 204;
+      const expected = 200;
 
       expect(actual).toStrictEqual(expected);
     });
 
-    it('should have "No Content" in the response status text', function () {
+    it('should have "OK" in the response status text', function () {
       const actual = response.statusText;
-      const expected = 'No Content';
+      const expected = 'OK';
 
       expect(actual).toStrictEqual(expected);
     });
 
-    describe('delete using params', function () {
+    it('should have foo bar in the response data', function () {
+      const actual = response.data;
+      const expected = { foo: 'bar' };
+
+      expect(actual).toStrictEqual(expected);
+    });
+
+    describe('put using params', function () {
       let request;
-      let response;
 
       beforeAll(function createNock() {
         request = nock(TEST_URL, {
@@ -65,23 +72,19 @@ describe('trae -> delete', () => {
             'content-type': 'application/json',
           },
         })
-          .delete('/baz')
-          .query({ name: 'foo' })
+          .put('/cats?name=tigrin')
           .reply(200, { yay: 'OK' });
       });
 
       beforeAll(function executeRequest() {
-        return trae.delete(TEST_URL + '/baz', {
-          params: {
-            name: 'foo',
-          },
-        })
-          .then(function (res) {
-            response = res
-          });
+        return trae.put(
+          TEST_URL + '/cats',
+          {},
+          { params: { name: 'tigrin' } },
+        );
       });
 
-      it('should make an HTTP delete request', function () {
+      it('should make an HTTP put request', function () {
         const actual = request.isDone();
         const expected = true;
 
@@ -103,9 +106,8 @@ describe('trae -> delete', () => {
       });
     });
 
-    describe('delete using nested params', function () {
+    describe('put using nested params', function () {
       let request;
-      let response;
 
       beforeAll(function createNock() {
         request = nock(TEST_URL, {
@@ -113,24 +115,25 @@ describe('trae -> delete', () => {
             'content-type': 'application/json',
           },
         })
-          .delete('/foo?a%5Bb%5D=c')
+          .put('/foo?a%5Bb%5D=c')
           .reply(200);
       });
 
       beforeAll(function executeRequest() {
-        return trae.delete(TEST_URL + '/foo', {
-          params: {
-            a: {
-              b: 'c',
+        return trae.put(
+          TEST_URL + '/foo',
+          {},
+          {
+            params: {
+              a: {
+                b: 'c',
+              },
             },
           },
-        })
-          .then(function (res) {
-            response = res
-          })
+        );
       });
 
-      it('should make an HTTP delete request', function () {
+      it('should make an HTTP put request', function () {
         const actual = request.isDone();
         const expected = true;
 
@@ -164,27 +167,31 @@ describe('trae -> delete', () => {
       }
 
       server = util.createServer({
-        port: 8081,
-        endpoint: '/delete',
+        port: 8084,
+        endpoint: '/cities/echo',
         handler,
       });
     });
 
     beforeAll(function executeRequest() {
-      return trae.delete('http://localhost:8081' + '/delete').then(function (res) {
-        response = res;
-      });
+      return trae
+        .put('http://localhost:8084/cities/echo', {
+          city: 'istanbul',
+        })
+        .then(function (res) {
+          response = res;
+        });
     });
 
     afterAll((done) => server.shutdown(done));
 
-    it('should make an HTTP delete request', function () {
+    it('should make an HTTP put request', function () {
       expect(response).toBeDefined();
     });
 
-    it('should not have data in the response', function () {
+    it('should have no data the response', function () {
       const actual = response.data;
-      const expected = '';
+      const expected = ""
 
       expect(actual).toStrictEqual(expected);
     });

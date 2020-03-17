@@ -4,7 +4,7 @@
 import url from 'url';
 import nock from 'nock';
 import fetch from 'node-fetch';
-import trae from '../../src';
+import trae from '../src';
 import util from './util';
 import http from 'http';
 

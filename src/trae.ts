@@ -1,8 +1,8 @@
 import merge from 'lodash/merge';
 
-import createRequestBody from '../lib/create-request-body';
-import createResponse from '../lib/create-response';
-import { format as formatUrl } from '../lib/url';
+import createRequestBody from './create-request-body';
+import createResponse from './create-response';
+import { format as formatUrl } from './url';
 import { TraeSettings, InstanceConfig } from './types';
 
 const defaults: RequestInit = {

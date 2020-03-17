@@ -1,9 +1,9 @@
 // @ts-nocheck
 /* global describe it expect */
 
-import trae from '../../src';
+import trae from '../src';
 
-describe('Trae', function () { 
+describe('Trae', function () {
   it('exposes a function to create a Trae instance', () => {
     const actual = Object.keys(trae).sort()
     const expected = ['create', 'get', 'delete', 'head', 'post', 'put', 'patch', 'config'].sort()

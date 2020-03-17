@@ -10,7 +10,6 @@ describe('URL Handler', () => {
       const params = { bar: 'bar', foo: 'foo' };
       const actual = concatParams(url, params);
       const expectted = 'https://www.foo.com/bar?bar=bar&foo=foo';
-      const url = 'https://www.foo.com/bar';
 
       expect(actual).toBe(expectted);
     });

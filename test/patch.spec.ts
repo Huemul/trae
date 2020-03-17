@@ -3,7 +3,7 @@
 
 import nock from 'nock';
 import fetch from 'node-fetch';
-import trae from '../../src';
+import trae from '../src';
 import util from './util';
 import http from 'http';
 
@@ -12,7 +12,7 @@ global.Headers = fetch.Headers;
 
 const TEST_URL = 'http://localhost:8080';
 
-describe('trae -> put', () => {
+describe('trae -> patch', () => {
   describe('Using nock', () => {
     let request;
     let response;
@@ -23,19 +23,19 @@ describe('trae -> put', () => {
           'content-type': 'application/json',
         },
       })
-        .put('/foo', { pizza: 'guerrin' })
+        .patch('/foo', { pizza: 'guerrin' })
         .reply(200, { foo: 'bar' });
     });
 
     beforeAll(function executeRequest() {
       return trae
-        .put(TEST_URL + '/foo', { pizza: 'guerrin' })
+        .patch(TEST_URL + '/foo', { pizza: 'guerrin' })
         .then(function (res) {
           response = res;
         });
     });
 
-    it('should make an HTTP put request', function () {
+    it('should make an HTTP patch request', function () {
       const actual = request.isDone();
       const expected = true;
 
@@ -63,7 +63,7 @@ describe('trae -> put', () => {
       expect(actual).toStrictEqual(expected);
     });
 
-    describe('put using params', function () {
+    describe('patch using params', function () {
       let request;
 
       beforeAll(function createNock() {
@@ -72,19 +72,19 @@ describe('trae -> put', () => {
             'content-type': 'application/json',
           },
         })
-          .put('/cats?name=tigrin')
+          .patch('/cats?name=tigrin')
           .reply(200, { yay: 'OK' });
       });
 
       beforeAll(function executeRequest() {
-        return trae.put(
+        return trae.patch(
           TEST_URL + '/cats',
           {},
           { params: { name: 'tigrin' } },
         );
       });
 
-      it('should make an HTTP put request', function () {
+      it('should make an HTTP patch request', function () {
         const actual = request.isDone();
         const expected = true;
 
@@ -106,7 +106,7 @@ describe('trae -> put', () => {
       });
     });
 
-    describe('put using nested params', function () {
+    describe('patch using nested params', function () {
       let request;
 
       beforeAll(function createNock() {
@@ -115,12 +115,12 @@ describe('trae -> put', () => {
             'content-type': 'application/json',
           },
         })
-          .put('/foo?a%5Bb%5D=c')
+          .patch('/foo?a%5Bb%5D=c')
           .reply(200);
       });
 
       beforeAll(function executeRequest() {
-        return trae.put(
+        return trae.patch(
           TEST_URL + '/foo',
           {},
           {
@@ -133,7 +133,7 @@ describe('trae -> put', () => {
         );
       });
 
-      it('should make an HTTP put request', function () {
+      it('should make an HTTP patch request', function () {
         const actual = request.isDone();
         const expected = true;
 
@@ -175,7 +175,7 @@ describe('trae -> put', () => {
 
     beforeAll(function executeRequest() {
       return trae
-        .put('http://localhost:8084/cities/echo', {
+        .patch('http://localhost:8084/cities/echo', {
           city: 'istanbul',
         })
         .then(function (res) {
@@ -185,7 +185,7 @@ describe('trae -> put', () => {
 
     afterAll((done) => server.shutdown(done));
 
-    it('should make an HTTP put request', function () {
+    it('should make an HTTP patch request', function () {
       expect(response).toBeDefined();
     });
 

@@ -1,7 +1,7 @@
 // @ts-nocheck
 /* globals describe it expect */
 
-import { format, isAbsolute, combine, concatParams } from '../../lib/url';
+import { format, isAbsolute, combine, concatParams } from '../src/url';
 
 
 describe('URL Handler', () => {

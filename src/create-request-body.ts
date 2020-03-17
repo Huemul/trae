@@ -1,4 +1,4 @@
-import { TraeSettings } from '../src/types';
+import { TraeSettings } from './types';
 import { isValidBody } from './guards';
 
 function isJSON({ headers }: TraeSettings) {

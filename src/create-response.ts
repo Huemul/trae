@@ -1,4 +1,4 @@
-import { BodyType, TraeSettings } from '../src/types';
+import { BodyType, TraeSettings } from './types';
 import { isFormData, isBlob, isArrayBuffer, isValidReader } from './guards';
 
 interface TraeResponseErrorArgs {

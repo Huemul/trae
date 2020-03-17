@@ -1,9 +1,8 @@
-import merge from 'lodash/merge';
-
 import createRequestBody from './create-request-body';
 import createResponse from './create-response';
 import { format as formatUrl } from './url';
 import { TraeSettings, InstanceConfig } from './types';
+import { merge } from './utils'
 
 const defaults: RequestInit = {
   headers: { 'Content-Type': 'application/json' },
@@ -11,7 +10,7 @@ const defaults: RequestInit = {
 
 function createTrae(providedConf?: Partial<TraeSettings>) {
   const config: TraeSettings = Object.freeze(
-    merge({}, defaults, {
+    merge(defaults, {
       before: (conf: RequestInit) => conf,
       onResolve: (item: unknown) => Promise.resolve(item),
       onReject: (err: unknown) => Promise.reject(err),
@@ -33,21 +32,21 @@ function createTrae(providedConf?: Partial<TraeSettings>) {
   }
 
   function create(instanceConfig: InstanceConfig) {
-    return createTrae(merge({}, config, instanceConfig));
+    return createTrae(merge(config, instanceConfig));
   }
 
   function get(endpoint: string, requestConfig?: RequestInit) {
-    const settings: TraeSettings = merge({}, config, requestConfig);
+    const settings: TraeSettings = merge(config, requestConfig);
     return request(endpoint, { ...settings, method: 'GET' });
   }
 
   function remove(endpoint: string, requestConfig?: RequestInit) {
-    const settings: TraeSettings = merge({}, config, requestConfig);
+    const settings: TraeSettings = merge(config, requestConfig);
     return request(endpoint, { ...settings, method: 'DELETE' });
   }
 
   function head(endpoint: string, requestConfig?: RequestInit) {
-    const settings: TraeSettings = merge({}, config, requestConfig);
+    const settings: TraeSettings = merge(config, requestConfig);
     return request(endpoint, { ...settings, method: 'HEAD' });
   }
 
@@ -56,7 +55,7 @@ function createTrae(providedConf?: Partial<TraeSettings>) {
     body: unknown = {},
     requestConfig?: RequestInit,
   ) {
-    const settings: TraeSettings = merge({}, config, requestConfig);
+    const settings: TraeSettings = merge(config, requestConfig);
     return request(endpoint, {
       ...settings,
       method: 'POST',
@@ -69,7 +68,7 @@ function createTrae(providedConf?: Partial<TraeSettings>) {
     body: unknown = {},
     requestConfig?: RequestInit,
   ) {
-    const settings: TraeSettings = merge({}, config, requestConfig);
+    const settings: TraeSettings = merge(config, requestConfig);
     return request(endpoint, {
       ...settings,
       method: 'PUT',
@@ -82,7 +81,7 @@ function createTrae(providedConf?: Partial<TraeSettings>) {
     body: unknown = {},
     requestConfig?: RequestInit,
   ) {
-    const settings: TraeSettings = merge({}, config, requestConfig);
+    const settings: TraeSettings = merge(config, requestConfig);
     return request(endpoint, {
       ...settings,
       method: 'PATCH',

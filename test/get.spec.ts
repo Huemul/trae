@@ -109,55 +109,6 @@ describe('trae -> get', () => {
         expect(actual).toStrictEqual(expected);
       });
     });
-
-    describe('get using nested params', function() {
-      let request;
-      let response;
-
-      beforeAll(function createNock() {
-        request = nock(TEST_URL, {
-          reqheaders: {
-            'content-type': 'application/json',
-          },
-        })
-          .get('/foo?a%5Bb%5D=c')
-          .reply(200);
-      });
-
-      beforeAll(function executeRequest() {
-        return trae.get(TEST_URL + '/foo', {
-          params: {
-            a: {
-              b: 'c',
-            },
-          },
-        })
-          .then(function (res) {
-            response = res
-          })
-      });
-
-      it('should make an HTTP get request', function() {
-        const actual = request.isDone();
-        const expected = true;
-
-        expect(actual).toStrictEqual(expected);
-      });
-
-      it('should have 200 in the response status code', function() {
-        const actual = response.status;
-        const expected = 200;
-
-        expect(actual).toStrictEqual(expected);
-      });
-
-      it('should have "OK" in the response status text', function() {
-        const actual = response.statusText;
-        const expected = 'OK';
-
-        expect(actual).toStrictEqual(expected);
-      });
-    });
   });
 
   describe('Using http server', () => {

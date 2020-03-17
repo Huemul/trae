@@ -105,55 +105,6 @@ describe('trae -> put', () => {
         expect(actual).toStrictEqual(expected);
       });
     });
-
-    describe('put using nested params', function () {
-      let request;
-
-      beforeAll(function createNock() {
-        request = nock(TEST_URL, {
-          reqheaders: {
-            'content-type': 'application/json',
-          },
-        })
-          .put('/foo?a%5Bb%5D=c')
-          .reply(200);
-      });
-
-      beforeAll(function executeRequest() {
-        return trae.put(
-          TEST_URL + '/foo',
-          {},
-          {
-            params: {
-              a: {
-                b: 'c',
-              },
-            },
-          },
-        );
-      });
-
-      it('should make an HTTP put request', function () {
-        const actual = request.isDone();
-        const expected = true;
-
-        expect(actual).toStrictEqual(expected);
-      });
-
-      it('should have 200 in the response status code', function () {
-        const actual = response.status;
-        const expected = 200;
-
-        expect(actual).toStrictEqual(expected);
-      });
-
-      it('should have "OK" in the response status text', function () {
-        const actual = response.statusText;
-        const expected = 'OK';
-
-        expect(actual).toStrictEqual(expected);
-      });
-    });
   });
 
   describe('Using http server', () => {

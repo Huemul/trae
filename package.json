@@ -34,7 +34,7 @@
     "build": "rollup --config",
     "docs": "http-server ./docs -o",
     "test": "jest --coverage --verbose",
-    "test:w": "jest --watch --verbose",
+    "test:w": "jest --watch",
     "check-cover": "open coverage/lcov-report/index.html",
     "format": "prettier --write '**/*.js'",
     "check-bundle": "open coverage/bundle-statistics.html",
@@ -44,16 +44,14 @@
     "release": "np"
   },
   "dependencies": {
-    "lodash": "^4.17.15",
-    "qs": "^6.9.1"
+    "query-string": "^6.11.1"
   },
   "devDependencies": {
     "@types/body-parser": "^1.19.0",
     "@types/connect": "^3.4.33",
     "@types/jest": "^25.1.1",
-    "@types/lodash": "^4.14.149",
     "@types/node-fetch": "^2.5.5",
-    "@types/qs": "^6.9.0",
+    "@types/query-string": "^6.3.0",
     "body-parser": "^1.19.0",
     "chimi": "^0.2.2",
     "connect": "^3.7.0",

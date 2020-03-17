@@ -1,4 +1,4 @@
-import { stringify as stringifyParams } from 'qs';
+import { stringify as stringifyParams } from 'query-string';
 
 interface Params {
   [x: string]: unknown;

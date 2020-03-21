@@ -1,3 +1,3 @@
-import createTrae from './trae'
+import createTrae from './trae';
 
-export default createTrae
+export default createTrae;

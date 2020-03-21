@@ -78,14 +78,15 @@ describe('trae -> get', () => {
       });
 
       beforeAll(function executeRequest() {
-        return trae.get(TEST_URL + '/cats', {
-          params: {
-            name: 'tigrin',
-          },
-        })
-          .then(function (res) {
-            response = res
+        return trae
+          .get(TEST_URL + '/cats', {
+            params: {
+              name: 'tigrin',
+            },
           })
+          .then(function(res) {
+            response = res;
+          });
       });
 
       it('should make an HTTP get request', function() {

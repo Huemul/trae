@@ -1,21 +1,71 @@
 {
   "name": "trae",
   "version": "1.4.2",
-  "description": "Fetch based HTTP client for the browser",
+  "description": "Fetch based HTTP client",
+  "main": "trae.cjs.production.min.js",
+  "module": "dist/trae.esm.js",
+  "unpkg": "trae.umd.production.min.js",
+  "typings": "dist/index.d.ts",
+  "files": [
+    "dist",
+    "src"
+  ],
+  "scripts": {
+    "build": "tsdx build --tsconfig tsconfig.build.json --format cjs,esm,umd",
+    "test": "tsdx test --coverage",
+    "test:watch": "tsdx test --watch",
+    "lint": "tsdx lint --fix",
+    "prepare": "tsdx build",
+    "ts:check": "tsc --watch"
+  },
+  "engines": {
+    "node": ">=10"
+  },
+  "dependencies": {
+    "query-string": "^6.11.1"
+  },
+  "devDependencies": {
+    "@types/body-parser": "^1.19.0",
+    "@types/connect": "^3.4.33",
+    "@types/jest": "^25.1.1",
+    "@types/node-fetch": "^2.5.5",
+    "@types/query-string": "^6.3.0",
+    "body-parser": "^1.19.0",
+    "connect": "^3.7.0",
+    "coveralls": "^3.0.9",
+    "fetch-mock": "^9.2.1",
+    "http-shutdown": "^1.2.2",
+    "husky": "^4.2.3",
+    "nock": "^12.0.1",
+    "node-fetch": "^2.6.0",
+    "np": "^5.2.1",
+    "rollup-plugin-filesize": "^6.2.1",
+    "tsdx": "^0.13.0",
+    "tslib": "^1.11.1",
+    "typescript": "^3.8.3"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "tsdx lint"
+    }
+  },
+  "prettier": {
+    "printWidth": 80,
+    "tabWidth": 2,
+    "useTabs": false,
+    "semi": true,
+    "singleQuote": true,
+    "trailingComma": "all",
+    "bracketSpacing": true,
+    "arrowParens": "always",
+    "proseWrap": "always"
+  },
   "keywords": [
     "fetch",
     "http",
     "request",
     "api"
   ],
-  "main": "dist/index.js",
-  "module": "dist/index.es.js",
-  "jsnext:main": "build/index.es.js",
-  "files": [
-    "src",
-    "dist/**/*"
-  ],
-  "types": "dist/src/index.d.ts",
   "contributors": [
     "gillchristian <gillchristiang@gmail.com>",
     "ndelvalle <nicolas.delvalle@gmail.com>"
@@ -28,92 +78,5 @@
   "bugs": {
     "url": "https://github.com/huemul/trae/issues"
   },
-  "homepage": "https://github.com/huemul/trae#readme",
-  "scripts": {
-    "test:docs": "chimi",
-    "build": "rollup --config",
-    "docs": "http-server ./docs -o",
-    "test": "jest --coverage --verbose",
-    "test:w": "jest --watch",
-    "check-cover": "open coverage/lcov-report/index.html",
-    "format": "prettier --write '**/*.js'",
-    "check-bundle": "open coverage/bundle-statistics.html",
-    "ts:check": "tsc --pretty --noEmit",
-    "ts:check:watch": "tsc --pretty --noEmit --watch",
-    "prepublish": "in-publish && ./scripts/publish.sh || echo 'just installing'",
-    "release": "np"
-  },
-  "dependencies": {
-    "query-string": "^6.11.1"
-  },
-  "devDependencies": {
-    "@types/body-parser": "^1.19.0",
-    "@types/connect": "^3.4.33",
-    "@types/jest": "^25.1.1",
-    "@types/node-fetch": "^2.5.5",
-    "@types/query-string": "^6.3.0",
-    "body-parser": "^1.19.0",
-    "chimi": "^0.2.2",
-    "connect": "^3.7.0",
-    "coveralls": "^3.0.9",
-    "eslint": "^6.8.0",
-    "eslint-config-airbnb": "^18.0.1",
-    "eslint-loader": "^3.0.3",
-    "eslint-plugin-import": "^2.20.1",
-    "eslint-plugin-jsx-a11y": "^6.2.3",
-    "eslint-plugin-react": "^7.18.3",
-    "fetch-mock": "^8.3.2",
-    "http-graceful-shutdown": "^2.3.2",
-    "http-server": "^0.12.1",
-    "http-shutdown": "^1.2.2",
-    "in-publish": "^2.0.0",
-    "jest": "^25.1.0",
-    "jest-cli": "^25.1.0",
-    "nock": "^12.0.1",
-    "node-fetch": "^2.6.0",
-    "np": "^5.2.1",
-    "pre-commit": "^1.2.2",
-    "prettier": "^1.19.1",
-    "pretty-quick": "^2.0.1",
-    "rollup": "^1.31.0",
-    "rollup-plugin-banner": "^0.2.1",
-    "rollup-plugin-commonjs": "^10.1.0",
-    "rollup-plugin-filesize": "^6.2.1",
-    "rollup-plugin-node-resolve": "^5.2.0",
-    "rollup-plugin-peer-deps-external": "^2.2.2",
-    "rollup-plugin-typescript2": "^0.26.0",
-    "ts-jest": "^25.2.0",
-    "typescript": "^3.7.5"
-  },
-  "pre-commit": [
-    "eslint",
-    "test"
-  ],
-  "jest": {
-    "coverageThreshold": {
-      "global": {
-        "branches": 70,
-        "functions": 70,
-        "lines": 70,
-        "statements": 70
-      }
-    },
-    "collectCoverageFrom": [
-      "!**/node_modules/**",
-      "lib/**"
-    ],
-    "roots": [
-      "test/"
-    ],
-    "globals": {
-      "ts-jest": {
-        "diagnostics": {
-          "warnOnly": true
-        }
-      }
-    }
-  },
-  "engines": {
-    "node": ">=6"
-  }
+  "homepage": "https://github.com/huemul/trae#readme"
 }

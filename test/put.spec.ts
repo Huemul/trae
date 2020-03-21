@@ -30,40 +30,40 @@ describe('trae -> put', () => {
     beforeAll(function executeRequest() {
       return trae
         .put(TEST_URL + '/foo', { pizza: 'guerrin' })
-        .then(function (res) {
+        .then(function(res) {
           response = res;
         });
     });
 
-    it('should make an HTTP put request', function () {
+    it('should make an HTTP put request', function() {
       const actual = request.isDone();
       const expected = true;
 
       expect(actual).toStrictEqual(expected);
     });
 
-    it('should have 200 in the response status code', function () {
+    it('should have 200 in the response status code', function() {
       const actual = response.status;
       const expected = 200;
 
       expect(actual).toStrictEqual(expected);
     });
 
-    it('should have "OK" in the response status text', function () {
+    it('should have "OK" in the response status text', function() {
       const actual = response.statusText;
       const expected = 'OK';
 
       expect(actual).toStrictEqual(expected);
     });
 
-    it('should have foo bar in the response data', function () {
+    it('should have foo bar in the response data', function() {
       const actual = response.data;
       const expected = { foo: 'bar' };
 
       expect(actual).toStrictEqual(expected);
     });
 
-    describe('put using params', function () {
+    describe('put using params', function() {
       let request;
 
       beforeAll(function createNock() {
@@ -77,28 +77,24 @@ describe('trae -> put', () => {
       });
 
       beforeAll(function executeRequest() {
-        return trae.put(
-          TEST_URL + '/cats',
-          {},
-          { params: { name: 'tigrin' } },
-        );
+        return trae.put(TEST_URL + '/cats', {}, { params: { name: 'tigrin' } });
       });
 
-      it('should make an HTTP put request', function () {
+      it('should make an HTTP put request', function() {
         const actual = request.isDone();
         const expected = true;
 
         expect(actual).toStrictEqual(expected);
       });
 
-      it('should have 200 in the response status code', function () {
+      it('should have 200 in the response status code', function() {
         const actual = response.status;
         const expected = 200;
 
         expect(actual).toStrictEqual(expected);
       });
 
-      it('should have "OK" in the response status text', function () {
+      it('should have "OK" in the response status text', function() {
         const actual = response.statusText;
         const expected = 'OK';
 
@@ -129,32 +125,32 @@ describe('trae -> put', () => {
         .put('http://localhost:8084/cities/echo', {
           city: 'istanbul',
         })
-        .then(function (res) {
+        .then(function(res) {
           response = res;
         });
     });
 
     afterAll((done) => server.shutdown(done));
 
-    it('should make an HTTP put request', function () {
+    it('should make an HTTP put request', function() {
       expect(response).toBeDefined();
     });
 
-    it('should have no data the response', function () {
+    it('should have no data the response', function() {
       const actual = response.data;
-      const expected = ""
+      const expected = '';
 
       expect(actual).toStrictEqual(expected);
     });
 
-    it('should have 204 in the response status code', function () {
+    it('should have 204 in the response status code', function() {
       const actual = response.status;
       const expected = 204;
 
       expect(actual).toStrictEqual(expected);
     });
 
-    it('should have "No Content" in the response status text', function () {
+    it('should have "No Content" in the response status text', function() {
       const actual = response.statusText;
       const expected = 'No Content';
 

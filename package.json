@@ -15,7 +15,8 @@
     "test": "tsdx test --coverage",
     "test:watch": "tsdx test --watch",
     "lint": "tsdx lint --fix",
-    "prepare": "tsdx build"
+    "prepare": "tsdx build",
+    "ts:check": "tsc --watch"
   },
   "engines": {
     "node": ">=10"

@@ -1,16 +1,17 @@
 {
   "name": "trae",
   "version": "1.4.2",
-  "description": "Fetch based HTTP client for the browser",
-  "main": "dist/index.js",
+  "description": "Fetch based HTTP client",
+  "main": "trae.cjs.production.min.js",
   "module": "dist/trae.esm.js",
+  "unpkg": "trae.umd.production.min.js",
   "typings": "dist/index.d.ts",
   "files": [
     "dist",
     "src"
   ],
   "scripts": {
-    "build": "tsdx build",
+    "build": "tsdx build --tsconfig tsconfig.build.json --format cjs,esm,umd",
     "test": "tsdx test --coverage",
     "test:watch": "tsdx test --watch",
     "lint": "tsdx lint --fix",

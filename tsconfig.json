@@ -1,12 +1,13 @@
 {
-  "include": ["src", "types", "test"],
   "compilerOptions": {
+    "rootDir": "./",
+    "baseUrl": "./",
+    "moduleResolution": "node",
     "module": "esnext",
     "lib": ["dom", "esnext"],
     "importHelpers": true,
     "declaration": true,
     "sourceMap": true,
-    "rootDir": "./src",
     "strict": true,
     "noImplicitAny": true,
     "strictNullChecks": true,
@@ -18,11 +19,7 @@
     "noUnusedParameters": true,
     "noImplicitReturns": true,
     "noFallthroughCasesInSwitch": true,
-    "moduleResolution": "node",
-    "baseUrl": "./",
-    "paths": {
-      "*": ["src/*", "node_modules/*"]
-    },
     "esModuleInterop": true
-  }
+  },
+  "include": ["src/**/*.ts", "test/**/*.ts"]
 }

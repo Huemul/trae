@@ -29,33 +29,33 @@ describe('trae -> delete', () => {
     });
 
     beforeAll(function executeRequest() {
-      return trae.delete(TEST_URL + '/airports/barcelona').then(function (res) {
+      return trae.delete(TEST_URL + '/airports/barcelona').then(function(res) {
         response = res;
       });
     });
 
-    it('should make an HTTP delete request', function () {
+    it('should make an HTTP delete request', function() {
       const actual = request.isDone();
       const expected = true;
 
       expect(actual).toStrictEqual(expected);
     });
 
-    it('should have 204 in the response status code', function () {
+    it('should have 204 in the response status code', function() {
       const actual = response.status;
       const expected = 204;
 
       expect(actual).toStrictEqual(expected);
     });
 
-    it('should have "No Content" in the response status text', function () {
+    it('should have "No Content" in the response status text', function() {
       const actual = response.statusText;
       const expected = 'No Content';
 
       expect(actual).toStrictEqual(expected);
     });
 
-    describe('delete using params', function () {
+    describe('delete using params', function() {
       let request;
       let response;
 
@@ -71,31 +71,32 @@ describe('trae -> delete', () => {
       });
 
       beforeAll(function executeRequest() {
-        return trae.delete(TEST_URL + '/baz', {
-          params: {
-            name: 'foo',
-          },
-        })
-          .then(function (res) {
-            response = res
+        return trae
+          .delete(TEST_URL + '/baz', {
+            params: {
+              name: 'foo',
+            },
+          })
+          .then(function(res) {
+            response = res;
           });
       });
 
-      it('should make an HTTP delete request', function () {
+      it('should make an HTTP delete request', function() {
         const actual = request.isDone();
         const expected = true;
 
         expect(actual).toStrictEqual(expected);
       });
 
-      it('should have 200 in the response status code', function () {
+      it('should have 200 in the response status code', function() {
         const actual = response.status;
         const expected = 200;
 
         expect(actual).toStrictEqual(expected);
       });
 
-      it('should have "OK" in the response status text', function () {
+      it('should have "OK" in the response status text', function() {
         const actual = response.statusText;
         const expected = 'OK';
 
@@ -122,32 +123,34 @@ describe('trae -> delete', () => {
     });
 
     beforeAll(function executeRequest() {
-      return trae.delete('http://localhost:8081' + '/delete').then(function (res) {
-        response = res;
-      });
+      return trae
+        .delete('http://localhost:8081' + '/delete')
+        .then(function(res) {
+          response = res;
+        });
     });
 
     afterAll((done) => server.shutdown(done));
 
-    it('should make an HTTP delete request', function () {
+    it('should make an HTTP delete request', function() {
       expect(response).toBeDefined();
     });
 
-    it('should not have data in the response', function () {
+    it('should not have data in the response', function() {
       const actual = response.data;
       const expected = '';
 
       expect(actual).toStrictEqual(expected);
     });
 
-    it('should have 204 in the response status code', function () {
+    it('should have 204 in the response status code', function() {
       const actual = response.status;
       const expected = 204;
 
       expect(actual).toStrictEqual(expected);
     });
 
-    it('should have "No Content" in the response status text', function () {
+    it('should have "No Content" in the response status text', function() {
       const actual = response.statusText;
       const expected = 'No Content';
 

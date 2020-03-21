@@ -2,7 +2,7 @@ import createRequestBody from './create-request-body';
 import createResponse from './create-response';
 import { format as formatUrl } from './url';
 import { TraeSettings, InstanceConfig } from './types';
-import { merge } from './utils'
+import { merge } from './utils';
 
 const defaults: RequestInit = {
   headers: { 'Content-Type': 'application/json' },

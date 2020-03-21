@@ -1,28 +1,28 @@
 {
+  "include": ["src", "types", "test"],
   "compilerOptions": {
-    "target": "es5",
-    "module": "es6",
-    "lib": ["es6", "dom"],
-    "rootDir": ".",
-    "declarationDir": "./dist",
-    "outDir": "./dist",
-    "sourceMap": true,
+    "module": "esnext",
+    "lib": ["dom", "esnext"],
+    "importHelpers": true,
     "declaration": true,
+    "sourceMap": true,
+    "rootDir": "./src",
     "strict": true,
     "noImplicitAny": true,
     "strictNullChecks": true,
     "strictFunctionTypes": true,
-    "strictBindCallApply": true,
     "strictPropertyInitialization": true,
     "noImplicitThis": true,
     "alwaysStrict": true,
     "noUnusedLocals": true,
+    "noUnusedParameters": true,
     "noImplicitReturns": true,
     "noFallthroughCasesInSwitch": true,
-    "suppressImplicitAnyIndexErrors": true,
     "moduleResolution": "node",
-    "noErrorTruncation": true,
+    "baseUrl": "./",
+    "paths": {
+      "*": ["src/*", "node_modules/*"]
+    },
     "esModuleInterop": true
-  },
-  "exclude": ["node_modules", "dist", "index.d.ts", "src/index.spec.ts", "test"]
+  }
 }

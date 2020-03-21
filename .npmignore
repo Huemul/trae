@@ -1,9 +1,5 @@
-docs
 scripts
 test
 utils
-.babelrc
-.bithoundrc
 .eslintignore
 .eslintrc
-rollup.config.js

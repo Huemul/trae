@@ -16,6 +16,7 @@ describe('trae -> patch', () => {
   describe('Using nock', () => {
     let request;
     let response;
+    let responseBody;
 
     beforeAll(function createNock() {
       request = nock(TEST_URL, {
@@ -27,12 +28,9 @@ describe('trae -> patch', () => {
         .reply(200, { foo: 'bar' });
     });
 
-    beforeAll(function executeRequest() {
-      return trae
-        .patch(TEST_URL + '/foo', { pizza: 'guerrin' })
-        .then(function(res) {
-          response = res;
-        });
+    beforeAll(async function executeRequest() {
+      response = await trae.patch(TEST_URL + '/foo', { pizza: 'guerrin' });
+      responseBody = await response.json()
     });
 
     it('should make an HTTP patch request', function() {
@@ -57,7 +55,7 @@ describe('trae -> patch', () => {
     });
 
     it('should have foo bar in the response data', function() {
-      const actual = response.data;
+      const actual = responseBody;
       const expected = { foo: 'bar' };
 
       expect(actual).toStrictEqual(expected);
@@ -76,8 +74,8 @@ describe('trae -> patch', () => {
           .reply(200, { yay: 'OK' });
       });
 
-      beforeAll(function executeRequest() {
-        return trae.patch(
+      beforeAll(async function executeRequest() {
+        response = await trae.patch(
           TEST_URL + '/cats',
           {},
           { params: { name: 'tigrin' } },
@@ -110,6 +108,7 @@ describe('trae -> patch', () => {
   describe('Using http server', () => {
     let server;
     let response: http.Response;
+    let responseBody;
 
     beforeAll(function createServer() {
       function handler(req: http.IncomingMessage, res: http.ServerResponse) {
@@ -124,14 +123,9 @@ describe('trae -> patch', () => {
       });
     });
 
-    beforeAll(function executeRequest() {
-      return trae
-        .patch('http://localhost:8084/cities/echo', {
-          city: 'istanbul',
-        })
-        .then(function(res) {
-          response = res;
-        });
+    beforeAll(async function executeRequest() {
+      response = await trae.patch('http://localhost:8084/cities/echo', { city: 'istanbul' })
+      responseBody = await response.text();
     });
 
     afterAll((done) => server.shutdown(done));
@@ -141,7 +135,7 @@ describe('trae -> patch', () => {
     });
 
     it('should have no data the response', function() {
-      const actual = response.data;
+      const actual = responseBody;
       const expected = '';
 
       expect(actual).toStrictEqual(expected);

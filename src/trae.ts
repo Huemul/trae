@@ -1,5 +1,4 @@
 import createRequestBody from './create-request-body';
-import createResponse from './create-response';
 import { format as formatUrl } from './url';
 import { TraeSettings, InstanceConfig } from './types';
 import { merge } from './utils';
@@ -12,8 +11,6 @@ function createTrae(providedConf?: Partial<TraeSettings>) {
   const config: TraeSettings = Object.freeze(
     merge(defaults, {
       before: (conf: RequestInit) => conf,
-      onResolve: (item: unknown) => Promise.resolve(item),
-      onReject: (err: unknown) => Promise.reject(err),
       ...providedConf,
     }),
   );
@@ -26,9 +23,6 @@ function createTrae(providedConf?: Partial<TraeSettings>) {
     const url = formatUrl(settings.url, endpoint, settings.params);
 
     return fetch(url, config.before(settings))
-      .then(createResponse(settings))
-      .then(config.onResolve)
-      .catch(config.onReject);
   }
 
   function create(instanceConfig: InstanceConfig) {

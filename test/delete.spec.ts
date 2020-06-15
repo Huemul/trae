@@ -28,10 +28,8 @@ describe('trae -> delete', () => {
         .reply(204);
     });
 
-    beforeAll(function executeRequest() {
-      return trae.delete(TEST_URL + '/airports/barcelona').then(function(res) {
-        response = res;
-      });
+    beforeAll(async function executeRequest() {
+      response = await trae.delete(TEST_URL + '/airports/barcelona')
     });
 
     it('should make an HTTP delete request', function() {
@@ -70,15 +68,12 @@ describe('trae -> delete', () => {
           .reply(200, { yay: 'OK' });
       });
 
-      beforeAll(function executeRequest() {
-        return trae
+      beforeAll(async function executeRequest() {
+        response = await trae
           .delete(TEST_URL + '/baz', {
             params: {
               name: 'foo',
             },
-          })
-          .then(function(res) {
-            response = res;
           });
       });
 
@@ -108,6 +103,7 @@ describe('trae -> delete', () => {
   describe('Using http server', () => {
     let server;
     let response: http.Response;
+    let responseBody;
 
     beforeAll(function createServer() {
       function handler(req: http.IncomingMessage, res: http.ServerResponse) {
@@ -122,12 +118,9 @@ describe('trae -> delete', () => {
       });
     });
 
-    beforeAll(function executeRequest() {
-      return trae
-        .delete('http://localhost:8081' + '/delete')
-        .then(function(res) {
-          response = res;
-        });
+    beforeAll(async function executeRequest() {
+      response = await trae.delete('http://localhost:8081' + '/delete');
+      responseBody = await response.text()
     });
 
     afterAll((done) => server.shutdown(done));
@@ -137,7 +130,7 @@ describe('trae -> delete', () => {
     });
 
     it('should not have data in the response', function() {
-      const actual = response.data;
+      const actual = responseBody;
       const expected = '';
 
       expect(actual).toStrictEqual(expected);

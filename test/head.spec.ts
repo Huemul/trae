@@ -28,10 +28,8 @@ describe('trae -> head', () => {
         .reply(200);
     });
 
-    beforeAll(function executeRequest() {
-      return trae.head(TEST_URL + '/').then(function(res) {
-        response = res;
-      });
+    beforeAll(async function executeRequest() {
+      response = await trae.head(TEST_URL + '/')
     });
 
     it('should make an HTTP head request', function() {
@@ -59,6 +57,7 @@ describe('trae -> head', () => {
   describe('Using http server', () => {
     let server;
     let response: http.Response;
+    let responseBody;
 
     beforeAll(function createServer() {
       function handler(req: http.IncomingMessage, res: http.ServerResponse) {
@@ -72,10 +71,9 @@ describe('trae -> head', () => {
       });
     });
 
-    beforeAll(function executeRequest() {
-      return trae.head('http://localhost:8083/head').then(function(res) {
-        response = res;
-      });
+    beforeAll(async function executeRequest() {
+      response = await trae.head('http://localhost:8083/head')
+      responseBody = await response.text()
     });
 
     afterAll((done) => server.shutdown(done));
@@ -85,7 +83,7 @@ describe('trae -> head', () => {
     });
 
     it('should not have a response body', function() {
-      const actual = response.data;
+      const actual = responseBody;
       const expected = '';
 
       expect(actual).toStrictEqual(expected);

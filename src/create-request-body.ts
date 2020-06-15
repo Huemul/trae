@@ -1,5 +1,4 @@
 import { TraeSettings } from './types';
-import { isValidBody } from './guards';
 
 function isJSON({ headers }: TraeSettings) {
   const header = new Headers(headers).get('Content-Type') || '';
@@ -10,10 +9,6 @@ function isJSON({ headers }: TraeSettings) {
 function createRequestBody(content: unknown, config: TraeSettings) {
   if (isJSON(config)) {
     return JSON.stringify(content);
-  }
-
-  if (isValidBody(content)) {
-    return content;
   }
 
   // TODO do not throw here, return a promise instead

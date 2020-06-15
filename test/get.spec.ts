@@ -30,8 +30,8 @@ describe('trae -> get', () => {
     });
 
     beforeAll(async function executeRequest() {
-      response = await trae.get(TEST_URL + '/comida')
-      responseBody = await response.json()
+      response = await trae.get(TEST_URL + '/comida');
+      responseBody = await response.json();
     });
 
     it('should make an HTTP get request', function() {
@@ -135,8 +135,8 @@ describe('trae -> get', () => {
     });
 
     beforeAll(async function executeRequest() {
-      response = await trae.get('http://localhost:8082' + '/comida')
-      responseBody = await response.text()
+      response = await trae.get('http://localhost:8082' + '/comida');
+      responseBody = await response.text();
     });
 
     afterAll((done) => server.shutdown(done));

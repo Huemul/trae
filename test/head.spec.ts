@@ -29,7 +29,7 @@ describe('trae -> head', () => {
     });
 
     beforeAll(async function executeRequest() {
-      response = await trae.head(TEST_URL + '/')
+      response = await trae.head(TEST_URL + '/');
     });
 
     it('should make an HTTP head request', function() {
@@ -72,8 +72,8 @@ describe('trae -> head', () => {
     });
 
     beforeAll(async function executeRequest() {
-      response = await trae.head('http://localhost:8083/head')
-      responseBody = await response.text()
+      response = await trae.head('http://localhost:8083/head');
+      responseBody = await response.text();
     });
 
     afterAll((done) => server.shutdown(done));

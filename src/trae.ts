@@ -22,7 +22,7 @@ function createTrae(providedConf?: Partial<TraeSettings>) {
 
     const url = formatUrl(settings.url, endpoint, settings.params);
 
-    return fetch(url, config.before(settings))
+    return fetch(url, config.before(settings));
   }
 
   function create(instanceConfig: InstanceConfig) {

@@ -30,7 +30,7 @@ describe('trae -> patch', () => {
 
     beforeAll(async function executeRequest() {
       response = await trae.patch(TEST_URL + '/foo', { pizza: 'guerrin' });
-      responseBody = await response.json()
+      responseBody = await response.json();
     });
 
     it('should make an HTTP patch request', function() {
@@ -124,7 +124,9 @@ describe('trae -> patch', () => {
     });
 
     beforeAll(async function executeRequest() {
-      response = await trae.patch('http://localhost:8084/cities/echo', { city: 'istanbul' })
+      response = await trae.patch('http://localhost:8084/cities/echo', {
+        city: 'istanbul',
+      });
       responseBody = await response.text();
     });
 

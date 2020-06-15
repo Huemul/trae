@@ -29,7 +29,7 @@ describe('trae -> delete', () => {
     });
 
     beforeAll(async function executeRequest() {
-      response = await trae.delete(TEST_URL + '/airports/barcelona')
+      response = await trae.delete(TEST_URL + '/airports/barcelona');
     });
 
     it('should make an HTTP delete request', function() {
@@ -69,12 +69,11 @@ describe('trae -> delete', () => {
       });
 
       beforeAll(async function executeRequest() {
-        response = await trae
-          .delete(TEST_URL + '/baz', {
-            params: {
-              name: 'foo',
-            },
-          });
+        response = await trae.delete(TEST_URL + '/baz', {
+          params: {
+            name: 'foo',
+          },
+        });
       });
 
       it('should make an HTTP delete request', function() {
@@ -120,7 +119,7 @@ describe('trae -> delete', () => {
 
     beforeAll(async function executeRequest() {
       response = await trae.delete('http://localhost:8081' + '/delete');
-      responseBody = await response.text()
+      responseBody = await response.text();
     });
 
     afterAll((done) => server.shutdown(done));

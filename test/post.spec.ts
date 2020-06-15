@@ -29,8 +29,8 @@ describe('trae -> post', () => {
     });
 
     beforeAll(async function executeRequest() {
-      response = await trae.post(TEST_URL + '/foo', { pizza: 'guerrin' })
-      responseBody = await response.json()
+      response = await trae.post(TEST_URL + '/foo', { pizza: 'guerrin' });
+      responseBody = await response.json();
     });
 
     it('should make an HTTP post request', function() {
@@ -124,11 +124,10 @@ describe('trae -> post', () => {
     });
 
     beforeAll(async function executeRequest() {
-      response = await trae
-        .post('http://localhost:8085/cities/echo', {
-          city: 'istanbul',
-        })
-      responseBody = await response.json()
+      response = await trae.post('http://localhost:8085/cities/echo', {
+        city: 'istanbul',
+      });
+      responseBody = await response.json();
     });
 
     afterAll((done) => server.shutdown(done));

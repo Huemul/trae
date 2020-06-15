@@ -29,7 +29,7 @@ describe('trae -> put', () => {
     });
 
     beforeAll(async function executeRequest() {
-      response = await trae.put(TEST_URL + '/foo', { pizza: 'guerrin' })
+      response = await trae.put(TEST_URL + '/foo', { pizza: 'guerrin' });
       responseBody = await response.json();
     });
 
@@ -75,7 +75,11 @@ describe('trae -> put', () => {
       });
 
       beforeAll(async function executeRequest() {
-        response = await trae.put(TEST_URL + '/cats', {}, { params: { name: 'tigrin' } });
+        response = await trae.put(
+          TEST_URL + '/cats',
+          {},
+          { params: { name: 'tigrin' } },
+        );
       });
 
       it('should make an HTTP put request', function() {
@@ -120,7 +124,9 @@ describe('trae -> put', () => {
     });
 
     beforeAll(async function executeRequest() {
-      response = await trae.put('http://localhost:8084/cities/echo', { city: 'istanbul' })
+      response = await trae.put('http://localhost:8084/cities/echo', {
+        city: 'istanbul',
+      });
       responseBody = response.text();
     });
 

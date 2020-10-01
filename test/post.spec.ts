@@ -13,6 +13,8 @@ global.Headers = fetch.Headers;
 const TEST_URL = 'http://localhost:8080';
 
 describe('trae -> post', () => {
+  const instance = trae.create({ json: true });
+
   describe('Using nock', () => {
     let request;
     let response;
@@ -29,7 +31,7 @@ describe('trae -> post', () => {
     });
 
     beforeAll(async function executeRequest() {
-      response = await trae.post(TEST_URL + '/foo', { pizza: 'guerrin' });
+      response = await instance.post(TEST_URL + '/foo', { pizza: 'guerrin' });
       responseBody = await response.json();
     });
 
@@ -75,7 +77,7 @@ describe('trae -> post', () => {
       });
 
       beforeAll(async function executeRequest() {
-        response = await trae.post(
+        response = await instance.post(
           TEST_URL + '/cats',
           {},
           { params: { name: 'tigrin' } },
@@ -124,7 +126,7 @@ describe('trae -> post', () => {
     });
 
     beforeAll(async function executeRequest() {
-      response = await trae.post('http://localhost:8085/cities/echo', {
+      response = await instance.post('http://localhost:8085/cities/echo', {
         city: 'istanbul',
       });
       responseBody = await response.json();

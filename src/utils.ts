@@ -1,6 +1,5 @@
 type WithHeaders = { headers: unknown };
 
-// TODO: do not use `any`
 export const merge = (...objs: any[]) => {
   const headers = objs
     .filter((obj): obj is WithHeaders =>

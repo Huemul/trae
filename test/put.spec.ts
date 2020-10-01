@@ -16,6 +16,7 @@ describe('trae -> put', () => {
   describe('Using nock', () => {
     let request;
     let response;
+    let responseBody;
 
     beforeAll(function createNock() {
       request = nock(TEST_URL, {
@@ -27,12 +28,9 @@ describe('trae -> put', () => {
         .reply(200, { foo: 'bar' });
     });
 
-    beforeAll(function executeRequest() {
-      return trae
-        .put(TEST_URL + '/foo', { pizza: 'guerrin' })
-        .then(function(res) {
-          response = res;
-        });
+    beforeAll(async function executeRequest() {
+      response = await trae.put(TEST_URL + '/foo', { pizza: 'guerrin' });
+      responseBody = await response.json();
     });
 
     it('should make an HTTP put request', function() {
@@ -57,7 +55,7 @@ describe('trae -> put', () => {
     });
 
     it('should have foo bar in the response data', function() {
-      const actual = response.data;
+      const actual = responseBody;
       const expected = { foo: 'bar' };
 
       expect(actual).toStrictEqual(expected);
@@ -76,8 +74,12 @@ describe('trae -> put', () => {
           .reply(200, { yay: 'OK' });
       });
 
-      beforeAll(function executeRequest() {
-        return trae.put(TEST_URL + '/cats', {}, { params: { name: 'tigrin' } });
+      beforeAll(async function executeRequest() {
+        response = await trae.put(
+          TEST_URL + '/cats',
+          {},
+          { params: { name: 'tigrin' } },
+        );
       });
 
       it('should make an HTTP put request', function() {
@@ -106,6 +108,7 @@ describe('trae -> put', () => {
   describe('Using http server', () => {
     let server;
     let response: http.Response;
+    let responseBody;
 
     beforeAll(function createServer() {
       function handler(req: http.IncomingMessage, res: http.ServerResponse) {
@@ -120,14 +123,11 @@ describe('trae -> put', () => {
       });
     });
 
-    beforeAll(function executeRequest() {
-      return trae
-        .put('http://localhost:8084/cities/echo', {
-          city: 'istanbul',
-        })
-        .then(function(res) {
-          response = res;
-        });
+    beforeAll(async function executeRequest() {
+      response = await trae.put('http://localhost:8084/cities/echo', {
+        city: 'istanbul',
+      });
+      responseBody = response.text();
     });
 
     afterAll((done) => server.shutdown(done));
@@ -137,7 +137,7 @@ describe('trae -> put', () => {
     });
 
     it('should have no data the response', function() {
-      const actual = response.data;
+      const actual = responseBody;
       const expected = '';
 
       expect(actual).toStrictEqual(expected);

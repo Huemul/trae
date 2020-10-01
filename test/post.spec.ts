@@ -13,9 +13,12 @@ global.Headers = fetch.Headers;
 const TEST_URL = 'http://localhost:8080';
 
 describe('trae -> post', () => {
+  const instance = trae.create({ json: true });
+
   describe('Using nock', () => {
     let request;
     let response;
+    let responseBody;
 
     beforeAll(function createNock() {
       request = nock(TEST_URL, {
@@ -27,12 +30,9 @@ describe('trae -> post', () => {
         .reply(200, { foo: 'bar' });
     });
 
-    beforeAll(function executeRequest() {
-      return trae
-        .post(TEST_URL + '/foo', { pizza: 'guerrin' })
-        .then(function(res) {
-          response = res;
-        });
+    beforeAll(async function executeRequest() {
+      response = await instance.post(TEST_URL + '/foo', { pizza: 'guerrin' });
+      responseBody = await response.json();
     });
 
     it('should make an HTTP post request', function() {
@@ -57,7 +57,7 @@ describe('trae -> post', () => {
     });
 
     it('should have foo bar in the response data', function() {
-      const actual = response.data;
+      const actual = responseBody;
       const expected = { foo: 'bar' };
 
       expect(actual).toStrictEqual(expected);
@@ -76,8 +76,8 @@ describe('trae -> post', () => {
           .reply(200, { yay: 'OK' });
       });
 
-      beforeAll(function executeRequest() {
-        return trae.post(
+      beforeAll(async function executeRequest() {
+        response = await instance.post(
           TEST_URL + '/cats',
           {},
           { params: { name: 'tigrin' } },
@@ -110,6 +110,7 @@ describe('trae -> post', () => {
   describe('Using http server', () => {
     let server;
     let response: http.Response;
+    let responseBody;
 
     beforeAll(function createServer() {
       function handler(req: http.IncomingMessage, res: http.ServerResponse) {
@@ -124,14 +125,11 @@ describe('trae -> post', () => {
       });
     });
 
-    beforeAll(function executeRequest() {
-      return trae
-        .post('http://localhost:8085/cities/echo', {
-          city: 'istanbul',
-        })
-        .then(function(res) {
-          response = res;
-        });
+    beforeAll(async function executeRequest() {
+      response = await instance.post('http://localhost:8085/cities/echo', {
+        city: 'istanbul',
+      });
+      responseBody = await response.json();
     });
 
     afterAll((done) => server.shutdown(done));
@@ -141,10 +139,8 @@ describe('trae -> post', () => {
     });
 
     it('should have the defined response data', function() {
-      const actual = response.data;
-      const expected = {
-        city: 'istanbul',
-      };
+      const actual = responseBody;
+      const expected = { city: 'istanbul' };
 
       expect(actual).toStrictEqual(expected);
     });

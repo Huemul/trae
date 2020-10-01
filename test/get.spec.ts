@@ -17,6 +17,7 @@ describe('trae -> get', () => {
   describe('Using nock', () => {
     let request;
     let response;
+    let responseBody;
 
     beforeAll(function createNock() {
       request = nock(TEST_URL, {
@@ -28,10 +29,9 @@ describe('trae -> get', () => {
         .reply(200, { foo: 'bar' });
     });
 
-    beforeAll(function executeRequest() {
-      return trae.get(TEST_URL + '/comida').then(function(res) {
-        response = res;
-      });
+    beforeAll(async function executeRequest() {
+      response = await trae.get(TEST_URL + '/comida');
+      responseBody = await response.json();
     });
 
     it('should make an HTTP get request', function() {
@@ -56,7 +56,7 @@ describe('trae -> get', () => {
     });
 
     it('should have foo bar in the response data', function() {
-      const actual = response.data;
+      const actual = responseBody;
       const expected = { foo: 'bar' };
 
       expect(actual).toStrictEqual(expected);
@@ -65,6 +65,7 @@ describe('trae -> get', () => {
     describe('get using params', function() {
       let request;
       let response;
+      let responseBody;
 
       beforeAll(function createNock() {
         request = nock(TEST_URL, {
@@ -77,16 +78,13 @@ describe('trae -> get', () => {
           .reply(200, { yay: 'OK' });
       });
 
-      beforeAll(function executeRequest() {
-        return trae
-          .get(TEST_URL + '/cats', {
-            params: {
-              name: 'tigrin',
-            },
-          })
-          .then(function(res) {
-            response = res;
-          });
+      beforeAll(async function executeRequest() {
+        response = await trae.get(TEST_URL + '/cats', {
+          params: {
+            name: 'tigrin',
+          },
+        });
+        responseBody = await response.json();
       });
 
       it('should make an HTTP get request', function() {
@@ -109,12 +107,20 @@ describe('trae -> get', () => {
 
         expect(actual).toStrictEqual(expected);
       });
+
+      it('should have yay OK in the response data', function() {
+        const actual = responseBody;
+        const expected = { yay: 'OK' };
+
+        expect(actual).toStrictEqual(expected);
+      });
     });
   });
 
   describe('Using http server', () => {
     let server;
     let response: http.Response;
+    let responseBody;
 
     beforeAll(function createServer() {
       function handler(req: http.IncomingMessage, res: http.ServerResponse) {
@@ -128,10 +134,9 @@ describe('trae -> get', () => {
       });
     });
 
-    beforeAll(function executeRequest() {
-      return trae.get('http://localhost:8082' + '/comida').then(function(res) {
-        response = res;
-      });
+    beforeAll(async function executeRequest() {
+      response = await trae.get('http://localhost:8082' + '/comida');
+      responseBody = await response.text();
     });
 
     afterAll((done) => server.shutdown(done));
@@ -141,7 +146,7 @@ describe('trae -> get', () => {
     });
 
     it('should have the defined response data', function() {
-      const actual = response.data;
+      const actual = responseBody;
       const expected = 'Hello from API!';
 
       expect(actual).toStrictEqual(expected);

@@ -7,5 +7,5 @@ export interface TraeSettings extends RequestInit {
 }
 
 export interface TraeResponse extends Response {
-  data?: any
+  data?: any;
 }

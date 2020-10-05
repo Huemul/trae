@@ -34,7 +34,7 @@ function createTrae(providedConfig: Partial<TraeSettings> = {}) {
     }
 
     if (settings.json) {
-      res.data = await res.json(); 
+      res.data = await res.json();
     }
 
     return defaults.after(res, settings);

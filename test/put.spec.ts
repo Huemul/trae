@@ -13,10 +13,11 @@ global.Headers = fetch.Headers;
 const TEST_URL = 'http://localhost:8080';
 
 describe('trae -> put', () => {
+  const instance = trae.create({ json: true });
+
   describe('Using nock', () => {
     let request;
     let response;
-    let responseBody;
 
     beforeAll(function createNock() {
       request = nock(TEST_URL, {
@@ -29,8 +30,7 @@ describe('trae -> put', () => {
     });
 
     beforeAll(async function executeRequest() {
-      response = await trae.put(TEST_URL + '/foo', { pizza: 'guerrin' });
-      responseBody = await response.json();
+      response = await instance.put(TEST_URL + '/foo', { pizza: 'guerrin' });
     });
 
     it('should make an HTTP put request', function() {
@@ -55,7 +55,7 @@ describe('trae -> put', () => {
     });
 
     it('should have foo bar in the response data', function() {
-      const actual = responseBody;
+      const actual = response.data;
       const expected = { foo: 'bar' };
 
       expect(actual).toStrictEqual(expected);
@@ -75,7 +75,7 @@ describe('trae -> put', () => {
       });
 
       beforeAll(async function executeRequest() {
-        response = await trae.put(
+        response = await instance.put(
           TEST_URL + '/cats',
           {},
           { params: { name: 'tigrin' } },
@@ -105,7 +105,7 @@ describe('trae -> put', () => {
     });
   });
 
-  describe('Using http server', () => {
+  describe('Using HTTP server', () => {
     let server;
     let response: http.Response;
     let responseBody;
@@ -124,10 +124,16 @@ describe('trae -> put', () => {
     });
 
     beforeAll(async function executeRequest() {
-      response = await trae.put('http://localhost:8084/cities/echo', {
-        city: 'istanbul',
-      });
-      responseBody = response.text();
+      response = await trae.put(
+        'http://localhost:8084/cities/echo',
+        JSON.stringify({ city: 'istanbul' }),
+        {
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        },
+      );
+      responseBody = await response.text();
     });
 
     afterAll((done) => server.shutdown(done));

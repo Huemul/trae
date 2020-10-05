@@ -18,7 +18,6 @@ describe('trae -> post', () => {
   describe('Using nock', () => {
     let request;
     let response;
-    let responseBody;
 
     beforeAll(function createNock() {
       request = nock(TEST_URL, {
@@ -32,7 +31,6 @@ describe('trae -> post', () => {
 
     beforeAll(async function executeRequest() {
       response = await instance.post(TEST_URL + '/foo', { pizza: 'guerrin' });
-      responseBody = await response.json();
     });
 
     it('should make an HTTP post request', function() {
@@ -57,7 +55,7 @@ describe('trae -> post', () => {
     });
 
     it('should have foo bar in the response data', function() {
-      const actual = responseBody;
+      const actual = response.data;
       const expected = { foo: 'bar' };
 
       expect(actual).toStrictEqual(expected);
@@ -107,7 +105,7 @@ describe('trae -> post', () => {
     });
   });
 
-  describe('Using http server', () => {
+  describe.only('Using http server', () => {
     let server;
     let response: http.Response;
     let responseBody;
@@ -126,9 +124,15 @@ describe('trae -> post', () => {
     });
 
     beforeAll(async function executeRequest() {
-      response = await instance.post('http://localhost:8085/cities/echo', {
-        city: 'istanbul',
-      });
+      response = await trae.post(
+        'http://localhost:8085/cities/echo',
+        JSON.stringify({ city: 'istanbul' }),
+        {
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        },
+      );
       responseBody = await response.json();
     });
 

@@ -13,12 +13,11 @@ global.Headers = fetch.Headers;
 const TEST_URL = 'http://localhost:8080';
 
 describe('trae -> patch', () => {
-  const instance = trae.create({ json: true })
+  const instance = trae.create({ json: true });
 
   describe('Using nock', () => {
     let request;
     let response;
-    let responseBody;
 
     beforeAll(function createNock() {
       request = nock(TEST_URL, {
@@ -32,7 +31,6 @@ describe('trae -> patch', () => {
 
     beforeAll(async function executeRequest() {
       response = await instance.patch(TEST_URL + '/foo', { pizza: 'guerrin' });
-      responseBody = await response.json();
     });
 
     it('should make an HTTP patch request', function() {
@@ -57,7 +55,7 @@ describe('trae -> patch', () => {
     });
 
     it('should have foo bar in the response data', function() {
-      const actual = responseBody;
+      const actual = response.data;
       const expected = { foo: 'bar' };
 
       expect(actual).toStrictEqual(expected);
@@ -67,11 +65,7 @@ describe('trae -> patch', () => {
       let request;
 
       beforeAll(function createNock() {
-        request = nock(TEST_URL, {
-          reqheaders: {
-            'content-type': 'application/json',
-          },
-        })
+        request = nock(TEST_URL)
           .patch('/cats?name=tigrin')
           .reply(200, { yay: 'OK' });
       });
@@ -126,9 +120,15 @@ describe('trae -> patch', () => {
     });
 
     beforeAll(async function executeRequest() {
-      response = await instance.patch('http://localhost:8084/cities/echo', {
-        city: 'istanbul',
-      });
+      response = await trae.patch(
+        'http://localhost:8084/cities/echo',
+        JSON.stringify({ city: 'istanbul' }),
+        {
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        },
+      );
       responseBody = await response.text();
     });
 

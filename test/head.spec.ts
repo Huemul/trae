@@ -19,11 +19,7 @@ describe('trae -> head', () => {
     let response;
 
     beforeAll(function createNock() {
-      request = nock(TEST_URL, {
-        reqheaders: {
-          'content-type': 'application/json',
-        },
-      })
+      request = nock(TEST_URL)
         .head('/')
         .reply(200);
     });

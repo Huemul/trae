@@ -22,6 +22,7 @@
     "node": ">=10"
   },
   "dependencies": {
+    "merge": "^1.2.1",
     "query-string": "^6.13.3"
   },
   "devDependencies": {

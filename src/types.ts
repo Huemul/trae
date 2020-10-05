@@ -5,3 +5,7 @@ export interface TraeSettings extends RequestInit {
   params?: { [x: string]: unknown };
   json?: Boolean;
 }
+
+export interface TraeResponse extends Response {
+  data?: any
+}

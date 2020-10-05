@@ -14,10 +14,11 @@ global.Headers = fetch.Headers;
 const TEST_URL = 'http://localhost:8080';
 
 describe('trae -> get', () => {
+  const instance = trae.create({ json: true });
+
   describe('Using nock', () => {
     let request;
     let response;
-    let responseBody;
 
     beforeAll(function createNock() {
       request = nock(TEST_URL, {
@@ -30,8 +31,7 @@ describe('trae -> get', () => {
     });
 
     beforeAll(async function executeRequest() {
-      response = await trae.get(TEST_URL + '/comida');
-      responseBody = await response.json();
+      response = await instance.get(TEST_URL + '/comida');
     });
 
     it('should make an HTTP get request', function() {
@@ -56,7 +56,7 @@ describe('trae -> get', () => {
     });
 
     it('should have foo bar in the response data', function() {
-      const actual = responseBody;
+      const actual = response.data;
       const expected = { foo: 'bar' };
 
       expect(actual).toStrictEqual(expected);
@@ -65,7 +65,6 @@ describe('trae -> get', () => {
     describe('get using params', function() {
       let request;
       let response;
-      let responseBody;
 
       beforeAll(function createNock() {
         request = nock(TEST_URL, {
@@ -79,12 +78,11 @@ describe('trae -> get', () => {
       });
 
       beforeAll(async function executeRequest() {
-        response = await trae.get(TEST_URL + '/cats', {
+        response = await instance.get(TEST_URL + '/cats', {
           params: {
             name: 'tigrin',
           },
         });
-        responseBody = await response.json();
       });
 
       it('should make an HTTP get request', function() {
@@ -109,7 +107,7 @@ describe('trae -> get', () => {
       });
 
       it('should have yay OK in the response data', function() {
-        const actual = responseBody;
+        const actual = response.data;
         const expected = { yay: 'OK' };
 
         expect(actual).toStrictEqual(expected);

@@ -31,8 +31,8 @@ describe('Trae', function() {
       });
     });
 
-    describe('Default configuration', function() {
-      const instance = trae.create();
+    describe('Default configuration when using JSON option', function() {
+      const instance = trae.create({ json: true });
 
       it('should have "Content-Type": "application/json" header', () => {
         const actual = instance.config.headers;

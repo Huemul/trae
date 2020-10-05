@@ -19,11 +19,7 @@ describe('trae -> delete', () => {
     let response;
 
     beforeAll(function createNock() {
-      request = nock(TEST_URL, {
-        reqheaders: {
-          'content-type': 'application/json',
-        },
-      })
+      request = nock(TEST_URL)
         .delete('/airports/barcelona')
         .reply(204);
     });
@@ -58,11 +54,7 @@ describe('trae -> delete', () => {
       let response;
 
       beforeAll(function createNock() {
-        request = nock(TEST_URL, {
-          reqheaders: {
-            'content-type': 'application/json',
-          },
-        })
+        request = nock(TEST_URL)
           .delete('/baz')
           .query({ name: 'foo' })
           .reply(200, { yay: 'OK' });

@@ -22,7 +22,7 @@
     "node": ">=10"
   },
   "dependencies": {
-    "query-string": "^6.13.3"
+    "query-string": "^6.13.5"
   },
   "devDependencies": {
     "@types/body-parser": "^1.19.0",

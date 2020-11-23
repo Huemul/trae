@@ -33,7 +33,7 @@
     "body-parser": "^1.19.0",
     "connect": "^3.7.0",
     "coveralls": "^3.0.9",
-    "fetch-mock": "^9.10.7",
+    "fetch-mock": "^9.11.0",
     "http-shutdown": "^1.2.2",
     "husky": "^4.3.0",
     "nock": "^13.0.4",

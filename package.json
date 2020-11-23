@@ -36,7 +36,7 @@
     "fetch-mock": "^9.10.7",
     "http-shutdown": "^1.2.2",
     "husky": "^4.3.0",
-    "nock": "^13.0.4",
+    "nock": "^13.0.5",
     "node-fetch": "^2.6.1",
     "np": "^6.5.0",
     "rollup-plugin-filesize": "^6.2.1",

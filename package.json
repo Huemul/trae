@@ -27,7 +27,7 @@
   "devDependencies": {
     "@types/body-parser": "^1.19.0",
     "@types/connect": "^3.4.33",
-    "@types/jest": "^26.0.15",
+    "@types/jest": "^26.0.20",
     "@types/node-fetch": "^2.5.5",
     "@types/query-string": "^6.3.0",
     "body-parser": "^1.19.0",

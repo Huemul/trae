@@ -39,7 +39,7 @@
     "nock": "^13.0.4",
     "node-fetch": "^2.6.1",
     "np": "^6.5.0",
-    "rollup-plugin-filesize": "^6.2.1",
+    "rollup-plugin-filesize": "^9.1.1",
     "tsdx": "^0.13.3",
     "tslib": "^2.0.3",
     "typescript": "^3.8.3"
